@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: "Ubuntu", sans-serif;
 }
 
 .app {
@@ -38,9 +39,9 @@
     width: 30%;
     background-color: #f9f9f9;
     position: sticky;
-    top: 50px; /* Account for top bar height */
-    height: calc(100vh - 50px); /* Account for top bar height */
-    padding: 16px;
+    top: 60px; /* Account for top bar height */
+    height: calc(100vh - 60px); /* Account for top bar height */
+    padding: 50px;
 }
 
 .footer {
@@ -99,7 +100,7 @@
     margin-bottom: 8px;
 }
 
-.list li{
+.list li {
     width: 70%;
 }
 
@@ -155,4 +156,25 @@
 
 .item-name {
     font-size: 20px;
+}
+
+.sum-title {
+    padding-bottom: 25px;
+}
+
+.total-price {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    padding-top: 10px;
+}
+
+.hr-line {
+    border: none;
+    border-top: 2px solid black;
+    font-weight: bold;
+    color: black;
+}
+.main-summary {
+    padding-bottom: 30px;
 }

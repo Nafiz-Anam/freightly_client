@@ -17,7 +17,6 @@ import {
 import axios from "axios";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
-import SearchComponent from "./SearchComponent";
 //expand more icon
 // import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 //expand less icon
@@ -26,6 +25,7 @@ import SearchComponent from "./SearchComponent";
 
 const materials = {
     glass: false,
+
     marble: false,
     heavy: false,
 };
@@ -53,7 +53,6 @@ const DynamicInputForm = () => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [additionalFields, setAdditionalFields] = useState([]);
     const [sheetData, setSheetData] = useState([]);
-    console.log(sheetData);
     const [selectedOptionsDimensions, setSelectedOptionsDimensions] = useState(
         []
     );
@@ -68,42 +67,41 @@ const DynamicInputForm = () => {
 
     useEffect(() => {
         //at first get all this from local storage if local storage is not empty
-        // try {
-        //     //if length of selectedOptions is not 0 in local storage, then set it
-        //     if (
-        //         JSON.parse(localStorage.getItem("selectedOptions")).length > 0
-        //     ) {
-        //         setSelectedOptions(
-        //             JSON.parse(localStorage.getItem("selectedOptions"))
-        //         );
-        //     }
-        //     //same for additionalFields and selectedOptionsDimensions
-        //     if (
-        //         JSON.parse(localStorage.getItem("additionalFields")).length > 0
-        //     ) {
-        //         setAdditionalFields(
-        //             JSON.parse(localStorage.getItem("additionalFields"))
-        //         );
-        //     }
-        //     if (
-        //         JSON.parse(localStorage.getItem("selectedOptionsDimensions"))
-        //             .length > 0
-        //     ) {
-        //         setSelectedOptionsDimensions(
-        //             JSON.parse(
-        //                 localStorage.getItem("selectedOptionsDimensions")
-        //             )
-        //         );
-        //     }
-        // } catch (err) {}
-
+        try {
+            //if length of selectedOptions is not 0 in local storage, then set it
+            if (
+                JSON.parse(localStorage.getItem("selectedOptions")).length > 0
+            ) {
+                setSelectedOptions(
+                    JSON.parse(localStorage.getItem("selectedOptions"))
+                );
+            }
+            //same for additionalFields and selectedOptionsDimensions
+            if (
+                JSON.parse(localStorage.getItem("additionalFields")).length > 0
+            ) {
+                setAdditionalFields(
+                    JSON.parse(localStorage.getItem("additionalFields"))
+                );
+            }
+            if (
+                JSON.parse(localStorage.getItem("selectedOptionsDimensions"))
+                    .length > 0
+            ) {
+                setSelectedOptionsDimensions(
+                    JSON.parse(
+                        localStorage.getItem("selectedOptionsDimensions")
+                    )
+                );
+            }
+        } catch (err) {}
         const fetchData = async () => {
             try {
                 const response = await axios.get(sheetURL);
                 const csvData = response.data;
+
                 // Parse the CSV data
                 const parsedData = parseCSV(csvData);
-                console.log("parsedData", parsedData);
 
                 setSheetData(parsedData);
                 // globalSheetData = parsedData;
@@ -224,17 +222,17 @@ const DynamicInputForm = () => {
         };
         setAdditionalFields(updatedFields);
     };
-    // const firebaseConfig = {
-    //     apiKey: "AIzaSyDL94WDmgbpclkwY0oVh9TGjHQRvU8VlCc",
-    //     authDomain: "freightly-admin.firebaseapp.com",
-    //     databaseURL:
-    //         "https://freightly-admin-default-rtdb.europe-west1.firebasedatabase.app",
-    //     projectId: "freightly-admin",
-    //     storageBucket: "freightly-admin.appspot.com",
-    //     messagingSenderId: "897142706479",
-    //     appId: "1:897142706479:web:1d99adaa3e5eae5b8a91da",
-    // };
-    // firebase.initializeApp(firebaseConfig);
+    const firebaseConfig = {
+        apiKey: "AIzaSyDL94WDmgbpclkwY0oVh9TGjHQRvU8VlCc",
+        authDomain: "freightly-admin.firebaseapp.com",
+        databaseURL:
+            "https://freightly-admin-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "freightly-admin",
+        storageBucket: "freightly-admin.appspot.com",
+        messagingSenderId: "897142706479",
+        appId: "1:897142706479:web:1d99adaa3e5eae5b8a91da",
+    };
+    firebase.initializeApp(firebaseConfig);
 
     //storage
     const storage = firebase.storage();
@@ -296,6 +294,8 @@ const DynamicInputForm = () => {
         <div
             style={{
                 width: "100%",
+
+                //have eerything centered
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -327,23 +327,31 @@ const DynamicInputForm = () => {
                     style={{
                         width: "70%",
                         margin: "10px",
+                        //have eerything centered
                         display: "flex",
                         flexDirection: "column",
+
+                        //put padding and deep rounded shadow border and stuff on it
                         boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.2)",
+
                         borderRadius: "10px",
                         padding: "10px",
+                        //if minimised is true, make it small
                         height: minimisedCards[index] ? "60px" : "auto",
                     }}
                 >
                     <div
                         style={{
+                            //flex column
                             display: "flex",
                             flexDirection: "column",
+
                             width: "100%",
                         }}
                     >
-                        <CardContent
+                        <CardContent // THE WHOLE CARD
                             style={{
+                                //flex row
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
@@ -357,6 +365,8 @@ const DynamicInputForm = () => {
                                     flexDirection: "column",
                                     alignItems: "center",
                                     justifyContent: "center",
+
+                                    //full width
                                     width: "90%",
                                 }}
                             >
@@ -899,70 +909,34 @@ const DynamicInputForm = () => {
         </div>
     );
 };
-
 function Step3() {
     // const classes = useStyles();
-    const [sheetData, setSheetData] = useState([]);
-
-    // Function to parse CSV data into an array of rows
-    const parseCSV = (csvData) => {
-        const rows = csvData.split("\n");
-        const parsedData = [];
-
-        for (let i = 0; i < rows.length; i++) {
-            const row = rows[i].split(",");
-            parsedData.push(row);
-        }
-        //sheetData is an array of items
-
-        return parsedData;
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(sheetURL);
-                const csvData = response.data;
-                // Parse the CSV data
-                const parsedData = parseCSV(csvData);
-                console.log("parsedData", parsedData);
-
-                setSheetData(parsedData);
-                // globalSheetData = parsedData;
-            } catch (error) {
-                console.error("Error retrieving CSV data:", error);
-            }
-        };
-
-        fetchData();
-    }, []);
 
     return (
-        <SearchComponent items={sheetData} />
-        // <>
-        //     <Typography
-        //         variant="h5"
-        //         style={{
-        //             marginBottom: "20px",
-        //             marginTop: "20px",
-        //             fontWeight: "bold",
-        //             fontFamily: "Poppins",
-        //         }}
-        //     >
-        //         Select Items
-        //     </Typography>
-        //     <div
-        //         style={{
-        //             overflowY: "scroll",
-        //             height: "55vh",
-        //             width: "100%",
-        //             //no x scroll
-        //             overflowX: "hidden",
-        //         }}
-        //     >
-        //         <DynamicInputForm />
-        //     </div>
-        // </>
+        <>
+            <Typography
+                variant="h5"
+                style={{
+                    marginBottom: "20px",
+                    marginTop: "20px",
+                    fontWeight: "bold",
+                    fontFamily: "Poppins",
+                }}
+            >
+                Select Items
+            </Typography>
+            <div
+                style={{
+                    overflowY: "scroll",
+                    height: "55vh",
+                    width: "100%",
+                    //no x scroll
+                    overflowX: "hidden",
+                }}
+            >
+                <DynamicInputForm />
+            </div>
+        </>
     );
 }
 

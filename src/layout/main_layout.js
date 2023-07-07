@@ -24,19 +24,26 @@ const Layout = ({ children, cartSummary, totalPrice, onNext }) => {
             {/* Main Body */}
             <div className="main-body">
                 <div className="left-side">
-                  {/* render all screens here */}
+                    {/* render all screens here */}
                     <div className="page-content">{children}</div>
                 </div>
                 <div className="right-side">
                     {/* Summary details and calculation here */}
                     <div className="cart-summary">
-                        {cartSummary.map((item, index) => (
-                            <div className="item" key={index}>
-                                <span>{item.name}</span>
-                                <span>{item.price}</span>
-                            </div>
-                        ))}
-                        <div className="total-price">{totalPrice}</div>
+                        <h1 className="sum-title">Your delivery</h1>
+                        <div className="main-summary">
+                            {cartSummary.map((item, index) => (
+                                <div className="item" key={index}>
+                                    <span>{item.name}</span>
+                                    <span>{item.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                        <hr className="hr-line" />
+                        <div className="total-price">
+                            <h1>Total</h1>
+                            <h1>{totalPrice}</h1>
+                        </div>
                     </div>
                 </div>
             </div>
