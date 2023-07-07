@@ -10,7 +10,7 @@ import {
   Typography,
   AppBar,
   Toolbar,
-  Image,
+  // Image,
 } from "@material-ui/core";
 //import Login from "./components/Login";
 // import Step1 from "./components/Step1";
@@ -29,13 +29,13 @@ import Step13 from "./components/Step13";
 import Step14 from "./components/Step14";
 
 import axios from "axios";
-import Map from "./components/Map";
+// import Map from "./components/Map";
 
 import "./App.css";
-import { parse, set } from "date-fns";
+// import { parse, set } from "date-fns";
 
 import { v4 as uuidv4 } from "uuid";
-import { it } from "date-fns/locale";
+// import { it } from "date-fns/locale";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -349,19 +349,19 @@ function App() {
                 price: localStorage.getItem("dropTimingPrice"),
               },
               timingPrice:
-                (parseFloat(timingPrice ? timingPrice : 0) != NaN
+                (parseFloat(timingPrice ? timingPrice : 0) !== NaN
                   ? parseFloat(timingPrice ? timingPrice : 0)
                   : 0) +
-                (parseFloat(dropTimingPrice ? dropTimingPrice : 0) != NaN
+                (parseFloat(dropTimingPrice ? dropTimingPrice : 0) !== NaN
                   ? parseFloat(dropTimingPrice ? dropTimingPrice : 0)
                   : 0) +
                 //do the same for pickupTimeSlotPrice
-                (parseFloat(pickupTimeSlotPrice ? pickupTimeSlotPrice : 0) !=
+                (parseFloat(pickupTimeSlotPrice ? pickupTimeSlotPrice : 0) !==
                 NaN
                   ? parseFloat(pickupTimeSlotPrice ? pickupTimeSlotPrice : 0)
                   : 0) +
                 //now do the same for dropTimeSlotPrice
-                (parseFloat(dropTimeSlotPrice ? dropTimeSlotPrice : 0) != NaN
+                (parseFloat(dropTimeSlotPrice ? dropTimeSlotPrice : 0) !== NaN
                   ? parseFloat(dropTimeSlotPrice ? dropTimeSlotPrice : 0)
                   : 0),
               //extra pickup help
@@ -375,7 +375,7 @@ function App() {
               extraDropHelp: localStorage.getItem("extraDropHelp"),
               //time slots prices
               timeSlotPrices:
-                (parseFloat(localStorage.getItem("pickupTimeSlotPrice")) != NaN
+                (parseFloat(localStorage.getItem("pickupTimeSlotPrice")) !== NaN
                   ? parseFloat(localStorage.getItem("pickupTimeSlotPrice"))
                   : 0) +
                 (parseFloat(localStorage.getItem("dropTimeSlotPrice"))
@@ -468,7 +468,6 @@ function App() {
           height: "90%",
           margin: "0",
           padding: "0",
-          overflowY: "scroll",
           overflowY: "scroll",
         }}
       >
@@ -650,17 +649,17 @@ function App() {
                       €
                       {parseFloat(travelPrice) +
                         parseFloat(volumePrice) +
-                        (parseFloat(timingPrice ? timingPrice : 0) != NaN
+                        (parseFloat(timingPrice ? timingPrice : 0) !== NaN
                           ? parseFloat(timingPrice ? timingPrice : 0)
                           : 0) +
-                        (parseFloat(dropTimingPrice ? dropTimingPrice : 0) !=
+                        (parseFloat(dropTimingPrice ? dropTimingPrice : 0) !==
                         NaN
                           ? parseFloat(dropTimingPrice ? dropTimingPrice : 0)
                           : 0) +
                         //do the same for pickupTimeSlotPrice
                         (parseFloat(
                           pickupTimeSlotPrice ? pickupTimeSlotPrice : 0
-                        ) != NaN
+                        ) !== NaN
                           ? parseFloat(
                               pickupTimeSlotPrice ? pickupTimeSlotPrice : 0
                             )
@@ -668,7 +667,7 @@ function App() {
                         //do the same for extra pick up help
                         (parseFloat(
                           extraPickUpHelpPrice ? extraPickUpHelpPrice : 0
-                        ) != NaN
+                        ) !== NaN
                           ? parseFloat(
                               extraPickUpHelpPrice ? extraPickUpHelpPrice : 0
                             )
@@ -678,7 +677,7 @@ function App() {
                           extraPickULiftingpHelpPrice
                             ? extraPickULiftingpHelpPrice
                             : 0
-                        ) != NaN
+                        ) !== NaN
                           ? parseFloat(
                               extraPickULiftingpHelpPrice
                                 ? extraPickULiftingpHelpPrice
@@ -690,7 +689,7 @@ function App() {
                           extraDropLiftingHelpPrice
                             ? extraDropLiftingHelpPrice
                             : 0
-                        ) != NaN
+                        ) !== NaN
                           ? parseFloat(
                               extraDropLiftingHelpPrice
                                 ? extraDropLiftingHelpPrice
@@ -700,7 +699,7 @@ function App() {
                         //do the same for extra drop time slot price
                         (parseFloat(
                           dropTimeSlotPrice ? dropTimeSlotPrice : 0
-                        ) != NaN
+                        ) !== NaN
                           ? parseFloat(
                               dropTimeSlotPrice ? dropTimeSlotPrice : 0
                             )
@@ -708,7 +707,7 @@ function App() {
                         //do the same for extra drop off help
                         (parseFloat(
                           extraDropHelpPrice ? extraDropHelpPrice : 0
-                        ) != NaN
+                        ) !== NaN
                           ? parseFloat(
                               extraDropHelpPrice ? extraDropHelpPrice : 0
                             )
@@ -985,7 +984,7 @@ function App() {
                           }}
                         >
                           €
-                          {parseFloat(volumePrice ? volumePrice : 0) != NaN
+                          {parseFloat(volumePrice ? volumePrice : 0) !== NaN
                             ? parseFloat(volumePrice ? volumePrice : 0)
                             : 0}
                         </Typography>
@@ -1026,12 +1025,12 @@ function App() {
                           }}
                         >
                           €
-                          {(parseFloat(timingPrice ? timingPrice : 0) != NaN
+                          {(parseFloat(timingPrice ? timingPrice : 0) !== NaN
                             ? parseFloat(timingPrice ? timingPrice : 0)
                             : 0) +
                             (parseFloat(
                               dropTimingPrice ? dropTimingPrice : 0
-                            ) != NaN
+                            ) !== NaN
                               ? parseFloat(
                                   dropTimingPrice ? dropTimingPrice : 0
                                 )
@@ -1039,7 +1038,7 @@ function App() {
                             //do the same for pickupTimeSlotPrice
                             (parseFloat(
                               pickupTimeSlotPrice ? pickupTimeSlotPrice : 0
-                            ) != NaN
+                            ) !== NaN
                               ? parseFloat(
                                   pickupTimeSlotPrice ? pickupTimeSlotPrice : 0
                                 )
@@ -1047,7 +1046,7 @@ function App() {
                             //now do the same for dropTimeSlotPrice
                             (parseFloat(
                               dropTimeSlotPrice ? dropTimeSlotPrice : 0
-                            ) != NaN
+                            ) !== NaN
                               ? parseFloat(
                                   dropTimeSlotPrice ? dropTimeSlotPrice : 0
                                 )
@@ -1065,7 +1064,7 @@ function App() {
                     {//extra pick up help price extraPickupHelpPrice from local storage
                     (parseFloat(
                       extraPickUpHelpPrice ? extraPickUpHelpPrice : 0
-                    ) != NaN
+                    ) !== NaN
                       ? parseFloat(
                           extraPickUpHelpPrice ? extraPickUpHelpPrice : 0
                         )
@@ -1074,7 +1073,7 @@ function App() {
                         extraPickULiftingpHelpPrice
                           ? extraPickULiftingpHelpPrice
                           : 0
-                      ) != NaN
+                      ) !== NaN
                         ? parseFloat(
                             extraPickULiftingpHelpPrice
                               ? extraPickULiftingpHelpPrice
@@ -1085,7 +1084,7 @@ function App() {
                         extraDropLiftingHelpPrice
                           ? extraDropLiftingHelpPrice
                           : 0
-                      ) != NaN
+                      ) !== NaN
                         ? parseFloat(
                             extraDropLiftingHelpPrice
                               ? extraDropLiftingHelpPrice
@@ -1095,11 +1094,11 @@ function App() {
                       //extra drop off help price extraDropOffHelpPrice from local storage
                       (parseFloat(
                         extraDropHelpPrice ? extraDropHelpPrice : 0
-                      ) != NaN
+                      ) !== NaN
                         ? parseFloat(
                             extraDropHelpPrice ? extraDropHelpPrice : 0
                           )
-                        : 0) !=
+                        : 0) !==
                       0 && (
                       <div
                         style={{
@@ -1136,7 +1135,7 @@ function App() {
                           {//extra pick up help price extraPickupHelpPrice from local storage
                           (parseFloat(
                             extraPickUpHelpPrice ? extraPickUpHelpPrice : 0
-                          ) != NaN
+                          ) !== NaN
                             ? parseFloat(
                                 extraPickUpHelpPrice ? extraPickUpHelpPrice : 0
                               )
@@ -1145,7 +1144,7 @@ function App() {
                               extraPickULiftingpHelpPrice
                                 ? extraPickULiftingpHelpPrice
                                 : 0
-                            ) != NaN
+                            ) !== NaN
                               ? parseFloat(
                                   extraPickULiftingpHelpPrice
                                     ? extraPickULiftingpHelpPrice
@@ -1156,7 +1155,7 @@ function App() {
                               extraDropLiftingHelpPrice
                                 ? extraDropLiftingHelpPrice
                                 : 0
-                            ) != NaN
+                            ) !== NaN
                               ? parseFloat(
                                   extraDropLiftingHelpPrice
                                     ? extraDropLiftingHelpPrice
@@ -1166,7 +1165,7 @@ function App() {
                             //extra drop off help price extraDropOffHelpPrice from local storage
                             (parseFloat(
                               extraDropHelpPrice ? extraDropHelpPrice : 0
-                            ) != NaN
+                            ) !== NaN
                               ? parseFloat(
                                   extraDropHelpPrice ? extraDropHelpPrice : 0
                                 )
@@ -1209,12 +1208,12 @@ function App() {
                           }}
                         >
                           €
-                          {(parseFloat(timingPrice ? timingPrice : 0) != NaN
+                          {(parseFloat(timingPrice ? timingPrice : 0) !== NaN
                             ? parseFloat(timingPrice ? timingPrice : 0)
                             : 0) +
                             (parseFloat(
                               dropTimingPrice ? dropTimingPrice : 0
-                            ) != NaN
+                            ) !== NaN
                               ? parseFloat(
                                   dropTimingPrice ? dropTimingPrice : 0
                                 )
@@ -1222,7 +1221,7 @@ function App() {
                             //do the same for pickupTimeSlotPrice
                             (parseFloat(
                               pickupTimeSlotPrice ? pickupTimeSlotPrice : 0
-                            ) != NaN
+                            ) !== NaN
                               ? parseFloat(
                                   pickupTimeSlotPrice ? pickupTimeSlotPrice : 0
                                 )
@@ -1230,7 +1229,7 @@ function App() {
                             //now do the same for dropTimeSlotPrice
                             (parseFloat(
                               dropTimeSlotPrice ? dropTimeSlotPrice : 0
-                            ) != NaN
+                            ) !== NaN
                               ? parseFloat(
                                   dropTimeSlotPrice ? dropTimeSlotPrice : 0
                                 )
@@ -1278,17 +1277,17 @@ function App() {
                           //   ? parseFloat(dropTimingPrice)
                           //   : 0) +
                           //if timingprice is not NaN, then add it, otherwise add 0
-                          (parseFloat(timingPrice ? timingPrice : 0) != NaN
+                          (parseFloat(timingPrice ? timingPrice : 0) !== NaN
                             ? parseFloat(timingPrice ? timingPrice : 0)
                             : 0) +
-                          (parseFloat(dropTimingPrice ? dropTimingPrice : 0) !=
+                          (parseFloat(dropTimingPrice ? dropTimingPrice : 0) !==
                           NaN
                             ? parseFloat(dropTimingPrice ? dropTimingPrice : 0)
                             : 0) +
                           //do the same for pickupTimeSlotPrice
                           (parseFloat(
                             pickupTimeSlotPrice ? pickupTimeSlotPrice : 0
-                          ) != NaN
+                          ) !== NaN
                             ? parseFloat(
                                 pickupTimeSlotPrice ? pickupTimeSlotPrice : 0
                               )
@@ -1296,7 +1295,7 @@ function App() {
                           //do the same for extra pick up help
                           (parseFloat(
                             extraPickUpHelpPrice ? extraPickUpHelpPrice : 0
-                          ) != NaN
+                          ) !== NaN
                             ? parseFloat(
                                 extraPickUpHelpPrice ? extraPickUpHelpPrice : 0
                               )
@@ -1306,7 +1305,7 @@ function App() {
                             extraPickULiftingpHelpPrice
                               ? extraPickULiftingpHelpPrice
                               : 0
-                          ) != NaN
+                          ) !== NaN
                             ? parseFloat(
                                 extraPickULiftingpHelpPrice
                                   ? extraPickULiftingpHelpPrice
@@ -1318,7 +1317,7 @@ function App() {
                             extraDropLiftingHelpPrice
                               ? extraDropLiftingHelpPrice
                               : 0
-                          ) != NaN
+                          ) !== NaN
                             ? parseFloat(
                                 extraDropLiftingHelpPrice
                                   ? extraDropLiftingHelpPrice
@@ -1328,7 +1327,7 @@ function App() {
                           //do the same for extra drop time slot price
                           (parseFloat(
                             dropTimeSlotPrice ? dropTimeSlotPrice : 0
-                          ) != NaN
+                          ) !== NaN
                             ? parseFloat(
                                 dropTimeSlotPrice ? dropTimeSlotPrice : 0
                               )
@@ -1336,7 +1335,7 @@ function App() {
                           //do the same for extra drop off help
                           (parseFloat(
                             extraDropHelpPrice ? extraDropHelpPrice : 0
-                          ) != NaN
+                          ) !== NaN
                             ? parseFloat(
                                 extraDropHelpPrice ? extraDropHelpPrice : 0
                               )

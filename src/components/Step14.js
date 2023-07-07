@@ -1,31 +1,31 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { useEffect } from "react";
+// import { makeStyles } from "@material-ui/core/styles";
 import { CircularProgress } from "@material-ui/core";
 import axios from "axios";
 //import parse cv
 
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 //import date and time picker from mui
-import {
-  DateTimePicker,
-  MuiPickersUtilsProvider,
-  MuiPickersContext,
-} from "@material-ui/pickers";
+// import {
+//   DateTimePicker,
+//   MuiPickersUtilsProvider,
+//   MuiPickersContext,
+// } from "@material-ui/pickers";
 
-const useStyles = makeStyles((theme) => ({
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  textField: {
-    margin: theme.spacing(2),
-  },
-  submitButton: {
-    marginTop: theme.spacing(2),
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   form: {
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//   },
+//   textField: {
+//     margin: theme.spacing(2),
+//   },
+//   submitButton: {
+//     marginTop: theme.spacing(2),
+//   },
+// }));
 
 function Step() {
   //make a post request to the server

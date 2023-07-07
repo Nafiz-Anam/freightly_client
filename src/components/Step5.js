@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
-  makeStyles,
-  TextField,
-  Button,
-  MenuItem,
+  // makeStyles,
   FormControl,
-  InputLabel,
-  Select,
-  FormLabel,
   RadioGroup,
   FormControlLabel,
   Radio,
@@ -18,19 +12,19 @@ import {
   Typography,
 } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  textField: {
-    margin: theme.spacing(2),
-  },
-  submitButton: {
-    marginTop: theme.spacing(2),
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   form: {
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//   },
+//   textField: {
+//     margin: theme.spacing(2),
+//   },
+//   submitButton: {
+//     marginTop: theme.spacing(2),
+//   },
+// }));
 
 const sheetURL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=1055355179&single=true&output=csv";
@@ -128,7 +122,7 @@ function Step() {
           }}
         >
           {//if shhet data length is 0, show a loading spinner
-          sheetData.length == 0 ? (
+          sheetData.length === 0 ? (
             <CircularProgress
               style={{
                 width: "100px",
@@ -180,7 +174,7 @@ function Step() {
                     label={
                       <Card
                         style={{
-                          width: "100%",
+                          // width: "100%",
                           display: "flex",
                           flexDirection: "column",
                           alignItems: "center",

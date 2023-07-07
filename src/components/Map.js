@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 
 const Map = ({ center, zoom, address1, address2 }) => {
-  const [map, setMap] = useState(null);
+  // const [map, setMap] = useState(null);
 
   useEffect(() => {
     const loader = new Loader({
@@ -19,7 +19,7 @@ const Map = ({ center, zoom, address1, address2 }) => {
         document.getElementById("map"),
         mapOptions
       );
-      setMap(newMap);
+      // setMap(newMap);
       var a1 = null;
       var a2 = null;
       geocode(address1).then((latLng) => {
@@ -65,7 +65,7 @@ const Map = ({ center, zoom, address1, address2 }) => {
             travelMode: "DRIVING",
           };
           directionsService.route(request, function(result, status) {
-            if (status == "OK") {
+            if (status === "OK") {
               directionsRenderer.setDirections(result);
             }
           });
@@ -88,7 +88,7 @@ const Map = ({ center, zoom, address1, address2 }) => {
             //if distance is a number that is not 0
             try {
               if (
-                response.rows[0].elements[0].distance.text.split(" ")[0] != "0"
+                response.rows[0].elements[0].distance.text.split(" ")[0] !== "0"
               ) {
                 localStorage.setItem(
                   "distance",

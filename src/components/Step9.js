@@ -2,13 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-  TextField,
-  Button,
-  MenuItem,
+  // MenuItem,
   FormControl,
-  InputLabel,
-  Select,
-  FormLabel,
   RadioGroup,
   FormControlLabel,
   Radio,
@@ -21,14 +16,14 @@ import axios from "axios";
 
 import Typography from "@material-ui/core/Typography";
 //import date and time picker from mui
-import {
-  DateTimePicker,
-  MuiPickersUtilsProvider,
-  MuiPickersContext,
-} from "@material-ui/pickers";
+// import {
+//   DateTimePicker,
+//   MuiPickersUtilsProvider,
+//   MuiPickersContext,
+// } from "@material-ui/pickers";
 //utils of material ui
-import DateFnsUtils from "@date-io/date-fns";
-var loaded = false;
+// import DateFnsUtils from "@date-io/date-fns";
+// var loaded = false;
 const useStyles = makeStyles((theme) => ({
   form: {
     display: "flex",
@@ -42,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
 }));
-const globalSheetData = [];
+// let globalSheetData = [];
 const sheetURL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=322664730&single=true&output=csv";
 const DynamicInputForm = () => {
@@ -59,7 +54,7 @@ const DynamicInputForm = () => {
         const parsedData = parseCSV(csvData);
 
         setSheetData(parsedData);
-        globalSheetData = parsedData;
+        // globalSheetData = parsedData;
       } catch (error) {
         console.error("Error retrieving CSV data:", error);
       }
@@ -94,9 +89,9 @@ const DynamicInputForm = () => {
   };
 
   //for every item in sheetData, create a menu item
-  const menuItems = sheetData.map((item) => {
-    return <MenuItem value={item}>{item}</MenuItem>;
-  });
+  // const menuItems = sheetData.map((item) => {
+  //   return <MenuItem value={item}>{item}</MenuItem>;
+  // });
   const handleSelectChange = (event) => {
     //change selected option
     setSelectedOption(event.target.value);
@@ -107,7 +102,7 @@ const DynamicInputForm = () => {
     );
 
     //get that element from sheet data for the price
-    var element = sheetData.find((element) => element[0] == event.target.value);
+    var element = sheetData.find((element) => element[0] === event.target.value);
     var tp = element[2];
     //remove the euro sign
     tp = tp.replace("€", "");
@@ -117,7 +112,7 @@ const DynamicInputForm = () => {
   const isPhone = window.innerWidth < 600;
   return (
     //if shhet length is 0, show a loading circle
-    sheetData.length == 0 ? (
+    sheetData.length === 0 ? (
       <CircularProgress
         style={{
           width: "100px",
@@ -186,7 +181,7 @@ const DynamicInputForm = () => {
                   label={
                     <Card
                       style={{
-                        width: "100%",
+                        // width: "100%",
                         display: "flex",
                         flexDirection: "row",
                         alignItems: "center",

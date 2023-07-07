@@ -1,9 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles } from "@material-ui/core/styles";
 import {
-  TextField,
-  Button,
   Card,
   FormControl,
   RadioGroup,
@@ -13,41 +11,41 @@ import {
 
 import Typography from "@material-ui/core/Typography";
 //import date and time picker from mui
-import {
-  DateTimePicker,
-  MuiPickersUtilsProvider,
-  MuiPickersContext,
-} from "@material-ui/pickers";
+// import {
+//   DateTimePicker,
+//   MuiPickersUtilsProvider,
+//   MuiPickersContext,
+// } from "@material-ui/pickers";
 //utils of material ui
-import DateFnsUtils from "@date-io/date-fns";
+// import DateFnsUtils from "@date-io/date-fns";
 const extraHelpOptions = {
   option1: { value: "🙋‍♂️Extra Help", price: 55 },
   option2: { value: "🚚Tail Lift", price: 40 },
   option3: { value: "🚚Tail Lift + 2 Couriers", price: 80 },
   option4: { value: "🚚Not Necessary", price: 0 },
 };
-const useStyles = makeStyles((theme) => ({
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    //center
-    justifyContent: "center",
-    width: "100%",
-  },
-  textField: {
-    margin: theme.spacing(2),
-    fontFamily: "Poppins",
-  },
-  submitButton: {
-    marginTop: theme.spacing(2),
-    fontFamily: "Poppins",
-  },
-  //typography font family must be poppins
-  typography: {
-    fontFamily: "Poppins",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   form: {
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//     //center
+//     justifyContent: "center",
+//     width: "100%",
+//   },
+//   textField: {
+//     margin: theme.spacing(2),
+//     fontFamily: "Poppins",
+//   },
+//   submitButton: {
+//     marginTop: theme.spacing(2),
+//     fontFamily: "Poppins",
+//   },
+//   //typography font family must be poppins
+//   typography: {
+//     fontFamily: "Poppins",
+//   },
+// }));
 const commonStyle = {
   fontFamily: "Poppins",
   fontSize: "20px",
@@ -68,7 +66,7 @@ const commonStyle = {
   alignItems: "center",
 };
 function Step() {
-  const classes = useStyles();
+  // const classes = useStyles();
   //use state for extra help at drop
   const [extraDropHelp, setExtraDropHelp] = useState("");
   //at first set it to the one in local storage
@@ -95,7 +93,7 @@ function Step() {
   //use effect to change in local storage
   //TODO
   useEffect(() => {
-    if (extraDropHelp != "") {
+    if (extraDropHelp !== "") {
       var valueToStore = "🙋‍♂️Extra Help";
       var price = 0;
       //use switch case to set

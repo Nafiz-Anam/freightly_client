@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField, Button } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 
 import Typography from "@material-ui/core/Typography";
 //import date and time picker from mui
@@ -35,16 +35,16 @@ function Step() {
     // set all the states from local storage at the start if they are not empty
     //alert(JSON.stringify(localStorage.getItem("dropData")));
     if (JSON.parse(localStorage.getItem("dropData"))) {
-      if (JSON.parse(localStorage.getItem("dropData")).name != "") {
+      if (JSON.parse(localStorage.getItem("dropData")).name !== "") {
         setName(JSON.parse(localStorage.getItem("dropData")).name);
       }
-      if (JSON.parse(localStorage.getItem("dropData")).email != "") {
+      if (JSON.parse(localStorage.getItem("dropData")).email !== "") {
         setEmail(JSON.parse(localStorage.getItem("dropData")).email);
       }
-      if (JSON.parse(localStorage.getItem("dropData")).phone != "") {
+      if (JSON.parse(localStorage.getItem("dropData")).phone !== "") {
         setPhone(JSON.parse(localStorage.getItem("dropData")).phone);
       }
-      if (JSON.parse(localStorage.getItem("dropData")).address != "") {
+      if (JSON.parse(localStorage.getItem("dropData")).address !== "") {
         setDropAddress(JSON.parse(localStorage.getItem("dropData")).address);
       }
     }
@@ -54,10 +54,10 @@ function Step() {
     localStorage.setItem(
       "dropData",
       JSON.stringify({
-        name: name == "" ? "" : name,
-        email: email == "" ? "" : email,
-        phone: phone == "" ? "" : phone,
-        address: dropAddress == "" ? "" : dropAddress,
+        name: name === "" ? "" : name,
+        email: email === "" ? "" : email,
+        phone: phone === "" ? "" : phone,
+        address: dropAddress === "" ? "" : dropAddress,
       })
     );
   }, [name, email, phone, dropAddress]);
