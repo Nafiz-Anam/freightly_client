@@ -1,0 +1,59 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 70%;
+    padding: 20px;
+    background-color: #ffffff; /* Changed form background color to white */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: "Poppins";
+}
+
+.textField {
+    margin-bottom: 20px;
+    width: 100%;
+    font-family: "Poppins";
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 20px;
+    font-family: "Poppins";
+}
+
+.submitButton {
+    margin-top: 20px;
+    background-color: #007bff; /* Assuming a shade of blue for button color */
+    color: #ffffff; /* Changed button text color to white */
+    font-family: "Poppins";
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #ffffff; /* Changed background color to white */
+    font-style: inherit; /* Added from the initial style */
+    font-weight: inherit; /* Added from the initial style */
+    border: 0; /* Added from the initial style */
+    padding: 0; /* Added from the initial style */
+    vertical-align: baseline; /* Added from the initial style */
+    -webkit-text-size-adjust: 100%; /* Added from the initial style */
+    -ms-text-size-adjust: 100%; /* Added from the initial style */
+    font-family: "Poppins";
+}
+
+.header {
+    color: #808285; /* Added from the initial style */
+    font-size: 2em; /* Added from the initial style */
+    line-height: 1.2; /* Added from the initial style */
+    clear: both; /* Added from the initial style */
+    /* continue with your .header CSS styling */
+    font-family: "Poppins";
+}
