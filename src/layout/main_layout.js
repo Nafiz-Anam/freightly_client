@@ -1,5 +1,5 @@
 import React from "react";
-import { GoArrowRight } from "react-icons/go";
+import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 
 const Layout = ({ children, cartSummary, totalPrice, onNext }) => {
     return (
@@ -44,6 +44,9 @@ const Layout = ({ children, cartSummary, totalPrice, onNext }) => {
             {/* Footer */}
             <div className="footer">
                 <div className="footer-container">
+                    <button className="next-button" onClick={onNext}>
+                        <GoArrowLeft className="arrow-right" /> Previous
+                    </button>
                     <button className="next-button" onClick={onNext}>
                         Continue <GoArrowRight className="arrow-right" />
                     </button>

@@ -8,11 +8,7 @@ import {
     Container,
     LinearProgress,
     Typography,
-    AppBar,
-    Toolbar,
-    // Image,
 } from "@material-ui/core";
-// import Step1 from "./components/Step1";
 import Step2 from "../components/Step2";
 import Step3 from "../components/Step3";
 import Step4 from "../components/Step4";
@@ -26,14 +22,8 @@ import Step11 from "../components/Step11";
 import Step12 from "../components/Step12";
 import Step13 from "../components/Step13";
 import Step14 from "../components/Step14";
-
 import axios from "axios";
-// import Map from "./components/Map";
-
-// import { parse, set } from "date-fns";
-
 import { v4 as uuidv4 } from "uuid";
-// import { it } from "date-fns/locale";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -107,12 +97,6 @@ function MainPage() {
 
     const [stateFullItems, setStateFullItems] = React.useState([]);
     const [itemWhere, setItemWhere] = React.useState("");
-
-    useEffect(() => {}, [showSummary]);
-    //var showSummary = false;
-    //at first set the active step to 1
-
-    //change isPhone dynamically
 
     const steps = [
         // "Step 1",
@@ -503,34 +487,12 @@ function MainPage() {
     };
     return (
         <>
-            {/* top header area start */}
-            {/* <AppBar
-                position="static"
-                style={{
-                    backgroundColor: "#000000",
-                }}
-            >
-                <Toolbar>
-                    <img
-                        src="https://freightly.nl/wp-content/uploads/2023/06/white_text-logoname_color1_NObackground-2048x143.png"
-                        style={{
-                            objectFit: "contain",
-                            margin: "auto",
-                            height: "20px",
-                        }}
-                    />
-                </Toolbar>
-            </AppBar> */}
-            {/* top header area end */}
-
-            <div //this is the main container
+            <div
                 style={{
                     display: "flex",
                     flexDirection: isPhone ? "column" : "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    // backgroundColor: "#00ff77",
-                    //white bg
                     backgroundColor: "#ffffff",
                     width: "100%",
                     height: "90%",
@@ -905,7 +867,7 @@ function MainPage() {
                 )}
 
                 {(!isPhone || showSummary) && (
-                    <Container //this is the summary thing
+                    <Container
                         style={{
                             display: "flex",
                             flexDirection: "column",
@@ -919,9 +881,7 @@ function MainPage() {
                             style={{
                                 display: "flex",
                                 flexDirection: "column",
-
                                 minHeight: "70vh",
-                                //width fill parent
                                 width: "100%",
                             }}
                         >
@@ -930,7 +890,6 @@ function MainPage() {
                                     style={{
                                         display: "flex",
                                         flexDirection: "column",
-                                        //have all items spaced out to the extremes
                                         justifyContent: "space-between",
                                     }}
                                 >
@@ -943,7 +902,6 @@ function MainPage() {
                                         style={{
                                             display: isPhone ? "block" : "none",
                                             fontFamily: "Poppins",
-                                            //black bg
                                             backgroundColor: "#000000",
                                         }}
                                     >
@@ -954,11 +912,8 @@ function MainPage() {
                                         style={{
                                             marginBottom: "5px",
                                             marginTop: "5px",
-                                            //bold
                                             fontWeight: "bold",
-
                                             fontFamily: "Poppins",
-                                            //blue
                                         }}
                                     >
                                         Pickup :
@@ -975,9 +930,7 @@ function MainPage() {
                                                 marginBottom: "5px",
                                                 marginTop: "5px",
                                                 marginLeft: "30px",
-
                                                 fontFamily: "Poppins",
-                                                //blue
                                             }}
                                         >
                                             At a {itemWhere}
@@ -1021,7 +974,6 @@ function MainPage() {
                                             marginBottom: "5px",
                                             marginTop: "5px",
                                             fontWeight: "bold",
-
                                             fontFamily: "Poppins",
                                         }}
                                     >
@@ -1039,7 +991,6 @@ function MainPage() {
                                                 marginBottom: "5px",
                                                 marginTop: "5px",
                                                 marginLeft: "30px",
-
                                                 fontFamily: "Poppins",
                                             }}
                                         >
@@ -1066,7 +1017,7 @@ function MainPage() {
                                         </Typography>
                                     ) : null}
 
-                                    <div //travel price
+                                    <div
                                         style={{
                                             display: "flex",
                                             flexDirection: "row",
@@ -1135,59 +1086,51 @@ function MainPage() {
                                             selfAlign: "bottom",
                                         }}
                                     >
-                                        {
-                                            //extra pick up help price extraPickupHelpPrice from local storage
-                                            true && (
-                                                <div
+                                        {true && (
+                                            <div
+                                                style={{
+                                                    display: "flex",
+                                                    flexDirection: "row",
+                                                    justifyContent:
+                                                        "space-between",
+                                                }}
+                                            >
+                                                <Typography
+                                                    variant="h8"
                                                     style={{
-                                                        display: "flex",
-                                                        flexDirection: "row",
-                                                        justifyContent:
-                                                            "space-between",
+                                                        marginBottom: "5px",
+                                                        marginTop: "5px",
+                                                        color: "black",
+                                                        fontFamily: "Poppins",
                                                     }}
                                                 >
-                                                    <Typography
-                                                        variant="h8"
-                                                        style={{
-                                                            marginBottom: "5px",
-                                                            marginTop: "5px",
-
-                                                            //black
-                                                            color: "black",
-                                                            fontFamily:
-                                                                "Poppins",
-                                                        }}
-                                                    >
-                                                        Total Items Price
-                                                    </Typography>
-                                                    <Typography
-                                                        variant="h8"
-                                                        style={{
-                                                            marginBottom: "5px",
-                                                            marginTop: "5px",
-                                                            fontWeight: "bold",
-                                                            //black
-                                                            color: "black",
-                                                            fontFamily:
-                                                                "Poppins",
-                                                        }}
-                                                    >
-                                                        €
-                                                        {parseFloat(
-                                                            volumePrice
-                                                                ? volumePrice
-                                                                : 0
-                                                        ) !== NaN
-                                                            ? parseFloat(
-                                                                  volumePrice
-                                                                      ? volumePrice
-                                                                      : 0
-                                                              )
-                                                            : 0}
-                                                    </Typography>
-                                                </div>
-                                            )
-                                        }
+                                                    Total Items Price
+                                                </Typography>
+                                                <Typography
+                                                    variant="h8"
+                                                    style={{
+                                                        marginBottom: "5px",
+                                                        marginTop: "5px",
+                                                        fontWeight: "bold",
+                                                        color: "black",
+                                                        fontFamily: "Poppins",
+                                                    }}
+                                                >
+                                                    €
+                                                    {parseFloat(
+                                                        volumePrice
+                                                            ? volumePrice
+                                                            : 0
+                                                    ) !== NaN
+                                                        ? parseFloat(
+                                                              volumePrice
+                                                                  ? volumePrice
+                                                                  : 0
+                                                          )
+                                                        : 0}
+                                                </Typography>
+                                            </div>
+                                        )}
 
                                         {activeStep > 3 && (
                                             <div
@@ -1203,8 +1146,6 @@ function MainPage() {
                                                     style={{
                                                         marginBottom: "5px",
                                                         marginTop: "5px",
-
-                                                        //black
                                                         color: "black",
                                                         fontFamily: "Poppins",
                                                     }}
@@ -1218,7 +1159,6 @@ function MainPage() {
                                                         marginBottom: "5px",
                                                         marginTop: "5px",
                                                         fontWeight: "bold",
-                                                        //black
                                                         color: "black",
                                                         fontFamily: "Poppins",
                                                     }}
@@ -1246,7 +1186,6 @@ function MainPage() {
                                                                       : 0
                                                               )
                                                             : 0) +
-                                                        //do the same for pickupTimeSlotPrice
                                                         (parseFloat(
                                                             pickupTimeSlotPrice
                                                                 ? pickupTimeSlotPrice
@@ -1258,7 +1197,6 @@ function MainPage() {
                                                                       : 0
                                                               )
                                                             : 0) +
-                                                        //now do the same for dropTimeSlotPrice
                                                         (parseFloat(
                                                             dropTimeSlotPrice
                                                                 ? dropTimeSlotPrice
@@ -1280,141 +1218,128 @@ function MainPage() {
                                             selfAlign: "bottom",
                                         }}
                                     >
-                                        {
-                                            //extra pick up help price extraPickupHelpPrice from local storage
+                                        {(parseFloat(
+                                            extraPickUpHelpPrice
+                                                ? extraPickUpHelpPrice
+                                                : 0
+                                        ) !== NaN
+                                            ? parseFloat(
+                                                  extraPickUpHelpPrice
+                                                      ? extraPickUpHelpPrice
+                                                      : 0
+                                              )
+                                            : 0) +
                                             (parseFloat(
-                                                extraPickUpHelpPrice
-                                                    ? extraPickUpHelpPrice
+                                                extraPickULiftingpHelpPrice
+                                                    ? extraPickULiftingpHelpPrice
                                                     : 0
                                             ) !== NaN
                                                 ? parseFloat(
-                                                      extraPickUpHelpPrice
-                                                          ? extraPickUpHelpPrice
+                                                      extraPickULiftingpHelpPrice
+                                                          ? extraPickULiftingpHelpPrice
                                                           : 0
                                                   )
                                                 : 0) +
-                                                (parseFloat(
-                                                    extraPickULiftingpHelpPrice
-                                                        ? extraPickULiftingpHelpPrice
-                                                        : 0
-                                                ) !== NaN
-                                                    ? parseFloat(
-                                                          extraPickULiftingpHelpPrice
-                                                              ? extraPickULiftingpHelpPrice
-                                                              : 0
-                                                      )
-                                                    : 0) +
-                                                (parseFloat(
-                                                    extraDropLiftingHelpPrice
-                                                        ? extraDropLiftingHelpPrice
-                                                        : 0
-                                                ) !== NaN
-                                                    ? parseFloat(
-                                                          extraDropLiftingHelpPrice
-                                                              ? extraDropLiftingHelpPrice
-                                                              : 0
-                                                      )
-                                                    : 0) +
-                                                //extra drop off help price extraDropOffHelpPrice from local storage
-                                                (parseFloat(
-                                                    extraDropHelpPrice
-                                                        ? extraDropHelpPrice
-                                                        : 0
-                                                ) !== NaN
-                                                    ? parseFloat(
-                                                          extraDropHelpPrice
-                                                              ? extraDropHelpPrice
-                                                              : 0
-                                                      )
-                                                    : 0) !==
-                                                0 && (
-                                                <div
+                                            (parseFloat(
+                                                extraDropLiftingHelpPrice
+                                                    ? extraDropLiftingHelpPrice
+                                                    : 0
+                                            ) !== NaN
+                                                ? parseFloat(
+                                                      extraDropLiftingHelpPrice
+                                                          ? extraDropLiftingHelpPrice
+                                                          : 0
+                                                  )
+                                                : 0) +
+                                            (parseFloat(
+                                                extraDropHelpPrice
+                                                    ? extraDropHelpPrice
+                                                    : 0
+                                            ) !== NaN
+                                                ? parseFloat(
+                                                      extraDropHelpPrice
+                                                          ? extraDropHelpPrice
+                                                          : 0
+                                                  )
+                                                : 0) !==
+                                            0 && (
+                                            <div
+                                                style={{
+                                                    display: "flex",
+                                                    flexDirection: "row",
+                                                    justifyContent:
+                                                        "space-between",
+                                                }}
+                                            >
+                                                <Typography
+                                                    variant="h8"
                                                     style={{
-                                                        display: "flex",
-                                                        flexDirection: "row",
-                                                        justifyContent:
-                                                            "space-between",
+                                                        marginBottom: "5px",
+                                                        marginTop: "5px",
+                                                        color: "black",
+                                                        fontFamily: "Poppins",
                                                     }}
                                                 >
-                                                    <Typography
-                                                        variant="h8"
-                                                        style={{
-                                                            marginBottom: "5px",
-                                                            marginTop: "5px",
-
-                                                            //black
-                                                            color: "black",
-                                                            fontFamily:
-                                                                "Poppins",
-                                                        }}
-                                                    >
-                                                        Extra Help
-                                                    </Typography>
-                                                    <Typography
-                                                        variant="h8"
-                                                        style={{
-                                                            marginBottom: "5px",
-                                                            marginTop: "5px",
-                                                            fontWeight: "bold",
-                                                            //black
-                                                            color: "black",
-                                                            fontFamily:
-                                                                "Poppins",
-                                                        }}
-                                                    >
-                                                        €
-                                                        {
-                                                            //extra pick up help price extraPickupHelpPrice from local storage
-                                                            (parseFloat(
-                                                                extraPickUpHelpPrice
-                                                                    ? extraPickUpHelpPrice
-                                                                    : 0
-                                                            ) !== NaN
-                                                                ? parseFloat(
-                                                                      extraPickUpHelpPrice
-                                                                          ? extraPickUpHelpPrice
-                                                                          : 0
-                                                                  )
-                                                                : 0) +
-                                                                (parseFloat(
-                                                                    extraPickULiftingpHelpPrice
-                                                                        ? extraPickULiftingpHelpPrice
-                                                                        : 0
-                                                                ) !== NaN
-                                                                    ? parseFloat(
-                                                                          extraPickULiftingpHelpPrice
-                                                                              ? extraPickULiftingpHelpPrice
-                                                                              : 0
-                                                                      )
-                                                                    : 0) +
-                                                                (parseFloat(
-                                                                    extraDropLiftingHelpPrice
-                                                                        ? extraDropLiftingHelpPrice
-                                                                        : 0
-                                                                ) !== NaN
-                                                                    ? parseFloat(
-                                                                          extraDropLiftingHelpPrice
-                                                                              ? extraDropLiftingHelpPrice
-                                                                              : 0
-                                                                      )
-                                                                    : 0) +
-                                                                //extra drop off help price extraDropOffHelpPrice from local storage
-                                                                (parseFloat(
-                                                                    extraDropHelpPrice
-                                                                        ? extraDropHelpPrice
-                                                                        : 0
-                                                                ) !== NaN
-                                                                    ? parseFloat(
-                                                                          extraDropHelpPrice
-                                                                              ? extraDropHelpPrice
-                                                                              : 0
-                                                                      )
-                                                                    : 0)
-                                                        }
-                                                    </Typography>
-                                                </div>
-                                            )
-                                        }
+                                                    Extra Help
+                                                </Typography>
+                                                <Typography
+                                                    variant="h8"
+                                                    style={{
+                                                        marginBottom: "5px",
+                                                        marginTop: "5px",
+                                                        fontWeight: "bold",
+                                                        color: "black",
+                                                        fontFamily: "Poppins",
+                                                    }}
+                                                >
+                                                    €
+                                                    {(parseFloat(
+                                                        extraPickUpHelpPrice
+                                                            ? extraPickUpHelpPrice
+                                                            : 0
+                                                    ) !== NaN
+                                                        ? parseFloat(
+                                                              extraPickUpHelpPrice
+                                                                  ? extraPickUpHelpPrice
+                                                                  : 0
+                                                          )
+                                                        : 0) +
+                                                        (parseFloat(
+                                                            extraPickULiftingpHelpPrice
+                                                                ? extraPickULiftingpHelpPrice
+                                                                : 0
+                                                        ) !== NaN
+                                                            ? parseFloat(
+                                                                  extraPickULiftingpHelpPrice
+                                                                      ? extraPickULiftingpHelpPrice
+                                                                      : 0
+                                                              )
+                                                            : 0) +
+                                                        (parseFloat(
+                                                            extraDropLiftingHelpPrice
+                                                                ? extraDropLiftingHelpPrice
+                                                                : 0
+                                                        ) !== NaN
+                                                            ? parseFloat(
+                                                                  extraDropLiftingHelpPrice
+                                                                      ? extraDropLiftingHelpPrice
+                                                                      : 0
+                                                              )
+                                                            : 0) +
+                                                        (parseFloat(
+                                                            extraDropHelpPrice
+                                                                ? extraDropHelpPrice
+                                                                : 0
+                                                        ) !== NaN
+                                                            ? parseFloat(
+                                                                  extraDropHelpPrice
+                                                                      ? extraDropHelpPrice
+                                                                      : 0
+                                                              )
+                                                            : 0)}
+                                                </Typography>
+                                            </div>
+                                        )}
 
                                         {activeStep > 3 && (
                                             <div
@@ -1430,8 +1355,6 @@ function MainPage() {
                                                     style={{
                                                         marginBottom: "5px",
                                                         marginTop: "5px",
-
-                                                        //black
                                                         color: "black",
                                                         fontFamily: "Poppins",
                                                     }}
@@ -1445,7 +1368,6 @@ function MainPage() {
                                                         marginBottom: "5px",
                                                         marginTop: "5px",
                                                         fontWeight: "bold",
-                                                        //black
                                                         color: "black",
                                                         fontFamily: "Poppins",
                                                     }}
@@ -1473,7 +1395,6 @@ function MainPage() {
                                                                       : 0
                                                               )
                                                             : 0) +
-                                                        //do the same for pickupTimeSlotPrice
                                                         (parseFloat(
                                                             pickupTimeSlotPrice
                                                                 ? pickupTimeSlotPrice
@@ -1485,7 +1406,6 @@ function MainPage() {
                                                                       : 0
                                                               )
                                                             : 0) +
-                                                        //now do the same for dropTimeSlotPrice
                                                         (parseFloat(
                                                             dropTimeSlotPrice
                                                                 ? dropTimeSlotPrice
@@ -1512,8 +1432,6 @@ function MainPage() {
                                                 style={{
                                                     marginBottom: "5px",
                                                     marginTop: "5px",
-
-                                                    //black
                                                     color: "black",
                                                     fontFamily: "Poppins",
                                                 }}
@@ -1525,7 +1443,6 @@ function MainPage() {
                                                 style={{
                                                     marginTop: "5px",
                                                     fontWeight: "bold",
-                                                    //black
                                                     color: "#000000",
                                                     fontFamily: "Poppins",
                                                 }}
@@ -1533,13 +1450,6 @@ function MainPage() {
                                                 €
                                                 {parseFloat(travelPrice) +
                                                     parseFloat(volumePrice) +
-                                                    // (typeof parseFloat(timingPrice) == "number"
-                                                    //   ? parseFloat(timingPrice)
-                                                    //   : 0) +
-                                                    // (typeof parseFloat(dropTimingPrice) == "number"
-                                                    //   ? parseFloat(dropTimingPrice)
-                                                    //   : 0) +
-                                                    //if timingprice is not NaN, then add it, otherwise add 0
                                                     (parseFloat(
                                                         timingPrice
                                                             ? timingPrice
@@ -1562,7 +1472,6 @@ function MainPage() {
                                                                   : 0
                                                           )
                                                         : 0) +
-                                                    //do the same for pickupTimeSlotPrice
                                                     (parseFloat(
                                                         pickupTimeSlotPrice
                                                             ? pickupTimeSlotPrice
@@ -1574,7 +1483,6 @@ function MainPage() {
                                                                   : 0
                                                           )
                                                         : 0) +
-                                                    //do the same for extra pick up help
                                                     (parseFloat(
                                                         extraPickUpHelpPrice
                                                             ? extraPickUpHelpPrice
@@ -1586,7 +1494,6 @@ function MainPage() {
                                                                   : 0
                                                           )
                                                         : 0) +
-                                                    //do the same for extra pick up lifting help
                                                     (parseFloat(
                                                         extraPickULiftingpHelpPrice
                                                             ? extraPickULiftingpHelpPrice
@@ -1598,7 +1505,6 @@ function MainPage() {
                                                                   : 0
                                                           )
                                                         : 0) +
-                                                    //drop lifting help price
                                                     (parseFloat(
                                                         extraDropLiftingHelpPrice
                                                             ? extraDropLiftingHelpPrice
@@ -1610,7 +1516,6 @@ function MainPage() {
                                                                   : 0
                                                           )
                                                         : 0) +
-                                                    //do the same for extra drop time slot price
                                                     (parseFloat(
                                                         dropTimeSlotPrice
                                                             ? dropTimeSlotPrice
@@ -1622,7 +1527,6 @@ function MainPage() {
                                                                   : 0
                                                           )
                                                         : 0) +
-                                                    //do the same for extra drop off help
                                                     (parseFloat(
                                                         extraDropHelpPrice
                                                             ? extraDropHelpPrice
