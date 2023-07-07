@@ -12,7 +12,6 @@ import {
   Toolbar,
   // Image,
 } from "@material-ui/core";
-//import Login from "./components/Login";
 // import Step1 from "./components/Step1";
 import Step2 from "./components/Step2";
 import Step3 from "./components/Step3";
@@ -117,7 +116,6 @@ function App() {
   //change isPhone dynamically
 
   const steps = [
-    //"Login",
     // "Step 1",
     "Step 2",
     "Step 3",
