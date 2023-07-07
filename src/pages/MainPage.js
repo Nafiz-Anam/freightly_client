@@ -495,10 +495,10 @@ function MainPage() {
                     alignItems: "center",
                     backgroundColor: "#ffffff",
                     width: "100%",
-                    height: "90%",
+                    height: "100%",
                     margin: "0",
                     padding: "0",
-                    overflowY: "scroll",
+                    // overflowY: "scroll",
                 }}
             >
                 {!showSummary && (
@@ -507,12 +507,9 @@ function MainPage() {
                             className={classes.card}
                             style={{
                                 width: "80vw",
-                                //position it to the left a bit but responsive
-                                //marginRight: "40%",
-                                //hide if show summary is true
-                                //center this
                                 fullHeight: true,
-                                marginLeft: !isPhone ? "10%" : "0%",
+                                // marginLeft: !isPhone ? "10%" : "0%",
+                                 boxShadow: "0px 0px 0px rgba(0, 0, 0, 0.1)"
                             }}
                         >
                             <CardContent className={classes.cardContent}>
@@ -664,17 +661,14 @@ function MainPage() {
                                     />
                                 </Routes>
 
-                                <div
+                                {/* <div
                                     id="buttons"
                                     className={classes.buttonContainer}
                                     style={{
-                                        //center it
-                                        //one single row
                                         display: "flex",
                                         flexDirection: "row",
                                         justifyContent: "center",
                                         alignItems: "center",
-                                        //gap between buttons
                                         gap: "15vw",
                                     }}
                                 >
@@ -682,10 +676,7 @@ function MainPage() {
                                         variant="contained"
                                         color="primary"
                                         component={Link}
-                                        to={
-                                            //go to the previous step.
-                                            "/step" + (activeStep - 1)
-                                        }
+                                        to={"/step" + (activeStep - 1)}
                                         className={classes.button}
                                         disabled={activeStep === 2}
                                         onClick={() => {
@@ -701,15 +692,10 @@ function MainPage() {
                                         color="primary"
                                         style={{ fontFamily: "Poppins" }}
                                         component={Link}
-                                        to={
-                                            //go to the next step only if local storage uuid is set, regardless of what step you are on
-                                            //go to the next step
-                                            "/step" + (activeStep + 1)
-                                        }
+                                        to={"/step" + (activeStep + 1)}
                                         className={classes.button}
                                         disabled={activeStep === steps.length}
                                         onClick={() => {
-                                            // alert("Active Step: " + activeStep);
                                             setActiveStep(activeStep + 1);
                                         }}
                                     >
@@ -717,20 +703,17 @@ function MainPage() {
                                             ? "Submit"
                                             : "Next"}
                                     </Button>
-                                </div>
+                                </div> */}
+
                                 {isPhone && (
                                     <div
                                         style={{
-                                            //flex row
-
                                             display: "flex",
                                             flexDirection: isPhone
                                                 ? "column"
                                                 : "row",
-
                                             justifyContent: "center",
                                             alignItems: "center",
-
                                             width: "100%",
                                             height: "100%",
                                         }}
@@ -741,7 +724,6 @@ function MainPage() {
                                                 marginBottom: "15px",
                                                 marginTop: "15px",
                                                 fontWeight: "bold",
-                                                //purple
                                                 color: "black",
                                                 fontFamily: "Poppins",
                                             }}
@@ -771,7 +753,6 @@ function MainPage() {
                                                               : 0
                                                       )
                                                     : 0) +
-                                                //do the same for pickupTimeSlotPrice
                                                 (parseFloat(
                                                     pickupTimeSlotPrice
                                                         ? pickupTimeSlotPrice
@@ -783,7 +764,6 @@ function MainPage() {
                                                               : 0
                                                       )
                                                     : 0) +
-                                                //do the same for extra pick up help
                                                 (parseFloat(
                                                     extraPickUpHelpPrice
                                                         ? extraPickUpHelpPrice
@@ -795,7 +775,6 @@ function MainPage() {
                                                               : 0
                                                       )
                                                     : 0) +
-                                                //do the same for extra pick up lifting help
                                                 (parseFloat(
                                                     extraPickULiftingpHelpPrice
                                                         ? extraPickULiftingpHelpPrice
@@ -807,7 +786,6 @@ function MainPage() {
                                                               : 0
                                                       )
                                                     : 0) +
-                                                //drop lifting help price
                                                 (parseFloat(
                                                     extraDropLiftingHelpPrice
                                                         ? extraDropLiftingHelpPrice
@@ -819,7 +797,6 @@ function MainPage() {
                                                               : 0
                                                       )
                                                     : 0) +
-                                                //do the same for extra drop time slot price
                                                 (parseFloat(
                                                     dropTimeSlotPrice
                                                         ? dropTimeSlotPrice
@@ -831,7 +808,6 @@ function MainPage() {
                                                               : 0
                                                       )
                                                     : 0) +
-                                                //do the same for extra drop off help
                                                 (parseFloat(
                                                     extraDropHelpPrice
                                                         ? extraDropHelpPrice
@@ -866,7 +842,7 @@ function MainPage() {
                     </Router>
                 )}
 
-                {(!isPhone || showSummary) && (
+                {/* {(!isPhone || showSummary) && (
                     <Container
                         style={{
                             display: "flex",
@@ -936,6 +912,7 @@ function MainPage() {
                                             At a {itemWhere}
                                         </Typography>
                                     )}
+
                                     {pickupDate && pickupTimeSlot ? (
                                         <Typography
                                             variant="h9"
@@ -955,6 +932,7 @@ function MainPage() {
                                                 .replace('"', "")}
                                         </Typography>
                                     ) : null}
+
                                     {pickupFloorHelp ? (
                                         <Typography
                                             variant="h9"
@@ -984,6 +962,7 @@ function MainPage() {
                                               "..."
                                             : " " + "Dropoff Address"}
                                     </Typography>
+
                                     {dropDate && dropTimeSlot ? (
                                         <Typography
                                             variant="h9"
@@ -1003,6 +982,7 @@ function MainPage() {
                                                 .replace('"', "")}
                                         </Typography>
                                     ) : null}
+
                                     {dropFloorHelp ? (
                                         <Typography
                                             variant="h9"
@@ -1047,7 +1027,9 @@ function MainPage() {
                                             ${travelPrice}
                                         </Typography>
                                     </div>
+
                                     <div style={{ height: "40px" }}></div>
+
                                     {stateFullItems.map((item) => {
                                         return (
                                             <>
@@ -1545,7 +1527,7 @@ function MainPage() {
                             )}
                         </Card>
                     </Container>
-                )}
+                )} */}
             </div>
         </>
     );

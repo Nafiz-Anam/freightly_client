@@ -15,7 +15,7 @@ const Layout = ({ children, cartSummary, totalPrice, onNext }) => {
                                 margin: "auto",
                                 height: "20px",
                             }}
-                            alt="Freightly Logo"
+                            alt="Freightly company Logo"
                         />
                     </a>
                 </div>
@@ -24,11 +24,11 @@ const Layout = ({ children, cartSummary, totalPrice, onNext }) => {
             {/* Main Body */}
             <div className="main-body">
                 <div className="left-side">
-                    {/* Dynamic Content */}
+                  {/* render all screens here */}
                     <div className="page-content">{children}</div>
                 </div>
                 <div className="right-side">
-                    {/* Static Cart Summary */}
+                    {/* Summary details and calculation here */}
                     <div className="cart-summary">
                         {cartSummary.map((item, index) => (
                             <div className="item" key={index}>
