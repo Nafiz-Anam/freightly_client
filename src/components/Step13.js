@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import "./step13.css";
+import style from "./Step13.module.css";
 
 const Step13 = () => {
     const { register, handleSubmit } = useForm();
     const [activeTab, setActiveTab] = useState("personal");
+    console.log(activeTab);
 
     const onSubmit = (data) => {
         console.log(data);
@@ -15,17 +16,17 @@ const Step13 = () => {
     };
 
     return (
-        <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
-            <div className="tab-container">
-                <div className="tab-buttons">
+        <form className={style.formContainer} onSubmit={handleSubmit(onSubmit)}>
+            <div className={style.tabContainer}>
+                <div className={style.tabButtons}>
                     <button
-                        className={activeTab === "personal" ? "active" : ""}
+                        className={activeTab === "personal" ? style.active : ""}
                         onClick={() => handleTabChange("personal")}
                     >
                         Personal Contact Details
                     </button>
                     <button
-                        className={activeTab === "business" ? "active" : ""}
+                        className={activeTab === "business" ? style.active : ""}
                         onClick={() => handleTabChange("business")}
                     >
                         Business Contact Details
@@ -33,18 +34,18 @@ const Step13 = () => {
                 </div>
 
                 {activeTab === "personal" && (
-                    <div className="tab">
-                        <div className="section">
-                            <h3>Personal Detials</h3>
-                            <div className="row">
-                                <div className="column">
+                    <div className={style.tab}>
+                        <div className={style.section}>
+                            <h3>Personal Details</h3>
+                            <div className={style.row}>
+                                <div className={style.column}>
                                     <label>First Name:</label>
                                     <input
                                         type="text"
                                         {...register("firstName")}
                                     />
                                 </div>
-                                <div className="column">
+                                <div className={style.column}>
                                     <label>Last Name:</label>
                                     <input
                                         type="text"
@@ -52,12 +53,12 @@ const Step13 = () => {
                                     />
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="column">
+                            <div className={style.row}>
+                                <div className={style.column}>
                                     <label>Email:</label>
                                     <input type="text" {...register("email")} />
                                 </div>
-                                <div className="column">
+                                <div className={style.column}>
                                     <label>Phone Number:</label>
                                     <input
                                         type="text"
@@ -70,18 +71,18 @@ const Step13 = () => {
                 )}
 
                 {activeTab === "business" && (
-                    <div className="tab">
-                        <div className="section">
-                            <h3>Personal Detials</h3>
-                            <div className="row">
-                                <div className="column">
+                    <div className={style.tab}>
+                        <div className={style.section}>
+                            <h3>Personal Details</h3>
+                            <div className={style.row}>
+                                <div className={style.column}>
                                     <label>First Name:</label>
                                     <input
                                         type="text"
                                         {...register("firstName")}
                                     />
                                 </div>
-                                <div className="column">
+                                <div className={style.column}>
                                     <label>Last Name:</label>
                                     <input
                                         type="text"
@@ -89,12 +90,12 @@ const Step13 = () => {
                                     />
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="column">
+                            <div className={style.row}>
+                                <div className={style.column}>
                                     <label>Email:</label>
                                     <input type="text" {...register("email")} />
                                 </div>
-                                <div className="column">
+                                <div className={style.column}>
                                     <label>Phone Number:</label>
                                     <input
                                         type="text"
@@ -103,17 +104,17 @@ const Step13 = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="section">
+                        <div className={style.section}>
                             <h3>Company Details</h3>
                             <div className="">
-                                <div className="column">
+                                <div className={style.column}>
                                     <label>Company Name:</label>
                                     <input
                                         type="text"
                                         {...register("companyName")}
                                     />
                                 </div>
-                                <div className="column">
+                                <div className={style.column}>
                                     <label>Chamber of Commerce Number:</label>
                                     <input
                                         type="text"
@@ -122,14 +123,14 @@ const Step13 = () => {
                                 </div>
                             </div>
                             <div className="">
-                                <div className="column">
+                                <div className={style.column}>
                                     <label>VAT Number:</label>
                                     <input
                                         type="text"
                                         {...register("vatNumber")}
                                     />
                                 </div>
-                                <div className="column">
+                                <div className={style.column}>
                                     <label>Street Name + Number:</label>
                                     <input
                                         type="text"
@@ -138,20 +139,20 @@ const Step13 = () => {
                                 </div>
                             </div>
                             <div className="">
-                                <div className="column">
+                                <div className={style.column}>
                                     <label>Postal Code:</label>
                                     <input
                                         type="text"
                                         {...register("postalCode")}
                                     />
                                 </div>
-                                <div className="column">
+                                <div className={style.column}>
                                     <label>Area:</label>
                                     <input type="text" {...register("area")} />
                                 </div>
                             </div>
                             <div className="">
-                                <div className="column">
+                                <div className={style.column}>
                                     <label>Area Code:</label>
                                     <input
                                         type="text"

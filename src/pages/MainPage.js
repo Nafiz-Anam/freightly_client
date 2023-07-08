@@ -48,6 +48,9 @@ function MainPage({ activeStep, onNext }) {
         handleStepChange(1);
     }
 
+    console.log(activeStep);
+    console.log(steps.length);
+
     return (
         <>
             <div

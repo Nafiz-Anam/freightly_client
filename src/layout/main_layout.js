@@ -67,7 +67,7 @@ const Layout = ({ children, cartSummary, totalPrice, onNext, activeStep }) => {
                         </Link>
                     )}
 
-                    {activeStep < 14 && (
+                    {activeStep < 13 && (
                         <Link
                             className="next-button"
                             to={"/step" + (activeStep + 1)}
