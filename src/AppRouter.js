@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import Step1 from "./components/Step1";
 import Step2 from "./components/Step2";
 import Step3 from "./components/Step3";
 import Step4 from "./components/Step4";
@@ -11,12 +12,11 @@ import Step9 from "./components/Step9";
 import Step10 from "./components/Step10";
 import Step11 from "./components/Step11";
 import Step12 from "./components/Step12";
-import Step13 from "./components/Step13";
-// import Step14 from "./components/Step14";
 
 const AppRouter = () => {
     return (
         <Routes>
+            <Route path="/step1" element={<Step1 />} />
             <Route path="/step2" element={<Step2 />} />
             <Route path="/step3" element={<Step3 />} />
             <Route path="/step4" element={<Step4 />} />
@@ -28,8 +28,6 @@ const AppRouter = () => {
             <Route path="/step10" element={<Step10 />} />
             <Route path="/step11" element={<Step11 />} />
             <Route path="/step12" element={<Step12 />} />
-            <Route path="/step13" element={<Step13 />} />
-            {/* <Route path="/step14" element={<Step14 />} /> */}
         </Routes>
     );
 };

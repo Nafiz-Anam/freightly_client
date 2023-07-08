@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardContent, LinearProgress, Button } from "@material-ui/core";
+import { Card, LinearProgress } from "@material-ui/core";
 import AppRouter from "../AppRouter";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +21,7 @@ function MainPage({ activeStep, onNext }) {
     const classes = useStyles();
 
     const steps = [
-        // "Step 1",
+        "Step 1",
         "Step 2",
         "Step 3",
         "Step 4",
@@ -34,8 +33,6 @@ function MainPage({ activeStep, onNext }) {
         "Step 10",
         "Step 11",
         "Step 12",
-        "Step 13",
-        // "Step 14",
     ];
 
     const handleStepChange = (step) => {
@@ -44,7 +41,7 @@ function MainPage({ activeStep, onNext }) {
 
     // if on / then go to step 1
     if (window.location.pathname === "/") {
-        window.location.pathname = "/step2";
+        window.location.pathname = "/step1";
         handleStepChange(1);
     }
 

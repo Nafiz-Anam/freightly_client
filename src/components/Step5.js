@@ -62,14 +62,8 @@ function Step() {
 
     return (
         <div className="list-layout">
-            <h2
-                style={{
-                    textAlign: "center",
-                    paddingTop: "15px",
-                    paddingBottom: "25px",
-                }}
-            >
-                Select Pickup Time Slot
+            <h2 style={{ textAlign: "center", paddingTop: "15px", paddingBottom: "25px" }}>
+                Select Drop Time Slot
             </h2>
             <ul className="list">
                 {jsonArray.map((item) => (

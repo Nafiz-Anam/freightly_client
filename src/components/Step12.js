@@ -1,129 +1,173 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { TextField } from "@material-ui/core";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import style from "./Step13.module.css";
 
-import Typography from "@material-ui/core/Typography";
-//import date and time picker from mui
+const Step13 = () => {
+    const { register, handleSubmit } = useForm();
+    const [activeTab, setActiveTab] = useState("personal");
+    console.log(activeTab);
 
-const useStyles = makeStyles((theme) => ({
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  textField: {
-    margin: theme.spacing(2),
-  },
-  submitButton: {
-    marginTop: theme.spacing(2),
-  },
-}));
+    const onSubmit = (data) => {
+        console.log(data);
+    };
 
-function Step() {
-  //if drop data does not exist in local storage just make it  having all keys but empty values
-  //if it exists then do nothing
+    const handleTabChange = (tab) => {
+        setActiveTab(tab);
+    };
 
-  const classes = useStyles();
+    return (
+        <form className={style.formContainer} onSubmit={handleSubmit(onSubmit)}>
+            <div className={style.tabContainer}>
+                <div className={style.tabButtons}>
+                    <button
+                        className={activeTab === "personal" ? style.active : ""}
+                        onClick={() => handleTabChange("personal")}
+                    >
+                        Personal Contact Details
+                    </button>
+                    <button
+                        className={activeTab === "business" ? style.active : ""}
+                        onClick={() => handleTabChange("business")}
+                    >
+                        Business Contact Details
+                    </button>
+                </div>
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  //drop address
-  const [dropAddress, setDropAddress] = useState("");
-  useEffect(() => {
-    // set all the states from local storage at the start if they are not empty
-    //alert(JSON.stringify(localStorage.getItem("dropData")));
-    if (JSON.parse(localStorage.getItem("dropData"))) {
-      if (JSON.parse(localStorage.getItem("dropData")).name !== "") {
-        setName(JSON.parse(localStorage.getItem("dropData")).name);
-      }
-      if (JSON.parse(localStorage.getItem("dropData")).email !== "") {
-        setEmail(JSON.parse(localStorage.getItem("dropData")).email);
-      }
-      if (JSON.parse(localStorage.getItem("dropData")).phone !== "") {
-        setPhone(JSON.parse(localStorage.getItem("dropData")).phone);
-      }
-      if (JSON.parse(localStorage.getItem("dropData")).address !== "") {
-        setDropAddress(JSON.parse(localStorage.getItem("dropData")).address);
-      }
-    }
-  }, []);
-  useEffect(() => {
-    //set local storage on every change
-    localStorage.setItem(
-      "dropData",
-      JSON.stringify({
-        name: name === "" ? "" : name,
-        email: email === "" ? "" : email,
-        phone: phone === "" ? "" : phone,
-        address: dropAddress === "" ? "" : dropAddress,
-      })
+                {activeTab === "personal" && (
+                    <div className={style.tab}>
+                        <div className={style.section}>
+                            <h3>Personal Details</h3>
+                            <div className={style.row}>
+                                <div className={style.column}>
+                                    <label>First Name:</label>
+                                    <input
+                                        type="text"
+                                        {...register("firstName")}
+                                    />
+                                </div>
+                                <div className={style.column}>
+                                    <label>Last Name:</label>
+                                    <input
+                                        type="text"
+                                        {...register("lastName")}
+                                    />
+                                </div>
+                            </div>
+                            <div className={style.row}>
+                                <div className={style.column}>
+                                    <label>Email:</label>
+                                    <input type="text" {...register("email")} />
+                                </div>
+                                <div className={style.column}>
+                                    <label>Phone Number:</label>
+                                    <input
+                                        type="text"
+                                        {...register("phoneNumber")}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {activeTab === "business" && (
+                    <div className={style.tab}>
+                        <div className={style.section}>
+                            <h3>Personal Details</h3>
+                            <div className={style.row}>
+                                <div className={style.column}>
+                                    <label>First Name:</label>
+                                    <input
+                                        type="text"
+                                        {...register("firstName")}
+                                    />
+                                </div>
+                                <div className={style.column}>
+                                    <label>Last Name:</label>
+                                    <input
+                                        type="text"
+                                        {...register("lastName")}
+                                    />
+                                </div>
+                            </div>
+                            <div className={style.row}>
+                                <div className={style.column}>
+                                    <label>Email:</label>
+                                    <input type="text" {...register("email")} />
+                                </div>
+                                <div className={style.column}>
+                                    <label>Phone Number:</label>
+                                    <input
+                                        type="text"
+                                        {...register("phoneNumber")}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={style.section}>
+                            <h3>Company Details</h3>
+                            <div className="">
+                                <div className={style.column}>
+                                    <label>Company Name:</label>
+                                    <input
+                                        type="text"
+                                        {...register("companyName")}
+                                    />
+                                </div>
+                                <div className={style.column}>
+                                    <label>Chamber of Commerce Number:</label>
+                                    <input
+                                        type="text"
+                                        {...register("chamberOfCommerce")}
+                                    />
+                                </div>
+                            </div>
+                            <div className="">
+                                <div className={style.column}>
+                                    <label>VAT Number:</label>
+                                    <input
+                                        type="text"
+                                        {...register("vatNumber")}
+                                    />
+                                </div>
+                                <div className={style.column}>
+                                    <label>Street Name + Number:</label>
+                                    <input
+                                        type="text"
+                                        {...register("streetAddress")}
+                                    />
+                                </div>
+                            </div>
+                            <div className="">
+                                <div className={style.column}>
+                                    <label>Postal Code:</label>
+                                    <input
+                                        type="text"
+                                        {...register("postalCode")}
+                                    />
+                                </div>
+                                <div className={style.column}>
+                                    <label>Area:</label>
+                                    <input type="text" {...register("area")} />
+                                </div>
+                            </div>
+                            <div className="">
+                                <div className={style.column}>
+                                    <label>Area Code:</label>
+                                    <input
+                                        type="text"
+                                        {...register("areaCode")}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
     );
-  }, [name, email, phone, dropAddress]);
+};
 
-  return (
-    <form
-      style={{
-        fontFamily: "Poppins",
-        height: "55vh",
-      }}
-      className={classes.form}
-    >
-      <Typography
-        variant="h5"
-        style={{
-          marginBottom: "20px",
-          marginTop: "20px",
-          fontWeight: "bold",
-          fontFamily: "Poppins",
-        }}
-      >
-        Drop Contact Information
-      </Typography>
-      <TextField
-        label="Detailed Drop Address"
-        variant="outlined"
-        className={classes.textField}
-        value={dropAddress}
-        onChange={(e) => setDropAddress(e.target.value)}
-        fullWidth
-        style={{
-          fontFamily: "Poppins",
-        }}
-      />
-      <TextField
-        label="Name"
-        onChange={(e) => setName(e.target.value)}
-        fullWidth
-        margin="normal"
-        value={name}
-        style={{
-          fontFamily: "Poppins",
-        }}
-      />
-      <TextField
-        label="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        fullWidth
-        margin="normal"
-        style={{
-          fontFamily: "Poppins",
-        }}
-      />
-      <TextField
-        label="Phone"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        fullWidth
-        margin="normal"
-        style={{
-          fontFamily: "Poppins",
-        }}
-      />
-    </form>
-  );
-}
-
-export default Step;
+export default Step13;

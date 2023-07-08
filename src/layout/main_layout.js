@@ -52,7 +52,7 @@ const Layout = ({ children, cartSummary, totalPrice, onNext, activeStep }) => {
             {/* Footer */}
             <div className="footer">
                 <div className="footer-container">
-                    {activeStep === 2 ? (
+                    {activeStep === 1 ? (
                         <button className="next-button-disabled">
                             <GoArrowLeft className="arrow-right" /> Previous
                         </button>
@@ -67,13 +67,21 @@ const Layout = ({ children, cartSummary, totalPrice, onNext, activeStep }) => {
                         </Link>
                     )}
 
-                    {activeStep < 13 && (
+                    {activeStep <= 11 ? (
                         <Link
                             className="next-button"
                             to={"/step" + (activeStep + 1)}
                             onClick={() => onNext(1)}
                         >
                             Continue <GoArrowRight className="arrow-right" />
+                        </Link>
+                    ) : (
+                        <Link
+                            className="next-button"
+                            to={"/step" + (activeStep + 1)}
+                            onClick={() => onNext(1)}
+                        >
+                            Submit <GoArrowRight className="arrow-right" />
                         </Link>
                     )}
                 </div>

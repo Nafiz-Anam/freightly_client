@@ -4,7 +4,7 @@ import axios from "axios";
 
 function Step() {
     const sheetURL =
-        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=322664730&single=true&output=csv";
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=1055355179&single=true&output=csv";
 
     const [sheetData, setSheetData] = useState([]);
     const [selectedItem, setSelectedItem] = useState("");
@@ -47,9 +47,8 @@ function Step() {
     sheetData.forEach((data) => {
         // Create an object with the required properties
         let obj = {
-            date: data[0],
-            day: data[1],
-            price: data[2],
+            time: data[0],
+            price: data[1],
         };
         // Push the object to the array
         jsonArray.push(obj);
@@ -63,17 +62,25 @@ function Step() {
 
     return (
         <div className="list-layout">
+            <h2
+                style={{
+                    textAlign: "center",
+                    paddingTop: "15px",
+                    paddingBottom: "25px",
+                }}
+            >
+                Select Pickup Time Slot
+            </h2>
             <ul className="list">
                 {jsonArray.map((item) => (
-                    <li key={item.date}>
+                    <li key={item.time}>
                         <button
                             className={`list-item2 ${
-                                selectedItem === item.date ? "selected" : ""
+                                selectedItem === item.time ? "selected" : ""
                             }`}
-                            onClick={() => handleItemClick(item.date)}
+                            onClick={() => handleItemClick(item.time)}
                         >
-                            <span className="item-name">{item.date}</span>
-                            <span className="item-name">{item.day}</span>
+                            <span className="item-name">{item.time}</span>
                             <span className="item-name">{item.price}</span>
                         </button>
                     </li>

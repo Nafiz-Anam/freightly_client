@@ -12,7 +12,7 @@ function App() {
         // Add more items here
     ];
 
-    const [activeStep, setActiveStep] = useState(2);
+    const [activeStep, setActiveStep] = useState(1);
 
     const handleNext = (step) => {
         setActiveStep(activeStep + step);
