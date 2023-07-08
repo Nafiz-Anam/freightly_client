@@ -21,7 +21,7 @@ export const pickupPlaces = [
     },
 ];
 
-export const pickupHelp = [
+export const pickupFrom = [
     { title: "Ground Floor", price: "€00.00" },
     { title: "Elevator Available", price: "€10.00" },
     { title: "Basement", price: "€10.00" },
@@ -35,4 +35,11 @@ export const pickupHelp = [
     { title: "8th Floor", price: "€80.00" },
     { title: "9th Floor", price: "€90.00" },
     { title: "10th Floor", price: "€100.00" },
+];
+
+export const pickupHelp = [
+    {  title: "🙋‍♂️Extra Help", price: "€55.00" },
+    {  title: "🚚Tail Lift", price: "€40.00" },
+    {  title: "🚚Tail Lift + 2 Couriers", price: "€80.00" },
+    {  title: "🚚Not Necessary", price: "€00.00" },
 ];
