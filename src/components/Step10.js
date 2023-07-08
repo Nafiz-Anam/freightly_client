@@ -65,66 +65,69 @@ function Step() {
     }, [name, email, phone, pickupAddress]);
 
     return (
-        <form
-            style={{
-                fontFamily: "Poppins",
-                height: "55vh",
-            }}
-            className={classes.form}
-        >
-            <Typography
-                variant="h5"
+        <div style={{ display: "flex", justifyContent: "center" }}>
+            <form
                 style={{
-                    marginBottom: "20px",
-                    marginTop: "20px",
-                    fontWeight: "bold",
-                    fontFamily: "Poppins",
+                    // fontFamily: "Poppins",
+                    height: "55vh",
+                    width: "70%",
                 }}
+                className={classes.form}
             >
-                Pickup Contact Information
-            </Typography>
-            <TextField
-                label="Detailed Pickup Address"
-                variant="outlined"
-                className={classes.textField}
-                value={pickupAddress}
-                onChange={(e) => setPickupAddress(e.target.value)}
-                fullWidth
-                style={{
-                    fontFamily: "Poppins",
-                }}
-            />
-            <TextField
-                label="Name"
-                onChange={(e) => setName(e.target.value)}
-                fullWidth
-                margin="normal"
-                value={name}
-                style={{
-                    fontFamily: "Poppins",
-                }}
-            />
-            <TextField
-                label="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                fullWidth
-                margin="normal"
-                style={{
-                    fontFamily: "Poppins",
-                }}
-            />
-            <TextField
-                label="Phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                fullWidth
-                margin="normal"
-                style={{
-                    fontFamily: "Poppins",
-                }}
-            />
-        </form>
+                <Typography
+                    variant="h5"
+                    style={{
+                        marginBottom: "20px",
+                        marginTop: "20px",
+                        fontWeight: "bold",
+                        // fontFamily: "Poppins",
+                    }}
+                >
+                    Pickup Contact Information
+                </Typography>
+                <TextField
+                    label="Detailed Pickup Address"
+                    variant="outlined"
+                    className={classes.textField}
+                    value={pickupAddress}
+                    onChange={(e) => setPickupAddress(e.target.value)}
+                    fullWidth
+                    style={{
+                        fontFamily: "Poppins",
+                    }}
+                />
+                <TextField
+                    label="Name"
+                    onChange={(e) => setName(e.target.value)}
+                    fullWidth
+                    margin="normal"
+                    value={name}
+                    style={{
+                        fontFamily: "Poppins",
+                    }}
+                />
+                <TextField
+                    label="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    fullWidth
+                    margin="normal"
+                    style={{
+                        fontFamily: "Poppins",
+                    }}
+                />
+                <TextField
+                    label="Phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    fullWidth
+                    margin="normal"
+                    style={{
+                        fontFamily: "Poppins",
+                    }}
+                />
+            </form>
+        </div>
     );
 }
 
