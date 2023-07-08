@@ -18,23 +18,23 @@ const SearchComponent = ({ items }) => {
 
     console.log(jaja);
 
-    const jsonData = [
-        { id: 1, title: "Apple" },
-        { id: 2, title: "Banana" },
-        { id: 3, title: "Orange" },
-        { id: 4, title: "Mango" },
-        { id: 5, title: "Grapes" },
-        { id: 6, title: "Pineapple" },
-        { id: 7, title: "Watermelon" },
-        { id: 8, title: "Strawberry" },
-        { id: 9, title: "Blueberry" },
-        { id: 10, title: "Kiwi" },
-        { id: 11, title: "Peach" },
-        { id: 12, title: "Pear" },
-        { id: 13, title: "Cherry" },
-        { id: 14, title: "Lemon" },
-        { id: 15, title: "Raspberry" },
-    ];
+    // const jsonData = [
+    //     { id: 1, title: "Apple" },
+    //     { id: 2, title: "Banana" },
+    //     { id: 3, title: "Orange" },
+    //     { id: 4, title: "Mango" },
+    //     { id: 5, title: "Grapes" },
+    //     { id: 6, title: "Pineapple" },
+    //     { id: 7, title: "Watermelon" },
+    //     { id: 8, title: "Strawberry" },
+    //     { id: 9, title: "Blueberry" },
+    //     { id: 10, title: "Kiwi" },
+    //     { id: 11, title: "Peach" },
+    //     { id: 12, title: "Pear" },
+    //     { id: 13, title: "Cherry" },
+    //     { id: 14, title: "Lemon" },
+    //     { id: 15, title: "Raspberry" },
+    // ];
 
     const handleSearch = (e) => {
         const term = e.target.value;

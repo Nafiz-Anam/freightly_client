@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "./layout/main_layout";
 import MainPage from "./pages/MainPage";
 import "./App.css";
+import { DataProvider, DataContext } from "./context/dataContext";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
     const cartSummary = [
@@ -10,19 +12,34 @@ function App() {
         // Add more items here
     ];
 
-    const handleNext = () => {
-        // Handle next button click
+    const [activeStep, setActiveStep] = useState(2);
+
+    const handleNext = (step) => {
+        setActiveStep(activeStep + step);
     };
 
     return (
-        <Layout
-            logo="Logo"
-            cartSummary={cartSummary}
-            totalPrice="$30"
-            onNext={handleNext}
-        >
-            <MainPage />
-        </Layout>
+        <Router>
+            <DataProvider>
+                <DataContext.Consumer>
+                    {(context) => (
+                        <Layout
+                            cartSummary={cartSummary}
+                            totalPrice="$30"
+                            data={context.data}
+                            updateData={context.updateData}
+                            activeStep={activeStep}
+                            onNext={handleNext}
+                        >
+                            <MainPage
+                                activeStep={activeStep}
+                                onNext={handleNext}
+                            />
+                        </Layout>
+                    )}
+                </DataContext.Consumer>
+            </DataProvider>
+        </Router>
     );
 }
 

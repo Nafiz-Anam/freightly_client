@@ -2,6 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
+    
+    // MenuItem,
     FormControl,
     RadioGroup,
     FormControlLabel,
@@ -48,15 +50,20 @@ const DynamicInputForm = () => {
             try {
                 const response = await axios.get(sheetURL);
                 const csvData = response.data;
+
                 // Parse the CSV data
                 const parsedData = parseCSV(csvData);
+
                 setSheetData(parsedData);
                 // globalSheetData = parsedData;
             } catch (error) {
                 console.error("Error retrieving CSV data:", error);
             }
         };
+
         fetchData();
+
+        //also just one time set the selected option to the one in local storage if it exists
         var value = localStorage.getItem("selectedTime");
         if (value != null) {
             setSelectedOption(JSON.parse(value));
@@ -67,15 +74,18 @@ const DynamicInputForm = () => {
     const parseCSV = (csvData) => {
         const rows = csvData.split("\n");
         const parsedData = [];
+
         for (let i = 0; i < rows.length; i++) {
             const row = rows[i].split(",");
             //if i > 30, break
             if (i > 30) {
                 break;
             }
+
             parsedData.push(row);
         }
         //sheetData is an array of items
+
         return parsedData;
     };
 
@@ -323,10 +333,12 @@ function Step() {
                     style={{
                         overflowY: "scroll",
                         maxWidth: "100%",
+                        //full width
                         width: "100%",
-                        height: "70vh",
+                        height: "60vh",
                     }}
                 >
+                    {" "}
                     <DynamicInputForm />
                 </div>
             </form>

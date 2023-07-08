@@ -67,6 +67,7 @@
 }
 
 .next-button {
+    text-decoration: none;
     padding: 12px 34px;
     color: #fff;
     background-color: #000000;
@@ -79,6 +80,19 @@
     width: 220px;
     justify-content: space-between;
     transition: transform 0.2s;
+}
+
+.next-button-disabled {
+    padding: 12px 34px;
+    color: #fff;
+    background-color: #b4b4b4;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    width: 220px;
+    justify-content: space-between;
 }
 
 .next-button:hover {

@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 
-const Layout = ({ children, cartSummary, totalPrice, onNext }) => {
+const Layout = ({ children, cartSummary, totalPrice, onNext, activeStep }) => {
     return (
         <div className="app">
             {/* Top Bar */}
@@ -51,12 +52,30 @@ const Layout = ({ children, cartSummary, totalPrice, onNext }) => {
             {/* Footer */}
             <div className="footer">
                 <div className="footer-container">
-                    <button className="next-button" onClick={onNext}>
-                        <GoArrowLeft className="arrow-right" /> Previous
-                    </button>
-                    <button className="next-button" onClick={onNext}>
-                        Continue <GoArrowRight className="arrow-right" />
-                    </button>
+                    {activeStep === 2 ? (
+                        <button className="next-button-disabled">
+                            <GoArrowLeft className="arrow-right" /> Previous
+                        </button>
+                    ) : (
+                        <Link
+                            className="next-button"
+                            to={"/step" + (activeStep - 1)}
+                            onClick={() => onNext(-1)}
+                            disabled={activeStep === 2}
+                        >
+                            <GoArrowLeft className="arrow-right" /> Previous
+                        </Link>
+                    )}
+
+                    {activeStep < 14 && (
+                        <Link
+                            className="next-button"
+                            to={"/step" + (activeStep + 1)}
+                            onClick={() => onNext(1)}
+                        >
+                            Continue <GoArrowRight className="arrow-right" />
+                        </Link>
+                    )}
                 </div>
                 <div className="footer-container_right"></div>
             </div>
