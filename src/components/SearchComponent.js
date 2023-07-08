@@ -49,6 +49,9 @@ const SearchComponent = ({ items }) => {
 
     return (
         <div className="search-component">
+            <h2 style={{ textAlign: "center", paddingTop: "20px", paddingBottom: "20px" }}>
+                Add your item(s)
+            </h2>
             <input
                 type="text"
                 value={searchTerm}

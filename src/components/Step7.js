@@ -1,9 +1,21 @@
 import React from "react";
 import ListLayout from "./ListLayout";
-import { pickupFrom } from "../static_data";
+import { pickupHelp } from "../static_data";
 
-function Step2() {
-    return <ListLayout data={pickupFrom} />;
+function Step8() {
+    return (
+        <>
+            <h2
+                style={{
+                    textAlign: "center",
+                    paddingTop: "40px",
+                }}
+            >
+                Need any extra help at the pickup?
+            </h2>
+            <ListLayout data={pickupHelp} />
+        </>
+    );
 }
 
-export default Step2;
+export default Step8;

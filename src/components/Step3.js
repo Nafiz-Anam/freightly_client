@@ -63,6 +63,9 @@ function Step() {
 
     return (
         <div className="list-layout">
+            <h2 style={{ textAlign: "center", paddingTop: "20px", paddingBottom: "20px" }}>
+                Select Pickup Date
+            </h2>
             <ul className="list">
                 {jsonArray.map((item) => (
                     <li key={item.date}>
