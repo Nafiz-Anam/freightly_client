@@ -30,4 +30,9 @@ export const pickupHelp = [
     { title: "3rd Floor", price: "€30.00" },
     { title: "4th Floor", price: "€40.00" },
     { title: "5th Floor", price: "€50.00" },
+    { title: "6th Floor", price: "€60.00" },
+    { title: "7th Floor", price: "€70.00" },
+    { title: "8th Floor", price: "€80.00" },
+    { title: "9th Floor", price: "€90.00" },
+    { title: "10th Floor", price: "€100.00" },
 ];
