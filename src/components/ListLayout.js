@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { pickupPlaces } from "../static_data";
 import { FaHome, FaWarehouse } from "react-icons/fa";
 import { AiFillShop } from "react-icons/ai";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import { RiAuctionFill } from "react-icons/ri";
+import "./listLayout.css";
 
-const ListLayout = () => {
+const ListLayout = ({ data }) => {
     const [selectedItem, setSelectedItem] = useState("");
 
     let icon_arr = [
@@ -23,19 +23,27 @@ const ListLayout = () => {
     return (
         <div className="list-layout">
             <ul className="list">
-                {pickupPlaces.map((item) => (
-                    <li key={item.title}>
-                        <button
-                            className={`list-item ${
-                                selectedItem === item.title ? "selected" : ""
-                            }`}
-                            onClick={() => handleItemClick(item.title)}
-                        >
-                            {icon_arr[item.icon]}
-                            <span className="item-name">{item.title}</span>
-                        </button>
-                    </li>
-                ))}
+                {data &&
+                    data.map((item) => (
+                        <li key={item.title}>
+                            <button
+                                className={`list-item ${item.price && "item-flex"} ${
+                                    selectedItem === item.title
+                                        ? "selected"
+                                        : ""
+                                }`}
+                                onClick={() => handleItemClick(item.title)}
+                            >
+                                {item.icon && icon_arr[item.icon]}
+                                <span className="item-name">{item.title}</span>
+                                {item.price && (
+                                    <span className="item-name">
+                                        {item.price}
+                                    </span>
+                                )}
+                            </button>
+                        </li>
+                    ))}
             </ul>
         </div>
     );
