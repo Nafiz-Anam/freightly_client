@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Layout from "./layout/main_layout";
 import MainPage from "./pages/MainPage";
-import "./App.css";
 import { DataProvider, DataContext } from "./context/dataContext";
 import { BrowserRouter as Router } from "react-router-dom";
 

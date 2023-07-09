@@ -27,7 +27,9 @@ const ListLayout = ({ data }) => {
                     data.map((item) => (
                         <li key={item.title}>
                             <button
-                                className={`list-item ${item.price && "item-flex"} ${
+                                className={`list-item ${
+                                    item.price && "item-flex"
+                                } ${
                                     selectedItem === item.title
                                         ? "selected"
                                         : ""
@@ -35,7 +37,12 @@ const ListLayout = ({ data }) => {
                                 onClick={() => handleItemClick(item.title)}
                             >
                                 {item.icon && icon_arr[item.icon]}
-                                <span className="item-name">{item.title}</span>
+                                <div style={{ textAlign: "left" }}>
+                                    <span className="item-name">
+                                        {item.title}
+                                    </span>
+                                    {item.desc && <p>{item.desc}</p>}
+                                </div>
                                 {item.price && (
                                     <span className="item-name">
                                         {item.price}

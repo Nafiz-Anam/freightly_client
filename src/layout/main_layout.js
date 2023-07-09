@@ -76,12 +76,8 @@ const Layout = ({ children, cartSummary, totalPrice, onNext, activeStep }) => {
                             Continue <GoArrowRight className="arrow-right" />
                         </Link>
                     ) : (
-                        <Link
-                            className="next-button"
-                            to={"/step" + (activeStep + 1)}
-                            onClick={() => onNext(1)}
-                        >
-                            Submit <GoArrowRight className="arrow-right" />
+                        <Link className="next-button">
+                            Submit & Pay <GoArrowRight className="arrow-right" />
                         </Link>
                     )}
                 </div>

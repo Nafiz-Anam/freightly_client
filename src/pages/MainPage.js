@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MainPage({ activeStep, onNext }) {
-    const isPhone = window.innerWidth < 600;
     const classes = useStyles();
 
     const steps = [
@@ -45,15 +44,11 @@ function MainPage({ activeStep, onNext }) {
         handleStepChange(1);
     }
 
-    console.log(activeStep);
-    console.log(steps.length);
-
     return (
         <>
             <div
                 style={{
                     display: "flex",
-                    flexDirection: isPhone ? "column" : "row",
                     justifyContent: "space-between",
                     alignItems: "center",
                     backgroundColor: "#ffffff",
