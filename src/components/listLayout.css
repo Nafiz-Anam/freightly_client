@@ -23,7 +23,7 @@
     display: flex;
     align-items: center;
     gap: 30px;
-    padding: 15px 25px!important;
+    padding: 15px 25px !important;
     border-radius: 8px;
     background-color: #fff;
     border: 1px solid #bdbdbd;
@@ -35,8 +35,8 @@
 
 .item-flex {
     justify-content: space-between;
-    padding-right: 50px!important;
-    padding-left: 50px!important;
+    padding-right: 50px !important;
+    padding-left: 50px !important;
 }
 
 .list-item:hover {

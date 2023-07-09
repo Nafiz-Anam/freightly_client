@@ -63,7 +63,13 @@ function Step() {
 
     return (
         <div className="list-layout">
-            <h2 style={{ textAlign: "center", paddingTop: "20px", paddingBottom: "20px" }}>
+            <h2
+                style={{
+                    textAlign: "center",
+                    paddingTop: "20px",
+                    paddingBottom: "20px",
+                }}
+            >
                 Select Pickup Date
             </h2>
             <ul className="list">
@@ -75,9 +81,24 @@ function Step() {
                             }`}
                             onClick={() => handleItemClick(item.date)}
                         >
-                            <span className="item-name">{item.date}</span>
-                            <span className="item-name">{item.day}</span>
-                            <span className="item-name">{item.price}</span>
+                            <span
+                                style={{ textAlign: "left", width: "40%" }}
+                                className="item-name"
+                            >
+                                {item.date}
+                            </span>
+                            <span
+                                style={{ textAlign: "left", width: "40%" }}
+                                className="item-name"
+                            >
+                                {item.day}
+                            </span>
+                            <span
+                                style={{ textAlign: "right", width: "20%" }}
+                                className="item-name"
+                            >
+                                {item.price}
+                            </span>
                         </button>
                     </li>
                 ))}
