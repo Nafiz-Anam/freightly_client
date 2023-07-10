@@ -6,7 +6,7 @@ function Step2() {
     return (
         <>
             <h2 style={{ textAlign: "center", paddingTop: "40px" }}>
-                Where do we pick up the item(s) from?
+                Identify Your Starting Point
             </h2>
             <ListLayout data={pickupPlaces} />
         </>

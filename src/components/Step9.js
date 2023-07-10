@@ -11,7 +11,7 @@ function Step8() {
                     paddingTop: "40px",
                 }}
             >
-                Need any extra help at the drop?
+                Request Additional Delivery Assistance, if Needed
             </h2>
             <ListLayout data={pickupHelp} />
         </>

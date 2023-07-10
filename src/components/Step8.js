@@ -6,7 +6,7 @@ function Step2() {
     return (
         <>
             <h2 style={{ textAlign: "center", paddingTop: "40px" }}>
-                Need any extra lifting help at the drop?
+                Indicate the Delivery Floor Level
             </h2>
             <ListLayout data={pickupFrom} />
         </>

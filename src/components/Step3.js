@@ -70,7 +70,7 @@ function Step() {
                     paddingBottom: "20px",
                 }}
             >
-                Select Pickup Date
+                Select Your Preferred Collection Date
             </h2>
             <ul className="list">
                 {jsonArray.map((item) => (

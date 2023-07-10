@@ -69,7 +69,7 @@ function Step() {
                     paddingBottom: "25px",
                 }}
             >
-                Select Pickup Time Slot
+                Decide on a Convenient Pickup Time
             </h2>
             <ul className="list">
                 {jsonArray.map((item) => (
