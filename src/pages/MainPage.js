@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         marginTop: 20,
         "& .MuiLinearProgress-barColorPrimary": {
-            backgroundColor: "#000000",
+            backgroundColor: "#00ff77",
         },
         "& .MuiLinearProgress-colorPrimary": {
             backgroundColor: "#000000",
@@ -67,7 +67,7 @@ function MainPage({ activeStep, onNext }) {
                 >
                     <div>
                         <LinearProgress
-                            style={{ backgroundColor: "#00ff77" }}
+                            style={{ backgroundColor: "#000000" }}
                             variant="determinate"
                             value={(activeStep / steps.length) * 100}
                             className={classes.progressBar}

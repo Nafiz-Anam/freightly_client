@@ -5,7 +5,7 @@ import SearchComponent from "./SearchComponent";
 const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?output=csv";
 
-function Step3() {
+function Step2() {
     // const classes = useStyles();
     const [sheetData, setSheetData] = useState([]);
 
@@ -41,10 +41,10 @@ function Step3() {
     }, []);
 
     return (
-        <div className="step3">
+        <div className="step2-container">
             <SearchComponent items={sheetData} />
         </div>
     );
 }
 
-export default Step3;
+export default Step2;

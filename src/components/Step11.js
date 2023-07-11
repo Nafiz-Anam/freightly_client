@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Step() {
+function Step11() {
     //if drop data does not exist in local storage just make it  having all keys but empty values
     //if it exists then do nothing
 
@@ -131,4 +131,4 @@ function Step() {
     );
 }
 
-export default Step;
+export default Step11;

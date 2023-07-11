@@ -2,7 +2,7 @@ import React from "react";
 import ListLayout from "./ListLayout";
 import { pickupHelp } from "../static_data";
 
-function Step8() {
+function Step6() {
     return (
         <>
             <h2
@@ -18,4 +18,4 @@ function Step8() {
     );
 }
 
-export default Step8;
+export default Step6;

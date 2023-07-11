@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./search.css";
+import style from "./SearchComponent.module.css";
 
 const SearchComponent = ({ items }) => {
     console.log(items);
@@ -27,7 +27,7 @@ const SearchComponent = ({ items }) => {
     };
 
     return (
-        <div className="search-component">
+        <div className={style.searchComponent}>
             <h2
                 style={{
                     textAlign: "center",
@@ -42,12 +42,12 @@ const SearchComponent = ({ items }) => {
                 value={searchTerm}
                 onChange={handleSearch}
                 placeholder="Search..."
-                className="search-input"
+                className={style.searchInput}
             />
 
-            <ul className="search-results">
+            <ul className={style.searchResults}>
                 {searchResults.map((item) => (
-                    <li key={item.id} className="list-item">
+                    <li key={item.id} className={style.listItem}>
                         {item.title}
                     </li>
                 ))}
