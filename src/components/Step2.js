@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SearchComponent from "./SearchComponent";
+import { CiSearch } from "react-icons/ci";
 
 const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?output=csv";
@@ -42,7 +43,16 @@ function Step2() {
 
     return (
         <div className="step2-container">
-            <SearchComponent items={sheetData} />
+            <div className="searchDemo">
+                <h2 className="searchHeading">Add your item(s)</h2>
+                <button className="searchBtn">
+                    {" "}
+                    <CiSearch className="searchIcon" /> Search items...
+                </button>
+                <p className="searchDesc">max. 200kg per transport</p>
+            </div>
+            {/* <SearchComponent items={sheetData} /> */}
+            
         </div>
     );
 }
