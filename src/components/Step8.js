@@ -8,7 +8,7 @@ function Step8() {
             <h2 style={{ textAlign: "center", paddingTop: "40px" }}>
                 Indicate the Delivery Floor Level
             </h2>
-            <ListLayout data={pickupFrom} />
+            <ListLayout data={pickupFrom} step="step8" />
         </>
     );
 }

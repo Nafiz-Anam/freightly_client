@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FaHome, FaWarehouse } from "react-icons/fa";
 import {
     FaUserPlus,
@@ -19,12 +19,15 @@ import {
 import { AiFillShop } from "react-icons/ai";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import { RiAuctionFill } from "react-icons/ri";
-import { PiDoorFill, PiElevatorFill, PiNumberZeroBold } from "react-icons/pi";
+import { PiDoorFill, PiElevatorFill } from "react-icons/pi";
 import "./listLayout.css";
+import { DataContext } from "../context/dataContext";
 
-const ListLayout = ({ data }) => {
+const ListLayout = ({ data, step }) => {
     const [selectedItem, setSelectedItem] = useState("");
-    console.log("selected =>", selectedItem);
+    console.log("selectedItem =>", selectedItem);
+    const { storage, updateData } = useContext(DataContext);
+    console.log("storage =>", storage);
 
     let icon_arr = [
         <FaHome className="icon" />,
@@ -50,6 +53,50 @@ const ListLayout = ({ data }) => {
         <PiElevatorFill className="icon" />,
     ];
 
+    useEffect(() => {
+        let updatedData = {};
+
+        if (step === "step1" && selectedItem !== storage.starting_point) {
+            updatedData = {
+                ...storage,
+                starting_point: selectedItem,
+            };
+        } else if (step === "step5" && selectedItem !== storage.pickup_floor) {
+            updatedData = {
+                ...storage,
+                pickup_floor: selectedItem,
+            };
+        } else if (
+            step === "step6" &&
+            selectedItem !== storage.pickup_Assistance
+        ) {
+            updatedData = {
+                ...storage,
+                pickup_Assistance: selectedItem,
+            };
+        } else if (
+            step === "step8" &&
+            selectedItem !== storage.delivery_floor
+        ) {
+            updatedData = {
+                ...storage,
+                delivery_floor: selectedItem,
+            };
+        } else if (
+            step === "step9" &&
+            selectedItem !== storage.delivery_Assistance
+        ) {
+            updatedData = {
+                ...storage,
+                delivery_Assistance: selectedItem,
+            };
+        }
+
+        if (Object.keys(updatedData).length !== 0) {
+            updateData(updatedData);
+        }
+    }, [selectedItem, step, storage]);
+
     const handleItemClick = (itemValue) => {
         setSelectedItem(itemValue);
     };
@@ -70,9 +117,7 @@ const ListLayout = ({ data }) => {
                                 }`}
                                 onClick={() => handleItemClick(item.title)}
                             >
-                                <div
-                                    style={{ textAlign: "left", width: "5%" }}
-                                >
+                                <div style={{ textAlign: "left", width: "5%" }}>
                                     {item.icon && icon_arr[item.icon]}
                                 </div>
 

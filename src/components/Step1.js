@@ -8,7 +8,7 @@ function Step1() {
             <h2 style={{ textAlign: "center", paddingTop: "40px" }}>
                 Identify Your Starting Point
             </h2>
-            <ListLayout data={pickupPlaces} />
+            <ListLayout data={pickupPlaces} step={"step1"} />
         </>
     );
 }

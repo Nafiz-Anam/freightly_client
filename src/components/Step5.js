@@ -13,7 +13,7 @@ function Step5() {
             >
                 Specify the Pickup Floor Level
             </h2>
-            <ListLayout data={pickupFrom} />
+            <ListLayout data={pickupFrom} step="step5" />
         </>
     );
 }

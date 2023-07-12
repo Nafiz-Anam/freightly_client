@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Layout from "./layout/main_layout";
 import MainPage from "./pages/MainPage";
-import { DataProvider, DataContext } from "./context/dataContext";
+import { DataProvider } from "./context/dataContext";
 import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
@@ -20,23 +20,14 @@ function App() {
     return (
         <Router>
             <DataProvider>
-                <DataContext.Consumer>
-                    {(context) => (
-                        <Layout
-                            cartSummary={cartSummary}
-                            totalPrice="$30"
-                            data={context.data}
-                            updateData={context.updateData}
-                            activeStep={activeStep}
-                            onNext={handleNext}
-                        >
-                            <MainPage
-                                activeStep={activeStep}
-                                onNext={handleNext}
-                            />
-                        </Layout>
-                    )}
-                </DataContext.Consumer>
+                <Layout
+                    cartSummary={cartSummary}
+                    totalPrice="$30"
+                    activeStep={activeStep}
+                    onNext={handleNext}
+                >
+                    <MainPage activeStep={activeStep} onNext={handleNext} />
+                </Layout>
             </DataProvider>
         </Router>
     );

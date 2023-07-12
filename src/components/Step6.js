@@ -13,7 +13,7 @@ function Step6() {
             >
                 Request Additional Pickup Assistance, if Needed
             </h2>
-            <ListLayout data={pickupHelp} />
+            <ListLayout data={pickupHelp} step="step6" />
         </>
     );
 }

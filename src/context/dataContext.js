@@ -5,7 +5,7 @@ export const DataContext = createContext();
 
 // Create a data provider component
 export const DataProvider = ({ children }) => {
-    let initial_state = {
+    let initialStorage = {
         starting_point: "",
         selected_items: [],
         pickup_date: "",
@@ -42,16 +42,16 @@ export const DataProvider = ({ children }) => {
         },
     };
 
-    const [data, setData] = useState({});
+    const [storage, setStorage] = useState(initialStorage);
 
     // Function to update data
     const updateData = (newData) => {
-        setData({ ...data, ...newData });
+        setStorage({ ...storage, ...newData });
     };
 
     // Pass the data provider value to the children components
     return (
-        <DataContext.Provider value={{ data, updateData }}>
+        <DataContext.Provider value={{ storage, updateData }}>
             {children}
         </DataContext.Provider>
     );
