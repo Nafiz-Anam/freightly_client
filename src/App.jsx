@@ -3,6 +3,7 @@ import Layout from "./layout/main_layout";
 import MainPage from "./pages/MainPage";
 import { DataProvider } from "./context/dataContext";
 import { BrowserRouter as Router } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
     const cartSummary = [

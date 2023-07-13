@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SearchComponent from "./SearchComponent";
 import { CiSearch } from "react-icons/ci";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?output=csv";
@@ -40,19 +42,40 @@ function Step2() {
 
         fetchData();
     }, []);
+    const [modalShow, setModalShow] = useState(false);
 
     return (
         <div className="step2-container">
             <div className="searchDemo">
                 <h2 className="searchHeading">Add your item(s)</h2>
-                <button className="searchBtn">
-                    {" "}
+                <button
+                    className="searchBtn"
+                    onClick={() => setModalShow(true)}
+                >
                     <CiSearch className="searchIcon" /> Search items...
                 </button>
                 <p className="searchDesc">max. 200kg per transport</p>
             </div>
-            {/* <SearchComponent items={sheetData} /> */}
-            
+
+            <Modal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        List Your Item(s) for Transport
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <SearchComponent items={sheetData} />
+                </Modal.Body>
+                {/* <Modal.Footer>
+                    <Button onClick={() => setModalShow(false)}>Close</Button>
+                </Modal.Footer> */}
+            </Modal>
         </div>
     );
 }
