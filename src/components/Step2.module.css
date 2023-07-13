@@ -1,0 +1,141 @@
+.formContainer {
+    width: 70%;
+    margin: auto;
+    padding-top: 40px;
+    padding-bottom: 100px;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.column {
+    flex-basis: 50%;
+    padding: 5px;
+}
+
+.addItemHeader {
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+.formContainer input {
+    width: 100%;
+    height: 50px;
+    font-size: 1rem;
+    font-weight: 300;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.formContainer button[type="submit"] {
+    background-color: #000000;
+    color: white;
+    padding: 10px 35px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin-top: 20px;
+}
+
+.formContainer button[type="submit"]:hover {
+    color: #00ff77;
+    transform: scale(1.03);
+}
+
+.box {
+    position: relative;
+}
+
+.placeholderTXT {
+    position: absolute;
+    margin-top: -0.8em;
+    top: 50%;
+    right: 2em;
+}
+
+.pills {
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: 300;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 35px;
+    width: 120px;
+    padding: 10px 10px;
+    margin: 5px;
+    text-transform: capitalize;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.pills:hover {
+    color: #fff;
+    background-color: #000000;
+    transform: scale(1.03);
+}
+
+.selected {
+    color: #fff;
+    background-color: #000000;
+}
+
+.searchResults {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.listItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #bdbdbd;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.listItem:hover {
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.listIcon {
+    color: red;
+    font-size: 20px;
+}
+.listIcon2 {
+    color: #000;
+    font-size: 20px;
+}
+
+.iconBox {
+    width: 10%;
+    display: flex;
+    justify-content: space-around;
+}
+.contextBox {
+    width: 60%;
+}
+.imgBox {
+    background-color: #f0efef;
+    width: 120px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+.itemIMG {
+    width: 100px;
+}
