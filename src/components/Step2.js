@@ -19,8 +19,8 @@ function Step2() {
     const [selectedItem, setSelectedItem] = useState("");
     console.log("selectedItem", selectedItem);
     const [selectedItems, setSelectedItems] = useState([
-        { title: "test" },
-        { title: "ok ok here" },
+        // { title: "Bed" },
+        // { title: "Bike" },
     ]);
     console.log("selectedItems", selectedItems);
 
@@ -116,7 +116,7 @@ function Step2() {
                     <div
                         style={{
                             width: "70%",
-                            marginBottom: "50px",
+                            marginBottom: "100px",
                             marginTop: "20px",
                         }}
                     >
@@ -124,15 +124,22 @@ function Step2() {
                             {selectedItems.map((item) => (
                                 <li className={style.listItem}>
                                     <div className={style.imgBox}>
-                                        <img className={style.itemIMG}
+                                        <img
+                                            className={style.itemIMG}
                                             src="https://icon-library.com/images/camera-png-icon/camera-png-icon-0.jpg"
                                             alt="place holder"
                                         />
                                     </div>
                                     <div className={style.contextBox}>
                                         <h2>{item.title}</h2>
-                                        <p>Size: 2 x 5 x 9 cm</p>
-                                        <p>Quantity: 2</p>
+                                        <p>{`Dimensions: ${
+                                            item.length ? item.length : "L"
+                                        } x ${item.width ? item.width : "W"} x ${
+                                            item.height ? item.height : "H"
+                                        } cm`}</p>
+                                        <p>{`Quantity: ${
+                                            item.count ? item.count : "1"
+                                        }`}</p>
                                     </div>
                                     <div className={style.iconBox}>
                                         <FiEdit3 className={style.listIcon2} />
