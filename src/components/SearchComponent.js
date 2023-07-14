@@ -22,7 +22,7 @@ const SearchComponent = ({ items, setModalShow, setSelectedItem }) => {
     const handleItemClick = (item) => {
         console.log("item", item);
         // const filteredData = items.filter((item) => item.title === title);
-        setSelectedItem(item.title);
+        setSelectedItem(item);
         setModalShow(false);
     };
 

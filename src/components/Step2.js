@@ -19,7 +19,7 @@ function Step2() {
     // console.log(sheetData);
     const [extras, setExtras] = useState([]);
     console.log("extras", extras);
-    const [selectedItem, setSelectedItem] = useState("");
+    const [selectedItem, setSelectedItem] = useState({});
     console.log("selectedItem", selectedItem);
     const [selectedItems, setSelectedItems] = useState([
         { title: "Bed" },
@@ -72,7 +72,7 @@ function Step2() {
             height: data.height,
             length: data.length,
             count: data.count,
-            title: selectedItem,
+            title: selectedItem.title,
         };
         console.log(item);
         selectedItems.push(item);
@@ -82,7 +82,8 @@ function Step2() {
 
     return (
         <div className="step2-container">
-            {selectedItems.length > 0 && !selectedItem ? (
+            {selectedItems.length > 0 &&
+            Object.keys(selectedItem).length === 0 ? (
                 <>
                     <div
                         style={{
@@ -140,7 +141,7 @@ function Step2() {
                         </ul>
                     </div>
                 </>
-            ) : selectedItem ? (
+            ) : Object.keys(selectedItem).length > 0 ? (
                 <>
                     <h2>Enter item details</h2>
                     <form
@@ -177,58 +178,74 @@ function Step2() {
                                 <span className={style.placeholderTXT}>cm</span>
                             </div>
                         </div>
-                        <div>
-                            <h2
-                                style={{ marginTop: "25px" }}
-                                className={style.addItemHeader}
-                            >
-                                Does it contain any of these materials?
-                            </h2>
-                            <div
-                                className={style.row}
-                                style={{ flexWrap: "wrap" }}
-                            >
-                                {items.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        className={`${style.pills} ${
-                                            extras.includes(item)
-                                                ? style.selected
-                                                : ""
-                                        }`}
-                                        onClick={() => handleItemClick(item)}
-                                    >
-                                        {item}
-                                    </div>
-                                ))}
+                        {selectedItem.materials ? (
+                            <div>
+                                <h2
+                                    style={{ marginTop: "25px" }}
+                                    className={style.addItemHeader}
+                                >
+                                    Does it contain any of these materials?
+                                </h2>
+                                <div
+                                    className={style.row}
+                                    style={{ flexWrap: "wrap" }}
+                                >
+                                    {selectedItem.materials
+                                        .split(",")
+                                        .map((item, index) => (
+                                            <div
+                                                key={index}
+                                                className={`${style.pills} ${
+                                                    extras.includes(item)
+                                                        ? style.selected
+                                                        : ""
+                                                }`}
+                                                onClick={() =>
+                                                    handleItemClick(item)
+                                                }
+                                            >
+                                                {item}
+                                            </div>
+                                        ))}
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <h2
-                                style={{ marginTop: "25px" }}
-                                className={style.addItemHeader}
-                            >
-                                What size is it?
-                            </h2>
-                            <div
-                                className={style.row}
-                                style={{ flexWrap: "wrap" }}
-                            >
-                                {items2.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        className={`${style.pills} ${
-                                            extras.includes(item)
-                                                ? style.selected
-                                                : ""
-                                        }`}
-                                        onClick={() => handleItemClick(item)}
-                                    >
-                                        {item}
-                                    </div>
-                                ))}
+                        ) : (
+                            ""
+                        )}
+                        {selectedItem.sizes ? (
+                            <div>
+                                <h2
+                                    style={{ marginTop: "25px" }}
+                                    className={style.addItemHeader}
+                                >
+                                    What size is it?
+                                </h2>
+                                <div
+                                    className={style.row}
+                                    style={{ flexWrap: "wrap" }}
+                                >
+                                    {selectedItem.sizes
+                                        .split(",")
+                                        .map((item, index) => (
+                                            <div
+                                                key={index}
+                                                className={`${style.pills} ${
+                                                    extras.includes(item)
+                                                        ? style.selected
+                                                        : ""
+                                                }`}
+                                                onClick={() =>
+                                                    handleItemClick(item)
+                                                }
+                                            >
+                                                {item}
+                                            </div>
+                                        ))}
+                                </div>
                             </div>
-                        </div>
+                        ) : (
+                            ""
+                        )}
                         <div>
                             <h2
                                 style={{ marginTop: "25px" }}
