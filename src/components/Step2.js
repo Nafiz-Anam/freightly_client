@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import Papa from "papaparse";
 import SearchComponent from "./SearchComponent";
 import { CiSearch } from "react-icons/ci";
@@ -145,8 +144,8 @@ function Step2() {
                                         <img
                                             className={style.itemIMG}
                                             src={
-                                                image.image
-                                                    ? image.image
+                                                item.image
+                                                    ? item.image
                                                     : "https://icon-library.com/images/camera-png-icon/camera-png-icon-0.jpg"
                                             }
                                             alt="item"

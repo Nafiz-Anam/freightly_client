@@ -60,7 +60,7 @@ const ImageDropzone = ({ image }) => {
             {imagePreview ? (
                 <img
                     src={imagePreview}
-                    alt="Image Preview"
+                    alt="Item Preview"
                     className="preview"
                 />
             ) : (

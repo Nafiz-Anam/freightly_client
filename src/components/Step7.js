@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import Papa from "papaparse";
 import { DataContext } from "../context/dataContext";
 
