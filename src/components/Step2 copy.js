@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Papa from "papaparse";
 import SearchComponent from "./SearchComponent";
 import { CiSearch } from "react-icons/ci";
 import { Modal } from "react-bootstrap";
@@ -16,7 +15,7 @@ const sheetURL =
 function Step2() {
     const [modalShow, setModalShow] = useState(false);
     const [sheetData, setSheetData] = useState([]);
-    // console.log(sheetData);
+    console.log(sheetData);
     const [extras, setExtras] = useState([]);
     console.log("extras", extras);
     const [selectedItem, setSelectedItem] = useState("");
@@ -27,23 +26,32 @@ function Step2() {
     ]);
     console.log("selectedItems", selectedItems);
 
+    // Function to parse CSV data into an array of rows
+    const parseCSV = (csvData) => {
+        const rows = csvData.split("\n");
+        const parsedData = [];
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i].split(",");
+            parsedData.push(row);
+        }
+        //sheetData is an array of items
+        return parsedData;
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(sheetURL);
-                if (!response.ok) {
-                    throw new Error("Failed to fetch sheet data");
-                }
-                const csvData = await response.text();
+                const response = await axios.get(sheetURL);
+                const csvData = response.data;
 
-                const parsedData = Papa.parse(csvData, { header: true });
-                const jsonData = parsedData.data;
-
-                // console.log(jsonData);
-                setSheetData(jsonData);
+                console.log("csvData => ", csvData);
+                // Parse the CSV data
+                const parsedData = parseCSV(csvData);
+                // console.log("parsedData", parsedData);
+                setSheetData(parsedData);
+                // globalSheetData = parsedData;
             } catch (error) {
-                console.error(error);
-                return null;
+                console.error("Error retrieving CSV data:", error);
             }
         };
 

@@ -41,7 +41,7 @@ function Step4() {
         return parsedData;
     };
 
-    console.log("sheetData", sheetData);
+    // console.log("sheetData", sheetData);
 
     let jsonArray = [];
     sheetData.forEach((data) => {

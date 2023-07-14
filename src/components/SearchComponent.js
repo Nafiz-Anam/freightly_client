@@ -6,21 +6,13 @@ const SearchComponent = ({ items, setModalShow, setSelectedItem }) => {
     const [searchResults, setSearchResults] = useState([]);
 
     // let items = [["bike"], ["car"], ["bed"]];
-
-    let products = [];
-    for (let val of items) {
-        let temp = {
-            title: val[0],
-            id: val[0],
-        };
-        products.push(temp);
-    }
+    console.log(items);
 
     const handleSearch = (e) => {
         const term = e.target.value;
         setSearchTerm(term);
 
-        const filteredResults = products.filter((item) =>
+        const filteredResults = items.filter((item) =>
             item.title.toLowerCase().includes(term.toLowerCase())
         );
 
@@ -28,6 +20,8 @@ const SearchComponent = ({ items, setModalShow, setSelectedItem }) => {
     };
 
     const handleItemClick = (item) => {
+        console.log("item", item);
+        // const filteredData = items.filter((item) => item.title === title);
         setSelectedItem(item.title);
         setModalShow(false);
     };
@@ -43,9 +37,9 @@ const SearchComponent = ({ items, setModalShow, setSelectedItem }) => {
             />
 
             <ul className={style.searchResults}>
-                {searchResults.map((item) => (
+                {searchResults.map((item, index) => (
                     <li
-                        key={item.id}
+                        key={index}
                         className={style.listItem}
                         onClick={() => handleItemClick(item)}
                     >
