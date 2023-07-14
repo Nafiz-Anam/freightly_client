@@ -5,22 +5,21 @@ import { DataContext } from "../context/dataContext";
 
 function Step10() {
     const { storage, updateData } = useContext(DataContext);
-    console.log("storage =>", storage);
     const {
         register,
         handleSubmit,
         formState: { errors },
-        reset,
-    } = useForm();
+    } = useForm({
+        defaultValues: storage.pickup_contact, // Set the default values from storage.pickup_contact
+    });
+
     const onSubmit = (data) => {
         console.log(data);
         updateData({
             ...storage,
             pickup_contact: data,
         });
-        reset();
     };
-    console.log(errors);
 
     return (
         <div style={{ marginTop: "40px" }}>

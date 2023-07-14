@@ -1,17 +1,16 @@
-import React, { useContext } from "react";
-import { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Papa from "papaparse";
+import { Spinner } from "react-bootstrap";
 import { DataContext } from "../context/dataContext";
 
-function Step4() {
+function Step7() {
     const sheetURL =
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=1055355179&single=true&output=csv";
 
     const [sheetData, setSheetData] = useState([]);
     const [selectedItem, setSelectedItem] = useState({});
-    console.log("selectedItem", selectedItem);
+    const [isLoading, setIsLoading] = useState(true);
     const { storage, updateData } = useContext(DataContext);
-    console.log("storage =>", storage);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,16 +24,20 @@ function Step4() {
                 const parsedData = Papa.parse(csvData, { header: true });
                 const jsonData = parsedData.data;
 
-                console.log("jsonData", jsonData);
                 setSheetData(jsonData);
+                setIsLoading(false);
             } catch (error) {
                 console.error(error);
-                return null;
+                setIsLoading(false);
             }
         };
 
         fetchData();
     }, []);
+
+    useEffect(() => {
+        setSelectedItem(storage.delivery_time);
+    }, [storage.delivery_time]);
 
     const handleItemClick = (item) => {
         setSelectedItem(item);
@@ -55,25 +58,32 @@ function Step4() {
             >
                 Determine Your Desired Delivery Time
             </h2>
-            <ul className="list">
-                {sheetData.map((item) => (
-                    <li key={item.time}>
-                        <button
-                            className={`list-item2 ${
-                                selectedItem.time === item.time
-                                    ? "selected"
-                                    : ""
-                            }`}
-                            onClick={() => handleItemClick(item)}
-                        >
-                            <span className="item-name">{item.time}</span>
-                            <span className="item-name">{item.cost}</span>
-                        </button>
-                    </li>
-                ))}
-            </ul>
+            {isLoading ? (
+                <div className="text-center">
+                    <Spinner animation="border" />
+                </div>
+            ) : (
+                <ul className="list">
+                    {sheetData.map((item) => (
+                        <li key={item.time}>
+                            <button
+                                className={`list-item2 ${
+                                    selectedItem &&
+                                    selectedItem.time === item.time
+                                        ? "selected"
+                                        : ""
+                                }`}
+                                onClick={() => handleItemClick(item)}
+                            >
+                                <span className="item-name">{item.time}</span>
+                                <span className="item-name">{item.cost}</span>
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 }
 
-export default Step4;
+export default Step7;

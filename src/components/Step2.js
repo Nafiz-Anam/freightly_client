@@ -14,6 +14,8 @@ const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?output=csv";
 
 function Step2() {
+    const { storage, updateData } = useContext(DataContext);
+    console.log("storage =>", storage);
     const [modalShow, setModalShow] = useState(false);
     const [sheetData, setSheetData] = useState([]);
     // console.log(sheetData);
@@ -23,14 +25,11 @@ function Step2() {
     console.log("sizes", sizes);
     const [selectedItem, setSelectedItem] = useState({});
     console.log("selectedItem", selectedItem);
-    const [selectedItems, setSelectedItems] = useState([
-        // { title: "Bed" },
-        // { title: "Bike" },
-    ]);
+    const [selectedItems, setSelectedItems] = useState(
+        storage.selected_items || []
+    );
     const [image, setImage] = useState({});
     console.log("selectedItems", selectedItems);
-    const { storage, updateData } = useContext(DataContext);
-    console.log("storage =>", storage);
     const { register, handleSubmit, reset } = useForm();
 
     useEffect(() => {
@@ -97,12 +96,11 @@ function Step2() {
             sizes: sizes.length ? sizes.join(",") : "",
         };
         console.log(item);
-        selectedItems.push(item);
+        setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
         updateData({
-            selected_items: selectedItems,
+            selected_items: [...selectedItems, item],
         });
-        // clear selected state
-        setSelectedItem("");
+        setSelectedItem({});
         setSizes([]);
         setMaterials([]);
         reset();
@@ -110,7 +108,7 @@ function Step2() {
 
     return (
         <div className="step2-container">
-            {selectedItems.length > 0 &&
+            {storage.selected_items.length > 0 &&
             Object.keys(selectedItem).length === 0 ? (
                 <>
                     <div
@@ -138,8 +136,8 @@ function Step2() {
                         }}
                     >
                         <ul className={style.searchResults}>
-                            {selectedItems.map((item) => (
-                                <li className={style.listItem}>
+                            {storage.selected_items.map((item, index) => (
+                                <li className={style.listItem} key={index}>
                                     <div className={style.imgBox}>
                                         <img
                                             className={style.itemIMG}

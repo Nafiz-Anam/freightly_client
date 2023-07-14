@@ -25,19 +25,9 @@ import { DataContext } from "../context/dataContext";
 
 const ListLayout = ({ data, step }) => {
     const [selectedItem, setSelectedItem] = useState("");
+    console.log("selectedItem =>", selectedItem);
     const { storage, updateData } = useContext(DataContext);
-
-    const markedItems = {
-        step1: storage.starting_point,
-        step5: storage.pickup_floor,
-        step6: storage.pickup_Assistance,
-        step8: storage.delivery_floor,
-        step9: storage.delivery_Assistance,
-    };
-
-    useEffect(() => {
-        setSelectedItem(markedItems[step] || "");
-    }, [step, markedItems]);
+    console.log("storage =>", storage);
 
     let icon_arr = [
         <FaHome className="icon" />,
@@ -63,41 +53,52 @@ const ListLayout = ({ data, step }) => {
         <PiElevatorFill className="icon" />,
     ];
 
-    const handleItemClick = (item) => {
-        setSelectedItem(item);
-
+    useEffect(() => {
         let updatedData = {};
 
-        if (step === "step1" && item !== storage.starting_point) {
+        if (step === "step1" && selectedItem !== storage.starting_point) {
             updatedData = {
                 ...storage,
-                starting_point: item,
+                starting_point: selectedItem,
             };
-        } else if (step === "step5" && item !== storage.pickup_floor) {
+        } else if (step === "step5" && selectedItem !== storage.pickup_floor) {
             updatedData = {
                 ...storage,
-                pickup_floor: item,
+                pickup_floor: selectedItem,
             };
-        } else if (step === "step6" && item !== storage.pickup_Assistance) {
+        } else if (
+            step === "step6" &&
+            selectedItem !== storage.pickup_Assistance
+        ) {
             updatedData = {
                 ...storage,
-                pickup_Assistance: item,
+                pickup_Assistance: selectedItem,
             };
-        } else if (step === "step8" && item !== storage.delivery_floor) {
+        } else if (
+            step === "step8" &&
+            selectedItem !== storage.delivery_floor
+        ) {
             updatedData = {
                 ...storage,
-                delivery_floor: item,
+                delivery_floor: selectedItem,
             };
-        } else if (step === "step9" && item !== storage.delivery_Assistance) {
+        } else if (
+            step === "step9" &&
+            selectedItem !== storage.delivery_Assistance
+        ) {
             updatedData = {
                 ...storage,
-                delivery_Assistance: item,
+                delivery_Assistance: selectedItem,
             };
         }
 
         if (Object.keys(updatedData).length !== 0) {
             updateData(updatedData);
         }
+    }, [selectedItem, step, storage]);
+
+    const handleItemClick = (itemValue) => {
+        setSelectedItem(itemValue);
     };
 
     return (
@@ -110,7 +111,6 @@ const ListLayout = ({ data, step }) => {
                                 className={`list-item ${
                                     item.cost && "item-flex"
                                 } ${
-                                    selectedItem &&
                                     selectedItem.title === item.title
                                         ? "selected"
                                         : ""

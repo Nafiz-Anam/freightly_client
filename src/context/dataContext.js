@@ -52,11 +52,19 @@ export const DataProvider = ({ children }) => {
         },
     };
 
-    const [storage, setStorage] = useState(initialStorage);
+    // Retrieve the stored state from localStorage if available
+    const storedStorage = localStorage.getItem("storage");
+    const [storage, setStorage] = useState(
+        storedStorage ? JSON.parse(storedStorage) : initialStorage
+    );
 
     // Function to update data
     const updateData = (newData) => {
-        setStorage({ ...storage, ...newData });
+        const updatedStorage = { ...storage, ...newData };
+        setStorage(updatedStorage);
+
+        // Store the updated state in localStorage
+        localStorage.setItem("storage", JSON.stringify(updatedStorage));
     };
 
     // Pass the data provider value to the children components

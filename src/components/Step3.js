@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Papa from "papaparse";
 import moment from "moment";
+import { Spinner } from "react-bootstrap";
 import { DataContext } from "../context/dataContext";
 
 function Step3() {
@@ -9,11 +9,9 @@ function Step3() {
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=322664730&single=true&output=csv";
 
     const [sheetData, setSheetData] = useState([]);
-    console.log("sheetData", sheetData);
     const [selectedItem, setSelectedItem] = useState("");
-    console.log("selectedItem", selectedItem);
+    const [isLoading, setIsLoading] = useState(true);
     const { storage, updateData } = useContext(DataContext);
-    console.log("storage =>", storage);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,22 +37,26 @@ function Step3() {
                     );
                 });
 
-                console.log("filteredData", filteredData);
                 setSheetData(filteredData);
+                setIsLoading(false);
             } catch (error) {
                 console.error(error);
-                return null;
+                setIsLoading(false);
             }
         };
 
         fetchData();
     }, []);
 
-    const handleItemClick = (itemValue) => {
-        setSelectedItem(itemValue);
+    useEffect(() => {
+        setSelectedItem(storage.pickup_date);
+    }, [storage.pickup_date]);
+
+    const handleItemClick = (item) => {
+        setSelectedItem(item);
         updateData({
             ...storage,
-            pickup_date: itemValue,
+            pickup_date: item,
         });
     };
 
@@ -69,39 +71,46 @@ function Step3() {
             >
                 Select Your Preferred Collection Date
             </h2>
-            <ul className="list">
-                {sheetData.map((item) => (
-                    <li key={item.date}>
-                        <button
-                            className={`list-item2 ${
-                                selectedItem.date === item.date
-                                    ? "selected"
-                                    : ""
-                            }`}
-                            onClick={() => handleItemClick(item)}
-                        >
-                            <span
-                                style={{ textAlign: "left", width: "40%" }}
-                                className="item-name"
+            {isLoading ? (
+                <div className="text-center">
+                    <Spinner animation="border" />
+                </div>
+            ) : (
+                <ul className="list">
+                    {sheetData.map((item) => (
+                        <li key={item.date}>
+                            <button
+                                className={`list-item2 ${
+                                    selectedItem &&
+                                    selectedItem.date === item.date
+                                        ? "selected"
+                                        : ""
+                                }`}
+                                onClick={() => handleItemClick(item)}
                             >
-                                {item.date}
-                            </span>
-                            <span
-                                style={{ textAlign: "left", width: "40%" }}
-                                className="item-name"
-                            >
-                                {item.day}
-                            </span>
-                            <span
-                                style={{ textAlign: "right", width: "20%" }}
-                                className="item-name"
-                            >
-                                {item.cost}
-                            </span>
-                        </button>
-                    </li>
-                ))}
-            </ul>
+                                <span
+                                    style={{ textAlign: "left", width: "40%" }}
+                                    className="item-name"
+                                >
+                                    {item.date}
+                                </span>
+                                <span
+                                    style={{ textAlign: "left", width: "40%" }}
+                                    className="item-name"
+                                >
+                                    {item.day}
+                                </span>
+                                <span
+                                    style={{ textAlign: "right", width: "20%" }}
+                                    className="item-name"
+                                >
+                                    {item.cost}
+                                </span>
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 }

@@ -1,14 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import style from "./Step12.module.css";
 import { DataContext } from "../context/dataContext";
 
 const Step12 = () => {
-    const { register, handleSubmit } = useForm();
     const [activeTab, setActiveTab] = useState("personal");
-    console.log(activeTab);
     const { storage, updateData } = useContext(DataContext);
-    console.log("storage =>", storage);
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        defaultValues: storage.personal_details,
+    });
 
     const onSubmit = (data) => {
         console.log(data);
@@ -21,6 +26,22 @@ const Step12 = () => {
     const handleTabChange = (tab) => {
         setActiveTab(tab);
     };
+
+    useEffect(() => {
+        if (
+            storage &&
+            storage.personal_details &&
+            (storage.personal_details.companyName ||
+                storage.personal_details.chamberOfCommerce ||
+                storage.personal_details.vatNumber ||
+                storage.personal_details.streetAddress ||
+                storage.personal_details.postalCode ||
+                storage.personal_details.area ||
+                storage.personal_details.areaCode)
+        ) {
+            setActiveTab("business");
+        }
+    }, [storage]);
 
     return (
         <form className={style.formContainer} onSubmit={handleSubmit(onSubmit)}>
