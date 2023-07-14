@@ -143,7 +143,7 @@ function Step2() {
                 </>
             ) : Object.keys(selectedItem).length > 0 ? (
                 <>
-                    <h2>Enter item details</h2>
+                    <h2>{`Enter ${selectedItem.title} details`}</h2>
                     <form
                         className={style.formContainer}
                         onSubmit={handleSubmit(onSubmit)}
