@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Layout from "./layout/main_layout";
 import MainPage from "./pages/MainPage";
 import { DataProvider } from "./context/dataContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
+import StepContextProvider from "./context/stepContext";
 
 function App() {
     const cartSummary = [
@@ -12,24 +13,15 @@ function App() {
         // Add more items here
     ];
 
-    const [activeStep, setActiveStep] = useState(1);
-
-    const handleNext = (step) => {
-        setActiveStep(activeStep + step);
-    };
-
     return (
         <Router>
-            <DataProvider>
-                <Layout
-                    cartSummary={cartSummary}
-                    totalPrice="$30"
-                    activeStep={activeStep}
-                    onNext={handleNext}
-                >
-                    <MainPage activeStep={activeStep} onNext={handleNext} />
-                </Layout>
-            </DataProvider>
+            <StepContextProvider>
+                <DataProvider>
+                    <Layout cartSummary={cartSummary} totalPrice="$30">
+                        <MainPage />
+                    </Layout>
+                </DataProvider>
+            </StepContextProvider>
         </Router>
     );
 }

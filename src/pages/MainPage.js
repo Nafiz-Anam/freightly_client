@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, LinearProgress } from "@material-ui/core";
 import AppRouter from "../AppRouter";
+import { StepContext } from "../context/stepContext";
 
 const useStyles = makeStyles((theme) => ({
     progressBar: {
@@ -16,33 +17,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function MainPage({ activeStep, onNext }) {
+function MainPage() {
     const classes = useStyles();
-
-    const steps = [
-        "Step 1",
-        "Step 2",
-        "Step 3",
-        "Step 4",
-        "Step 5",
-        "Step 6",
-        "Step 7",
-        "Step 8",
-        "Step 9",
-        "Step 10",
-        "Step 11",
-        "Step 12",
-    ];
-
-    const handleStepChange = (step) => {
-        onNext(step);
-    };
-
-    // if on / then go to step 1
-    if (window.location.pathname === "/") {
-        window.location.pathname = "/step1";
-        handleStepChange(1);
-    }
+    const { activeStep } = useContext(StepContext);
 
     return (
         <>
@@ -69,10 +46,10 @@ function MainPage({ activeStep, onNext }) {
                         <LinearProgress
                             style={{ backgroundColor: "#000000" }}
                             variant="determinate"
-                            value={(activeStep / steps.length) * 100}
+                            value={(activeStep / 12) * 100}
                             className={classes.progressBar}
                         />
-                        <AppRouter handleStepChange={handleStepChange} />
+                        <AppRouter />
                     </div>
                 </Card>
             </div>

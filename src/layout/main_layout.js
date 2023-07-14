@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
+import { StepContext } from "../context/stepContext";
 
-const Layout = ({ children, cartSummary, totalPrice, onNext, activeStep }) => {
+const Layout = ({ children, cartSummary, totalPrice }) => {
+    const { activeStep, handleStepChange } = useContext(StepContext);
+
+    const handleNext = () => {
+        handleStepChange(activeStep + 1);
+    };
+
+    const handlePrevious = () => {
+        handleStepChange(activeStep - 1);
+    };
+
     return (
         <div className="app">
             {/* Top Bar */}
@@ -25,7 +36,7 @@ const Layout = ({ children, cartSummary, totalPrice, onNext, activeStep }) => {
             {/* Main Body */}
             <div className="main-body">
                 <div className="left-side">
-                    {/* render all screens here */}
+                    {/* Render the current step */}
                     <div className="page-content">{children}</div>
                 </div>
                 <div className="right-side">
@@ -60,8 +71,7 @@ const Layout = ({ children, cartSummary, totalPrice, onNext, activeStep }) => {
                         <Link
                             className="next-button"
                             to={"/step" + (activeStep - 1)}
-                            onClick={() => onNext(-1)}
-                            disabled={activeStep === 2}
+                            onClick={handlePrevious}
                         >
                             <GoArrowLeft className="arrow-right" /> Previous
                         </Link>
@@ -71,13 +81,14 @@ const Layout = ({ children, cartSummary, totalPrice, onNext, activeStep }) => {
                         <Link
                             className="next-button"
                             to={"/step" + (activeStep + 1)}
-                            onClick={() => onNext(1)}
+                            onClick={handleNext}
                         >
                             Continue <GoArrowRight className="arrow-right" />
                         </Link>
                     ) : (
                         <Link className="next-button">
-                            Submit & Pay <GoArrowRight className="arrow-right" />
+                            Submit & Pay{" "}
+                            <GoArrowRight className="arrow-right" />
                         </Link>
                     )}
                 </div>
