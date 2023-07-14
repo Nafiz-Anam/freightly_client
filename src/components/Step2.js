@@ -22,8 +22,8 @@ function Step2() {
     const [selectedItem, setSelectedItem] = useState({});
     console.log("selectedItem", selectedItem);
     const [selectedItems, setSelectedItems] = useState([
-        { title: "Bed" },
-        { title: "Bike" },
+        // { title: "Bed" },
+        // { title: "Bike" },
     ]);
     console.log("selectedItems", selectedItems);
 
@@ -50,8 +50,8 @@ function Step2() {
         fetchData();
     }, []);
 
-    const items = ["glass", "wood", "solid wood", "steel", "marble", "metal"];
-    const items2 = ["2 - seater", "3 - seater", "4 - seater", "5 - seater"];
+    // const items = ["glass", "wood", "solid wood", "steel", "marble", "metal"];
+    // const items2 = ["2 - seater", "3 - seater", "4 - seater", "5 - seater"];
 
     const handleItemClick = (item) => {
         setExtras((prevSelectedItems) => {
