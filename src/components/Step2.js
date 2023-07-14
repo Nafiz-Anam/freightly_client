@@ -261,12 +261,18 @@ function Step2() {
                                 className={style.box}
                                 style={{ width: "100%", padding: "5px" }}
                             >
+                                <h2 className={style.addItemHeader}>
+                                    Item count
+                                </h2>
                                 <input
                                     type="text"
                                     placeholder="Enter item count"
                                     {...register("count", {})}
                                 />
-                                <span className={style.placeholderTXT}>
+                                <span
+                                    className={style.placeholderTXT}
+                                    style={{ marginTop: "0px" }}
+                                >
                                     How many?
                                 </span>
                             </div>
