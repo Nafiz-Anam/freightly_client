@@ -7,6 +7,7 @@ import { FaRegPlusSquare } from "react-icons/fa";
 import { FiTrash2, FiEdit3 } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import style from "./Step2.module.css";
+import ImageDropzone from "./imageDropzone";
 
 const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?output=csv";
@@ -19,8 +20,8 @@ function Step2() {
     const [selectedItem, setSelectedItem] = useState("");
     console.log("selectedItem", selectedItem);
     const [selectedItems, setSelectedItems] = useState([
-        // { title: "Bed" },
-        // { title: "Bike" },
+        { title: "Bed" },
+        { title: "Bike" },
     ]);
     console.log("selectedItems", selectedItems);
 
@@ -134,7 +135,9 @@ function Step2() {
                                         <h2>{item.title}</h2>
                                         <p>{`Dimensions: ${
                                             item.length ? item.length : "L"
-                                        } x ${item.width ? item.width : "W"} x ${
+                                        } x ${
+                                            item.width ? item.width : "W"
+                                        } x ${
                                             item.height ? item.height : "H"
                                         } cm`}</p>
                                         <p>{`Quantity: ${
@@ -152,6 +155,7 @@ function Step2() {
                 </>
             ) : selectedItem ? (
                 <>
+                    <h2>Enter item details</h2>
                     <form
                         className={style.formContainer}
                         onSubmit={handleSubmit(onSubmit)}
@@ -236,6 +240,20 @@ function Step2() {
                                         {item}
                                     </div>
                                 ))}
+                            </div>
+                        </div>
+                        <div>
+                            <h2
+                                style={{ marginTop: "25px" }}
+                                className={style.addItemHeader}
+                            >
+                                Upload image
+                            </h2>
+                            <div
+                                className={style.row}
+                                style={{ flexWrap: "wrap" }}
+                            >
+                                <ImageDropzone />
                             </div>
                         </div>
                         <div className={style.row}>
