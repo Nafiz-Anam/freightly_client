@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import style from "./Step11.module.css";
+import { DataContext } from "../context/dataContext";
 
 function Step10() {
+    const { storage, updateData } = useContext(DataContext);
+    console.log("storage =>", storage);
     const {
         register,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm();
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) => {
+        console.log(data);
+        updateData({
+            ...storage,
+            pickup_contact: data,
+        });
+        reset();
+    };
     console.log(errors);
 
     return (

@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import style from "./Step12.module.css";
+import { DataContext } from "../context/dataContext";
 
 const Step12 = () => {
     const { register, handleSubmit } = useForm();
     const [activeTab, setActiveTab] = useState("personal");
     console.log(activeTab);
+    const { storage, updateData } = useContext(DataContext);
+    console.log("storage =>", storage);
 
     const onSubmit = (data) => {
         console.log(data);
+        updateData({
+            ...storage,
+            personal_details: data,
+        });
     };
 
     const handleTabChange = (tab) => {
