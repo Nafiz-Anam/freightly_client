@@ -1,64 +1,62 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Papa from "papaparse";
+import moment from "moment";
+import { DataContext } from "../context/dataContext";
 
 function Step3() {
     const sheetURL =
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=322664730&single=true&output=csv";
 
     const [sheetData, setSheetData] = useState([]);
+    console.log("sheetData", sheetData);
     const [selectedItem, setSelectedItem] = useState("");
+    console.log("selectedItem", selectedItem);
+    const { storage, updateData } = useContext(DataContext);
+    console.log("storage =>", storage);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(sheetURL);
-                const csvData = response.data;
-                // Parse the CSV data
-                const parsedData = parseCSV(csvData);
-                setSheetData(parsedData);
-                // globalSheetData = parsedData;
+                const response = await fetch(sheetURL);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch sheet data");
+                }
+                const csvData = await response.text();
+
+                const parsedData = Papa.parse(csvData, { header: true });
+                const jsonData = parsedData.data;
+
+                const currentDate = moment();
+                const futureDate = moment().add(10, "days");
+
+                const filteredData = jsonData.filter((item) => {
+                    const itemDate = moment(item.date, "DD-MMM");
+
+                    return (
+                        itemDate.isSameOrAfter(currentDate, "day") &&
+                        itemDate.isSameOrBefore(futureDate, "day")
+                    );
+                });
+
+                console.log("filteredData", filteredData);
+                setSheetData(filteredData);
             } catch (error) {
-                console.error("Error retrieving CSV data:", error);
+                console.error(error);
+                return null;
             }
         };
+
         fetchData();
     }, []);
 
-    // Function to parse CSV data into an array of rows
-    const parseCSV = (csvData) => {
-        const rows = csvData.split("\n");
-        const parsedData = [];
-        for (let i = 0; i < rows.length; i++) {
-            const row = rows[i].split(",");
-            //if i > 30, break
-            if (i > 30) {
-                break;
-            }
-            parsedData.push(row);
-        }
-        //sheetData is an array of items
-        return parsedData;
-    };
-
-    console.log("sheetData", sheetData);
-
-    let jsonArray = [];
-    sheetData.forEach((data) => {
-        // Create an object with the required properties
-        let obj = {
-            date: data[0],
-            day: data[1],
-            price: data[2],
-        };
-        // Push the object to the array
-        jsonArray.push(obj);
-    });
-
-    console.log("jsonArray", jsonArray);
-
     const handleItemClick = (itemValue) => {
         setSelectedItem(itemValue);
+        updateData({
+            ...storage,
+            pickup_date: itemValue,
+        });
     };
 
     return (
@@ -73,13 +71,15 @@ function Step3() {
                 Select Your Preferred Collection Date
             </h2>
             <ul className="list">
-                {jsonArray.map((item) => (
+                {sheetData.map((item) => (
                     <li key={item.date}>
                         <button
                             className={`list-item2 ${
-                                selectedItem === item.date ? "selected" : ""
+                                selectedItem.date === item.date
+                                    ? "selected"
+                                    : ""
                             }`}
-                            onClick={() => handleItemClick(item.date)}
+                            onClick={() => handleItemClick(item)}
                         >
                             <span
                                 style={{ textAlign: "left", width: "40%" }}
@@ -97,7 +97,7 @@ function Step3() {
                                 style={{ textAlign: "right", width: "20%" }}
                                 className="item-name"
                             >
-                                {item.price}
+                                {item.cost}
                             </span>
                         </button>
                     </li>

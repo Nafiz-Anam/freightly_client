@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Papa from "papaparse";
 import SearchComponent from "./SearchComponent";
@@ -9,6 +9,7 @@ import { FiTrash2, FiEdit3 } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import style from "./Step2.module.css";
 import ImageDropzone from "./imageDropzone";
+import { DataContext } from "../context/dataContext";
 
 const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?output=csv";
@@ -17,15 +18,21 @@ function Step2() {
     const [modalShow, setModalShow] = useState(false);
     const [sheetData, setSheetData] = useState([]);
     // console.log(sheetData);
-    const [extras, setExtras] = useState([]);
-    console.log("extras", extras);
+    const [materials, setMaterials] = useState([]);
+    console.log("materials", materials);
+    const [sizes, setSizes] = useState([]);
+    console.log("sizes", sizes);
     const [selectedItem, setSelectedItem] = useState({});
     console.log("selectedItem", selectedItem);
     const [selectedItems, setSelectedItems] = useState([
         // { title: "Bed" },
         // { title: "Bike" },
     ]);
+    const [image, setImage] = useState({});
     console.log("selectedItems", selectedItems);
+    const { storage, updateData } = useContext(DataContext);
+    console.log("storage =>", storage);
+    const { register, handleSubmit, reset } = useForm();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,15 +56,29 @@ function Step2() {
 
         fetchData();
     }, []);
+    
 
     // const items = ["glass", "wood", "solid wood", "steel", "marble", "metal"];
     // const items2 = ["2 - seater", "3 - seater", "4 - seater", "5 - seater"];
 
-    const handleItemClick = (item) => {
-        setExtras((prevSelectedItems) => {
+    const handleMaterials = (item) => {
+        setMaterials((prevSelectedItems) => {
             if (prevSelectedItems.includes(item)) {
                 // Item already selected, remove it from selectedItems
-                return prevSelectedItems.filter((extras) => extras !== item);
+                return prevSelectedItems.filter(
+                    (materials) => materials !== item
+                );
+            } else {
+                // Item not selected, add it to selectedItems
+                return [...prevSelectedItems, item];
+            }
+        });
+    };
+    const handleSizes = (item) => {
+        setSizes((prevSelectedItems) => {
+            if (prevSelectedItems.includes(item)) {
+                // Item already selected, remove it from selectedItems
+                return prevSelectedItems.filter((sizes) => sizes !== item);
             } else {
                 // Item not selected, add it to selectedItems
                 return [...prevSelectedItems, item];
@@ -65,7 +86,6 @@ function Step2() {
         });
     };
 
-    const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {
         let item = {
             width: data.width,
@@ -73,11 +93,20 @@ function Step2() {
             length: data.length,
             count: data.count,
             title: selectedItem.title,
+            image: image.image,
+            materials: materials.length ? materials.join(",") : "",
+            sizes: sizes.length ? sizes.join(",") : "",
         };
         console.log(item);
         selectedItems.push(item);
+        updateData({
+            selected_items: selectedItems,
+        });
         // clear selected state
         setSelectedItem("");
+        setSizes([]);
+        setMaterials([]);
+        reset();
     };
 
     return (
@@ -115,8 +144,12 @@ function Step2() {
                                     <div className={style.imgBox}>
                                         <img
                                             className={style.itemIMG}
-                                            src="https://icon-library.com/images/camera-png-icon/camera-png-icon-0.jpg"
-                                            alt="place holder"
+                                            src={
+                                                image.image
+                                                    ? image.image
+                                                    : "https://icon-library.com/images/camera-png-icon/camera-png-icon-0.jpg"
+                                            }
+                                            alt="item"
                                         />
                                     </div>
                                     <div className={style.contextBox}>
@@ -196,12 +229,12 @@ function Step2() {
                                             <div
                                                 key={index}
                                                 className={`${style.pills} ${
-                                                    extras.includes(item)
+                                                    materials.includes(item)
                                                         ? style.selected
                                                         : ""
                                                 }`}
                                                 onClick={() =>
-                                                    handleItemClick(item)
+                                                    handleMaterials(item)
                                                 }
                                             >
                                                 {item}
@@ -230,12 +263,12 @@ function Step2() {
                                             <div
                                                 key={index}
                                                 className={`${style.pills} ${
-                                                    extras.includes(item)
+                                                    sizes.includes(item)
                                                         ? style.selected
                                                         : ""
                                                 }`}
                                                 onClick={() =>
-                                                    handleItemClick(item)
+                                                    handleSizes(item)
                                                 }
                                             >
                                                 {item}
@@ -257,7 +290,7 @@ function Step2() {
                                 className={style.row}
                                 style={{ flexWrap: "wrap" }}
                             >
-                                <ImageDropzone />
+                                <ImageDropzone image={image} />
                             </div>
                         </div>
                         <div className={style.row}>

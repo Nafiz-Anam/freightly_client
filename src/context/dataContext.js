@@ -8,13 +8,23 @@ export const DataProvider = ({ children }) => {
     let initialStorage = {
         starting_point: "",
         selected_items: [],
-        pickup_date: "",
-        pickup_time: "",
-        pickup_floor: "",
-        pickup_Assistance: "",
-        delivery_time: "",
-        delivery_floor: "",
-        delivery_Assistance: "",
+        pickup_date: {
+            date: "",
+            day: "",
+            cost: "",
+        },
+        pickup_time: {
+            time: "",
+            cost: "",
+        },
+        pickup_floor: {},
+        pickup_Assistance: {},
+        delivery_time: {
+            time: "",
+            cost: "",
+        },
+        delivery_floor: {},
+        delivery_Assistance: {},
         pickup_contact: {
             pickup_address: "",
             name: "",

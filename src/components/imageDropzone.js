@@ -1,9 +1,10 @@
 import React, { useState, useRef } from "react";
 
-const ImageDropzone = () => {
+const ImageDropzone = ({ image }) => {
     const [imagePreview, setImagePreview] = useState("");
     const [showInstruction, setShowInstruction] = useState(true);
     const fileInputRef = useRef(null);
+    console.log("image =>", image);
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
@@ -11,6 +12,7 @@ const ImageDropzone = () => {
             const reader = new FileReader();
             reader.onload = () => {
                 setImagePreview(reader.result);
+                image.image = reader.result;
             };
             reader.readAsDataURL(file);
             setShowInstruction(false);
@@ -24,6 +26,7 @@ const ImageDropzone = () => {
             const reader = new FileReader();
             reader.onload = () => {
                 setImagePreview(reader.result);
+                image.image = reader.result;
             };
             reader.readAsDataURL(file);
             setShowInstruction(false);
@@ -38,10 +41,6 @@ const ImageDropzone = () => {
 
     const unhighlightDropzone = (event) => {
         event.currentTarget.classList.remove("highlight");
-    };
-
-    const openFileInput = () => {
-        fileInputRef.current.click();
     };
 
     const handleOverlayClick = (event) => {
@@ -67,9 +66,7 @@ const ImageDropzone = () => {
             ) : (
                 <>
                     <span className="instruction">
-                        {showInstruction
-                            ? "Drop or Click to upload"
-                            : ""}
+                        {showInstruction ? "Drop or Click to upload" : ""}
                     </span>
                 </>
             )}

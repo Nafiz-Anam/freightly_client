@@ -109,13 +109,13 @@ const ListLayout = ({ data, step }) => {
                         <li key={item.title}>
                             <button
                                 className={`list-item ${
-                                    item.price && "item-flex"
+                                    item.cost && "item-flex"
                                 } ${
-                                    selectedItem === item.title
+                                    selectedItem.title === item.title
                                         ? "selected"
                                         : ""
                                 }`}
-                                onClick={() => handleItemClick(item.title)}
+                                onClick={() => handleItemClick(item)}
                             >
                                 <div style={{ textAlign: "left", width: "5%" }}>
                                     {item.icon && icon_arr[item.icon]}
@@ -132,9 +132,9 @@ const ListLayout = ({ data, step }) => {
                                 <div
                                     style={{ textAlign: "right", width: "40%" }}
                                 >
-                                    {item.price && (
+                                    {item.cost && (
                                         <span className="item-name">
-                                            {item.price}
+                                            {item.cost}
                                         </span>
                                     )}
                                 </div>
