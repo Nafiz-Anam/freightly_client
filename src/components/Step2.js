@@ -54,7 +54,6 @@ function Step2() {
 
         fetchData();
     }, []);
-    
 
     // const items = ["glass", "wood", "solid wood", "steel", "marble", "metal"];
     // const items2 = ["2 - seater", "3 - seater", "4 - seater", "5 - seater"];
@@ -107,7 +106,7 @@ function Step2() {
     };
 
     return (
-        <div className="step2-container">
+        <div className={style['step2-container']}>
             {storage.selected_items.length > 0 &&
             Object.keys(selectedItem).length === 0 ? (
                 <>
@@ -121,10 +120,10 @@ function Step2() {
                         <h2 style={{ marginBottom: "25px" }}>Your item(s)</h2>
 
                         <button
-                            className="addBtn"
+                            className={style.addBtn}
                             onClick={() => setModalShow(true)}
                         >
-                            <FaRegPlusSquare className="icon-add" />
+                            <FaRegPlusSquare className={style["icon-add"]} />
                             Add item
                         </button>
                     </div>
@@ -316,15 +315,16 @@ function Step2() {
                     </form>
                 </>
             ) : (
-                <div className="searchDemo">
-                    <h2 className="searchHeading">Add your item(s)</h2>
+                <div className={style.searchDemo}>
+                    <h2 className={style.searchHeading}>Add your item(s)</h2>
                     <button
-                        className="searchBtn"
+                        className={style.searchBtn}
                         onClick={() => setModalShow(true)}
                     >
-                        <CiSearch className="searchIcon" /> Search items...
+                        <CiSearch className={style.searchIcon} /> Search
+                        items...
                     </button>
-                    <p className="searchDesc">max. 200kg per transport</p>
+                    <p className={style.searchDesc}>max. 200kg per transport</p>
                 </div>
             )}
 

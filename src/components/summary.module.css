@@ -1,0 +1,64 @@
+.cartSummary {
+    margin-bottom: 16px;
+}
+
+.cartSummary p {
+    margin: 0;
+}
+
+.sumTitle {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.mainSummary {
+    margin-bottom: 15px;
+}
+
+.addressLabel {
+    font-size: 1.1rem;
+}
+
+.ProductItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.itemTitle {
+    font-size: 1rem;
+}
+
+.dimension {
+    color: #bdbdbd;
+    font-size: 0.8rem;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.list li {
+    width: 70%;
+}
+
+.totalPrice {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+}
+
+.totalPrice h3{
+  font-size: 1.3rem;
+}
+
+.hrLine {
+    border: none;
+    border-top: 2px solid #000;
+}
+
+.deliveryDetails {
+    margin-top: 15px;
+}

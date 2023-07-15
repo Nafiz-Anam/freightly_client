@@ -6,7 +6,10 @@ export const DataContext = createContext();
 // Create a data provider component
 export const DataProvider = ({ children }) => {
     let initialStorage = {
-        starting_point: "",
+        starting_point: {
+            icon: "",
+            title: "",
+        },
         selected_items: [],
         pickup_date: {
             date: "",
@@ -17,14 +20,32 @@ export const DataProvider = ({ children }) => {
             time: "",
             cost: "",
         },
-        pickup_floor: {},
-        pickup_Assistance: {},
+        pickup_floor: {
+            cost: "",
+            desc: "",
+            icon: "",
+            title: "",
+        },
+        pickup_Assistance: {
+            cost: "",
+            icon: "",
+            title: "",
+        },
         delivery_time: {
             time: "",
             cost: "",
         },
-        delivery_floor: {},
-        delivery_Assistance: {},
+        delivery_floor: {
+            cost: "",
+            desc: "",
+            icon: "",
+            title: "",
+        },
+        delivery_Assistance: {
+            cost: "",
+            icon: "",
+            title: "",
+        },
         pickup_contact: {
             pickup_address: "",
             name: "",

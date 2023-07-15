@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import style from "./imageDropzone.module.css";
 
 const ImageDropzone = ({ image }) => {
     const [imagePreview, setImagePreview] = useState("");
@@ -49,9 +50,9 @@ const ImageDropzone = ({ image }) => {
     };
 
     return (
-        <div className="dropzone">
+        <div className={style.dropzone}>
             <div
-                className="dropzone-overlay"
+                className={style["dropzone-overlay"]}
                 onClick={handleOverlayClick}
                 onDragOver={highlightDropzone}
                 onDragLeave={unhighlightDropzone}
@@ -61,11 +62,11 @@ const ImageDropzone = ({ image }) => {
                 <img
                     src={imagePreview}
                     alt="Item Preview"
-                    className="preview"
+                    className={style.preview}
                 />
             ) : (
                 <>
-                    <span className="instruction">
+                    <span className={style.instruction}>
                         {showInstruction ? "Drop or Click to upload" : ""}
                     </span>
                 </>
@@ -75,7 +76,7 @@ const ImageDropzone = ({ image }) => {
                 accept="image/*"
                 onChange={handleImageUpload}
                 ref={fileInputRef}
-                className="file-input"
+                className={style["file-input"]}
             />
         </div>
     );

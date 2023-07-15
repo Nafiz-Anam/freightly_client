@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { StepContext } from "../context/stepContext";
+import Summary from "../components/summary";
+import style from "./main_layout.module.css";
 
 const Layout = ({ children, cartSummary, totalPrice }) => {
     const { activeStep, handleStepChange } = useContext(StepContext);
@@ -15,10 +17,10 @@ const Layout = ({ children, cartSummary, totalPrice }) => {
     };
 
     return (
-        <div className="app">
+        <div className={style.app}>
             {/* Top Bar */}
-            <div className="top-bar">
-                <div className="logo">
+            <div className={style.topBar}>
+                <div>
                     <a href="https://freightly.nl/">
                         <img
                             src="https://freightly.nl/wp-content/uploads/2023/06/white_text-logoname_color1_NObackground-2048x143.png"
@@ -27,72 +29,63 @@ const Layout = ({ children, cartSummary, totalPrice }) => {
                                 margin: "auto",
                                 height: "20px",
                             }}
-                            alt="Freightly company Logo"
+                            alt="Freightly Company Logo"
                         />
                     </a>
                 </div>
             </div>
 
             {/* Main Body */}
-            <div className="main-body">
-                <div className="left-side">
+            <div className={style.mainBody}>
+                <div className={style.leftSide}>
                     {/* Render the current step */}
-                    <div className="page-content">{children}</div>
+                    <div className={style.pageContent}>{children}</div>
                 </div>
-                <div className="right-side">
+                <div className={style.rightSide}>
                     {/* Summary details and calculation here */}
-                    <div className="cart-summary">
-                        <h1 className="sum-title">Your delivery</h1>
-                        <div className="main-summary">
-                            {cartSummary.map((item, index) => (
-                                <div className="item" key={index}>
-                                    <span>{item.name}</span>
-                                    <span>{item.price}</span>
-                                </div>
-                            ))}
-                        </div>
-                        <hr className="hr-line" />
-                        <div className="total-price">
-                            <h1>Total</h1>
-                            <h1>{totalPrice}</h1>
-                        </div>
-                    </div>
+                    <Summary
+                        cartSummary={cartSummary}
+                        totalPrice={totalPrice}
+                    />
                 </div>
             </div>
 
             {/* Footer */}
-            <div className="footer">
-                <div className="footer-container">
+            <div className={style.footer}>
+                <div className={style.footerContainer}>
                     {activeStep === 1 ? (
-                        <button className="next-button-disabled">
-                            <GoArrowLeft className="arrow-right" /> Previous
+                        <button className={style["next-button-disabled"]}>
+                            <GoArrowLeft className={style.arrowRight} />
+                            Previous
                         </button>
                     ) : (
                         <Link
-                            className="next-button"
+                            className={style["next-button"]}
                             to={"/step" + (activeStep - 1)}
                             onClick={handlePrevious}
                         >
-                            <GoArrowLeft className="arrow-right" /> Previous
+                            <GoArrowLeft className={style.arrowRight} />
+                            Previous
                         </Link>
                     )}
 
                     {activeStep <= 11 ? (
                         <Link
-                            className="next-button"
+                            className={style["next-button"]}
                             to={"/step" + (activeStep + 1)}
                             onClick={handleNext}
                         >
-                            Continue <GoArrowRight className="arrow-right" />
+                            Continue
+                            <GoArrowRight className={style.arrowRight} />
                         </Link>
                     ) : (
-                        <Link className="next-button">
-                            Submit & Pay{" "}
-                            <GoArrowRight className="arrow-right" />
+                        <Link className={style["next-button"]}>
+                            Submit & Pay
+                            <GoArrowRight className={style.arrowRight} />
                         </Link>
                     )}
                 </div>
-                <div className="footer-container_right"></div>
+                <div className={style["footer-container-right"]}></div>
             </div>
         </div>
     );

@@ -127,6 +127,13 @@
 .contextBox {
     width: 60%;
 }
+.contextBox h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.contextBox p {
+    font-size: .9rem;
+}
 .imgBox {
     background-color: #f0efef;
     width: 120px;
@@ -138,4 +145,75 @@
 }
 .itemIMG {
     width: 100px;
+}
+
+.searchDemo {
+    width: 70%;
+}
+
+.searchBtn {
+    width: 100%;
+    height: 45px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    background-color: #fff;
+    text-align: left;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.searchIcon {
+    font-size: 25px;
+    margin-right: 20px;
+}
+
+.searchHeading {
+    font-size: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.searchDesc {
+    font-size: 16px;
+    margin-top: 20px;
+    color: #b4b4b4;
+}
+
+.addBtn {
+    text-decoration: none;
+    padding: 0px 30px;
+    height: 50px;
+    color: #fff;
+    background-color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.2s;
+}
+
+.addBtn:hover {
+    color: #00ff77;
+    transform: scale(1.03);
+}
+
+.icon-add {
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.step2-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
 }
