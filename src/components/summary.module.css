@@ -4,6 +4,7 @@
 
 .cartSummary p {
     margin: 0;
+    font-size: .9rem;
 }
 
 .sumTitle {
@@ -50,8 +51,8 @@
     font-size: 1rem;
 }
 
-.totalPrice h3{
-  font-size: 1.3rem;
+.totalPrice h3 {
+    font-size: 1.3rem;
 }
 
 .hrLine {

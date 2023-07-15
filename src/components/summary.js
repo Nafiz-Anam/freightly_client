@@ -46,10 +46,17 @@ const Summary = () => {
         return "";
     };
 
-    const totalPrice = selected_items.reduce(
-        (total, item) => total + item.cost,
-        0
-    );
+    const pickupDateCost = pickup_date.cost
+        ? parseFloat(pickup_date.cost.replace("€", ""))
+        : 0;
+    const pickupTimeCost = pickup_time.cost
+        ? parseFloat(pickup_time.cost.replace("€", ""))
+        : 0;
+    const deliveryTimeCost = delivery_time.cost
+        ? parseFloat(delivery_time.cost.replace("€", ""))
+        : 0;
+    const totalPickupCost = pickupDateCost + pickupTimeCost;
+    const totalDeliveryCost = pickupDateCost + deliveryTimeCost;
 
     return (
         <div className={style.cartSummary}>
@@ -71,30 +78,99 @@ const Summary = () => {
             <div className={style.pickupDetails}>
                 <h2 className={style.addressLabel}>Pickup Address</h2>
                 {starting_point && <p>{`${starting_point.title}`}</p>}
-                <p>
-                    {pickup_date.date && <span>{`${pickup_date.date}`}</span>}{" "}
-                    {pickup_time.time && <span>{`${pickup_time.time}`}</span>}
+                <p
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    <span>
+                        {pickup_date.date && (
+                            <span>{`${pickup_date.date}`}</span>
+                        )}{" "}
+                        {pickup_time.time && (
+                            <span>{`${pickup_time.time}`}</span>
+                        )}
+                    </span>
+                    <span>
+                        {(pickup_date.cost || pickup_date.cost) && (
+                            <span>€{`${totalPickupCost.toFixed(2)}`}</span>
+                        )}
+                    </span>
                 </p>
-                {pickup_floor && <p>{`${pickup_floor.title}`}</p>}
-                {pickup_Assistance && <p>{`${pickup_Assistance.title}`}</p>}
+                {pickup_floor && (
+                    <p
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                        }}
+                    >
+                        <span>{`${pickup_floor.title}`}</span>
+                        <span>{`${pickup_floor.cost}`}</span>
+                    </p>
+                )}
+                {pickup_Assistance && (
+                    <p
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                        }}
+                    >
+                        <span>{`${pickup_Assistance.title}`}</span>
+                        <span>{`${pickup_Assistance.cost}`}</span>
+                    </p>
+                )}
             </div>
             {/* delivery details */}
             <div className={style.deliveryDetails}>
                 <h2 className={style.addressLabel}>Delivery Address</h2>
-                <p>
-                    {pickup_date.date && <span>{`${pickup_date.date}`}</span>}{" "}
-                    {delivery_time.time && (
-                        <span>{`${delivery_time.time}`}</span>
-                    )}
+                <p
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    <span>
+                        {pickup_date.date && (
+                            <span>{`${pickup_date.date}`}</span>
+                        )}{" "}
+                        {delivery_time.time && (
+                            <span>{`${delivery_time.time}`}</span>
+                        )}
+                    </span>
+                    <span>
+                        {(delivery_time.cost || pickup_date.cost) && (
+                            <span>€{`${totalDeliveryCost.toFixed(2)}`}</span>
+                        )}
+                    </span>
                 </p>
-
-                {delivery_floor && <p>{`${delivery_floor.title}`}</p>}
-                {delivery_Assistance && <p>{`${delivery_Assistance.title}`}</p>}
+                {delivery_floor && (
+                    <p
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                        }}
+                    >
+                        <span>{`${delivery_floor.title}`}</span>
+                        <span>{`${delivery_floor.cost}`}</span>
+                    </p>
+                )}
+                {delivery_Assistance && (
+                    <p
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                        }}
+                    >
+                        <span>{`${delivery_Assistance.title}`}</span>
+                        <span>{`${delivery_Assistance.cost}`}</span>
+                    </p>
+                )}
             </div>
             <hr className={style.hrLine} />
             <div className={style.totalPrice}>
                 <h3>Total</h3>
-                <h3>{totalPrice}</h3>
+                <h3>€00.00</h3>
             </div>
         </div>
     );
