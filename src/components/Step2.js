@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form";
 import style from "./Step2.module.css";
 import ImageDropzone from "./imageDropzone";
 import { DataContext } from "../context/dataContext";
-import { CardTitle } from "material-ui";
 
 const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?output=csv";
@@ -18,7 +17,7 @@ function Step2() {
     const { storage, updateData } = useContext(DataContext);
     console.log("storage =>", storage);
     const [modalShow, setModalShow] = useState(false);
-    const [sheetData, setSheetData] = useState([{ title: "bed" }]);
+    const [sheetData, setSheetData] = useState([]);
     // console.log(sheetData);
     const [materials, setMaterials] = useState([]);
     console.log("materials", materials);
@@ -45,7 +44,7 @@ function Step2() {
                 const parsedData = Papa.parse(csvData, { header: true });
                 const jsonData = parsedData.data;
 
-                // console.log(jsonData);
+                console.log(jsonData);
                 setSheetData(jsonData);
             } catch (error) {
                 console.error(error);
@@ -84,10 +83,6 @@ function Step2() {
         });
     };
 
-    const removeItem = (title) => {
-        console.log(title);
-    }
-
     const onSubmit = (data) => {
         let item = {
             width: data.width,
@@ -108,6 +103,16 @@ function Step2() {
         setSizes([]);
         setMaterials([]);
         reset();
+    };
+
+    const removeSelectedItem = (index) => {
+        const updatedItems = [...storage.selected_items];
+        updatedItems.splice(index, 1);
+        setSelectedItems(updatedItems);
+        updateData({
+            ...storage,
+            selected_items: updatedItems,
+        });
     };
 
     return (
@@ -169,8 +174,8 @@ function Step2() {
                                     <div className={style.iconBox}>
                                         <FiEdit3 className={style.listIcon2} />
                                         <FiTrash2
-                                            onCanPlay={() =>
-                                                removeItem(item.title)
+                                            onClick={() =>
+                                                removeSelectedItem(index)
                                             }
                                             className={style.listIcon}
                                         />
