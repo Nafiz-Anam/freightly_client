@@ -5,14 +5,31 @@ import ImageDropzone from "./imageDropzone";
 import { DataContext } from "../context/dataContext";
 
 const EditItemForm = ({ eIndex, editData, setEditModalShow }) => {
+    let materials_old = [];
+    let sizes_old = [];
+    if (editData.materials) {
+        if (editData.materials.includes(",")) {
+            materials_old = editData.materials.split(",");
+        } else {
+            materials_old = [editData.materials];
+        }
+    }
+    if (editData.sizes) {
+        if (editData.sizes.includes(",")) {
+            sizes_old = editData.sizes.split(",");
+        } else {
+            sizes_old = [editData.sizes];
+        }
+    }
+
     const { storage, updateData } = useContext(DataContext);
     console.log("storage =>", storage);
     let img = editData.image;
     const [image, setImage] = useState({ image: img });
     console.log("image", image);
-    const [materials, setMaterials] = useState([]);
+    const [materials, setMaterials] = useState(materials_old);
     console.log("materials", materials);
-    const [sizes, setSizes] = useState([]);
+    const [sizes, setSizes] = useState(sizes_old);
     console.log("sizes", sizes);
 
     const handleMaterials = (item) => {
@@ -66,7 +83,7 @@ const EditItemForm = ({ eIndex, editData, setEditModalShow }) => {
         updateData({
             selected_items: updatedItems,
         });
-        setEditModalShow(false)
+        setEditModalShow(false);
         // setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
         // updateData({
         //     selected_items: (storage.selected_items[eIndex] = item),
@@ -77,7 +94,10 @@ const EditItemForm = ({ eIndex, editData, setEditModalShow }) => {
     };
 
     return (
-        <form className={style.formContainer} onSubmit={handleSubmit(onSubmit)}>
+        <form
+            className={style.formContainer_edit}
+            onSubmit={handleSubmit(onSubmit)}
+        >
             <h2 className={style.addItemHeader}>
                 Check dimensions (l x w x h):
             </h2>

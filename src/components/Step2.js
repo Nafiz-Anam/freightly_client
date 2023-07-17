@@ -118,8 +118,8 @@ function Step2() {
         });
     };
 
-    const [editData, setEditData] = useState({})
-    const [eIndex, setEIndex] = useState(null)
+    const [editData, setEditData] = useState({});
+    const [eIndex, setEIndex] = useState(null);
 
     const editItem = (index) => {
         console.log(index);
@@ -406,7 +406,7 @@ function Step2() {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Edit item details
+                        {`Edit "${editData.title}" details`}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -416,9 +416,6 @@ function Step2() {
                         editData={editData}
                     />
                 </Modal.Body>
-                {/* <Modal.Footer>
-                    <Button onClick={() => setModalShow(false)}>Close</Button>
-                </Modal.Footer> */}
             </Modal>
         </div>
     );

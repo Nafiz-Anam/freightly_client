@@ -5,6 +5,12 @@
     padding-bottom: 100px;
 }
 
+.formContainer_edit {
+    width: 100%;
+    margin: auto;
+    padding: 30px;
+}
+
 .row {
     display: flex;
     gap: 10px;
@@ -21,7 +27,7 @@
     font-weight: 400;
 }
 
-.formContainer input {
+.formContainer input, .formContainer_edit input {
     width: 100%;
     height: 50px;
     font-size: 1rem;
@@ -32,7 +38,7 @@
 }
 
 .formContainer button[type="submit"],
-.closeBtn {
+.closeBtn, .formContainer_edit button[type="submit"] {
     background-color: #000000;
     color: white;
     padding: 10px 35px;
@@ -44,7 +50,7 @@
 }
 
 .formContainer button[type="submit"]:hover,
-.closeBtn:hover {
+.closeBtn:hover, .formContainer_edit button[type="submit"]:hover {
     color: #00ff77;
     transform: scale(1.03);
 }
