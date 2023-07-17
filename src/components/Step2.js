@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import style from "./Step2.module.css";
 import ImageDropzone from "./imageDropzone";
 import { DataContext } from "../context/dataContext";
+import { CardTitle } from "material-ui";
 
 const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?output=csv";
@@ -17,7 +18,7 @@ function Step2() {
     const { storage, updateData } = useContext(DataContext);
     console.log("storage =>", storage);
     const [modalShow, setModalShow] = useState(false);
-    const [sheetData, setSheetData] = useState([]);
+    const [sheetData, setSheetData] = useState([{ title: "bed" }]);
     // console.log(sheetData);
     const [materials, setMaterials] = useState([]);
     console.log("materials", materials);
@@ -83,6 +84,10 @@ function Step2() {
         });
     };
 
+    const removeItem = (title) => {
+        console.log(title);
+    }
+
     const onSubmit = (data) => {
         let item = {
             width: data.width,
@@ -106,7 +111,7 @@ function Step2() {
     };
 
     return (
-        <div className={style['step2-container']}>
+        <div className={style["step2-container"]}>
             {storage.selected_items.length > 0 &&
             Object.keys(selectedItem).length === 0 ? (
                 <>
@@ -163,7 +168,12 @@ function Step2() {
                                     </div>
                                     <div className={style.iconBox}>
                                         <FiEdit3 className={style.listIcon2} />
-                                        <FiTrash2 className={style.listIcon} />
+                                        <FiTrash2
+                                            onCanPlay={() =>
+                                                removeItem(item.title)
+                                            }
+                                            className={style.listIcon}
+                                        />
                                     </div>
                                 </li>
                             ))}
@@ -311,7 +321,15 @@ function Step2() {
                             </div>
                         </div>
 
-                        <button type="submit"> Add</button>
+                        <div className={style.btnDiv}>
+                            <button type="submit"> Add</button>
+                            <button
+                                className={style.closeBtn}
+                                onClick={() => setSelectedItem({})}
+                            >
+                                Close
+                            </button>
+                        </div>
                     </form>
                 </>
             ) : (

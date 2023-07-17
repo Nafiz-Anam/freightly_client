@@ -170,7 +170,7 @@ const Summary = () => {
             <hr className={style.hrLine} />
             <div className={style.totalPrice}>
                 <h3>Total</h3>
-                <h3>€00.00</h3>
+                <h3>€0.00</h3>
             </div>
         </div>
     );
