@@ -183,11 +183,14 @@ function Step2() {
                                 </li>
                             ))}
                         </ul>
+                        <p className={style.searchDesc}>
+                            max. 200kg per transport
+                        </p>
                     </div>
                 </>
             ) : Object.keys(selectedItem).length > 0 ? (
                 <>
-                    <h2>{`Enter ${selectedItem.title} details`}</h2>
+                    <h2>{`Enter "${selectedItem.title}" details`}</h2>
                     <form
                         className={style.formContainer}
                         onSubmit={handleSubmit(onSubmit)}
