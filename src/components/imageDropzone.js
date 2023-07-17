@@ -64,6 +64,12 @@ const ImageDropzone = ({ image }) => {
                     alt="Item Preview"
                     className={style.preview}
                 />
+            ) : image.image ? (
+                <img
+                    src={image.image}
+                    alt="Item Preview"
+                    className={style.preview}
+                />
             ) : (
                 <>
                     <span className={style.instruction}>
