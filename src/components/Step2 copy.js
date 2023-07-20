@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form";
 import style from "./Step2.module.css";
 import ImageDropzone from "./imageDropzone";
 import { DataContext } from "../context/dataContext";
-import EditItemForm from "./editItemForm";
 
 const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?output=csv";
@@ -18,8 +17,7 @@ function Step2() {
     const { storage, updateData } = useContext(DataContext);
     console.log("storage =>", storage);
     const [modalShow, setModalShow] = useState(false);
-    const [editModalShow, setEditModalShow] = useState(false);
-    const [sheetData, setSheetData] = useState([{ title: "bed" }]);
+    const [sheetData, setSheetData] = useState([]);
     // console.log(sheetData);
     const [materials, setMaterials] = useState([]);
     console.log("materials", materials);
@@ -104,7 +102,6 @@ function Step2() {
         setSelectedItem({});
         setSizes([]);
         setMaterials([]);
-        setImage({});
         reset();
     };
 
@@ -116,17 +113,6 @@ function Step2() {
             ...storage,
             selected_items: updatedItems,
         });
-    };
-
-    const [editData, setEditData] = useState({});
-    const [eIndex, setEIndex] = useState(null);
-
-    const editItem = (index) => {
-        console.log(index);
-        console.log(storage.selected_items[index]);
-        setEIndex(index);
-        setEditData(storage.selected_items[index]);
-        setEditModalShow(true);
     };
 
     return (
@@ -186,10 +172,7 @@ function Step2() {
                                         }`}</p>
                                     </div>
                                     <div className={style.iconBox}>
-                                        <FiEdit3
-                                            onClick={() => editItem(index)}
-                                            className={style.listIcon2}
-                                        />
+                                        <FiEdit3 className={style.listIcon2} />
                                         <FiTrash2
                                             onClick={() =>
                                                 removeSelectedItem(index)
@@ -371,7 +354,6 @@ function Step2() {
                 </div>
             )}
 
-            {/* search modal */}
             <Modal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
@@ -394,28 +376,6 @@ function Step2() {
                 {/* <Modal.Footer>
                     <Button onClick={() => setModalShow(false)}>Close</Button>
                 </Modal.Footer> */}
-            </Modal>
-
-            {/* edit modal */}
-            <Modal
-                show={editModalShow}
-                onHide={() => setEditModalShow(false)}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        {`Edit "${editData.title}" details`}
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <EditItemForm
-                        setEditModalShow={setEditModalShow}
-                        eIndex={eIndex}
-                        editData={editData}
-                    />
-                </Modal.Body>
             </Modal>
         </div>
     );

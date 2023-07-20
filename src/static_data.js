@@ -21,9 +21,3 @@ export const pickupPlaces = [
     },
 ];
 
-export const pickupHelp = [
-    { icon: "5", title: "Extra Help", cost: "€55.00" },
-    { icon: "6", title: "Tail Lift", cost: "€40.00" },
-    { icon: "7", title: "Tail Lift + 2 Couriers", cost: "€80.00" },
-    { icon: "8", title: "Not Necessary", cost: "€00.00" },
-];
