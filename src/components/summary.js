@@ -100,7 +100,9 @@ const Summary = () => {
                     </span>
                     <span>
                         {(pickup_date.cost || pickup_date.cost) && (
-                            <span>€{`${totalPickupCost.toFixed(2)}`}</span>
+                            <span className={style.cost}>
+                                €{`${totalPickupCost.toFixed(2)}`}
+                            </span>
                         )}
                     </span>
                 </p>
@@ -112,7 +114,9 @@ const Summary = () => {
                         }}
                     >
                         <span>{`${pickup_floor.title}`}</span>
-                        <span>{`${pickup_floor.cost}`}</span>
+                        <span
+                            className={style.cost}
+                        >{`${pickup_floor.cost}`}</span>
                     </p>
                 )}
                 {pickup_Assistance && (
@@ -123,7 +127,9 @@ const Summary = () => {
                         }}
                     >
                         <span>{`${pickup_Assistance.title}`}</span>
-                        <span>{`${pickup_Assistance.cost}`}</span>
+                        <span
+                            className={style.cost}
+                        >{`${pickup_Assistance.cost}`}</span>
                     </p>
                 )}
             </div>
@@ -146,7 +152,9 @@ const Summary = () => {
                     </span>
                     <span>
                         {(delivery_time.cost || pickup_date.cost) && (
-                            <span>€{`${totalDeliveryCost.toFixed(2)}`}</span>
+                            <span className={style.cost}>
+                                €{`${totalDeliveryCost.toFixed(2)}`}
+                            </span>
                         )}
                     </span>
                 </p>
@@ -158,7 +166,9 @@ const Summary = () => {
                         }}
                     >
                         <span>{`${delivery_floor.title}`}</span>
-                        <span>{`${delivery_floor.cost}`}</span>
+                        <span
+                            className={style.cost}
+                        >{`${delivery_floor.cost}`}</span>
                     </p>
                 )}
                 {delivery_Assistance && (
@@ -169,7 +179,9 @@ const Summary = () => {
                         }}
                     >
                         <span>{`${delivery_Assistance.title}`}</span>
-                        <span>{`${delivery_Assistance.cost}`}</span>
+                        <span
+                            className={style.cost}
+                        >{`${delivery_Assistance.cost}`}</span>
                     </p>
                 )}
             </div>

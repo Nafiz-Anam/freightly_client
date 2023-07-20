@@ -4,7 +4,7 @@
 
 .cartSummary p {
     margin: 0;
-    font-size: .9rem;
+    font-size: 0.9rem;
 }
 
 .sumTitle {
@@ -62,4 +62,8 @@
 
 .deliveryDetails {
     margin-top: 15px;
+}
+
+.cost {
+    font-size: 1.2rem;
 }
