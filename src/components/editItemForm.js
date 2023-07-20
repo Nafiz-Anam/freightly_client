@@ -84,11 +84,6 @@ const EditItemForm = ({ eIndex, editData, setEditModalShow }) => {
             selected_items: updatedItems,
         });
         setEditModalShow(false);
-        // setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
-        // updateData({
-        //     selected_items: (storage.selected_items[eIndex] = item),
-        // });
-
         setSizes([]);
         setMaterials([]);
     };
