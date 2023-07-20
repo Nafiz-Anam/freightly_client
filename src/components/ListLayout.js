@@ -20,6 +20,7 @@ import { AiFillShop } from "react-icons/ai";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import { RiAuctionFill } from "react-icons/ri";
 import { PiDoorFill, PiElevatorFill } from "react-icons/pi";
+import { GrForwardTen } from "react-icons/gr";
 import "./listLayout.css";
 import { DataContext } from "../context/dataContext";
 
@@ -61,6 +62,7 @@ const ListLayout = ({ data, step }) => {
         <Fa0 className="icon" />,
         <PiDoorFill className="icon" />,
         <PiElevatorFill className="icon" />,
+        <GrForwardTen className="icon" />,
     ];
 
     const handleItemClick = (item) => {
@@ -122,15 +124,17 @@ const ListLayout = ({ data, step }) => {
                                 </div>
 
                                 <div
-                                    style={{ textAlign: "left", width: "55%" }}
+                                    style={{ textAlign: "left", width: "75%" }}
                                 >
                                     <span className="item-name">
                                         {item.title}
                                     </span>
-                                    {item.desc && <p>{item.desc}</p>}
+                                    {item.descriptions && (
+                                        <p style={{fontSize: ".8rem"}}>{item.descriptions}</p>
+                                    )}
                                 </div>
                                 <div
-                                    style={{ textAlign: "right", width: "40%" }}
+                                    style={{ textAlign: "right", width: "20%" }}
                                 >
                                     {item.cost && (
                                         <span className="item-name">

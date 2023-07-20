@@ -36,33 +36,8 @@ const Summary = () => {
     const deliveryTimeCost = delivery_time.cost
         ? parseFloat(delivery_time.cost.replace("€", ""))
         : 0;
-    const pickupFloorCost = parseFloat(
-        (pickup_floor.cost ? pickup_floor.cost : 0.0).replace("€", "")
-    );
-    const pickupAssistCost = parseFloat(
-        (pickup_Assistance.cost ? pickup_Assistance.cost : 0.0).replace("€", "")
-    );
-    const deliveryFloorCost = parseFloat(
-        (delivery_floor.cost ? delivery_floor.cost : 0.0).replace("€", "")
-    );
-    const deliveryAssistCost = parseFloat(
-        (delivery_Assistance.cost ? delivery_Assistance.cost : 0.0).replace(
-            "€",
-            ""
-        )
-    );
-
     const totalPickupCost = pickupDateCost + pickupTimeCost;
     const totalDeliveryCost = deliveryTimeCost;
-
-    // Calculate the total cost by summing up the pickup and delivery costs
-    const totalCost =
-        pickupFloorCost +
-        pickupAssistCost +
-        totalPickupCost +
-        deliveryFloorCost +
-        deliveryAssistCost +
-        totalDeliveryCost;
 
     return (
         <div className={style.cartSummary}>
@@ -176,8 +151,7 @@ const Summary = () => {
             <hr className={style.hrLine} />
             <div className={style.totalPrice}>
                 <h3>Total</h3>
-                <h3>€{totalCost.toFixed(2)}</h3>{" "}
-                {/* Display the calculated total cost */}
+                <h3>€00.00</h3>
             </div>
         </div>
     );
