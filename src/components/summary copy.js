@@ -58,17 +58,6 @@ const Summary = () => {
     const totalPickupCost = pickupDateCost + pickupTimeCost;
     const totalDeliveryCost = deliveryTimeCost;
 
-    // Function to get the price of an item from storage
-    const getItemPrice = (item) => {
-        return item.cost || 0;
-    };
-
-    // Calculate the total price of all items
-    const totalItemsPrice = selected_items.reduce((acc, item) => {
-        return acc + getItemPrice(item);
-    }, 0);
-    console.log("totalItemsPrice", totalItemsPrice);
-
     // Calculate the total cost by summing up the pickup and delivery costs
     const totalCost =
         pickupFloorCost +
@@ -76,8 +65,7 @@ const Summary = () => {
         totalPickupCost +
         deliveryFloorCost +
         deliveryAssistCost +
-        totalDeliveryCost +
-        totalItemsPrice;
+        totalDeliveryCost;
 
     return (
         <div className={style.cartSummary}>
@@ -86,23 +74,11 @@ const Summary = () => {
             <div className={style.mainSummary}>
                 {selected_items.length > 0 && (
                     <div className={style.ProductItem}>
-                        <div
-                            style={{ display: "flex", flexDirection: "column" }}
-                        >
-                            <span className={style.itemTitle}>
-                                {getTitlesString(selected_items)}
-                            </span>
-                            <span className={style.dimension}>
-                                {getDimensionsString(selected_items)}
-                            </span>
-                        </div>
-                        <span className={style.cost}>
-                            {/* Display the price of each item */}
-                            {totalItemsPrice && (
-                                <span className={style.cost}>
-                                    €{`${totalItemsPrice.toFixed(2)}`}
-                                </span>
-                            )}
+                        <span className={style.itemTitle}>
+                            {getTitlesString(selected_items)}
+                        </span>
+                        <span className={style.dimension}>
+                            {getDimensionsString(selected_items)}
                         </span>
                     </div>
                 )}
