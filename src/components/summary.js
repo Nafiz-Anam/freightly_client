@@ -37,16 +37,19 @@ const Summary = () => {
         ? parseFloat(delivery_time.cost.replace("€", ""))
         : 0;
     const pickupFloorCost = parseFloat(
-        (pickup_floor.cost ? pickup_floor.cost : 0.0).replace("€", "")
+        (pickup_floor.cost ? pickup_floor.cost : "€0.0").replace("€", "")
     );
     const pickupAssistCost = parseFloat(
-        (pickup_Assistance.cost ? pickup_Assistance.cost : 0.0).replace("€", "")
+        (pickup_Assistance.cost ? pickup_Assistance.cost : "€0.0").replace(
+            "€",
+            ""
+        )
     );
     const deliveryFloorCost = parseFloat(
-        (delivery_floor.cost ? delivery_floor.cost : 0.0).replace("€", "")
+        (delivery_floor.cost ? delivery_floor.cost : "€0.0").replace("€", "")
     );
     const deliveryAssistCost = parseFloat(
-        (delivery_Assistance.cost ? delivery_Assistance.cost : 0.0).replace(
+        (delivery_Assistance.cost ? delivery_Assistance.cost : "€0.0").replace(
             "€",
             ""
         )

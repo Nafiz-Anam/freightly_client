@@ -14,13 +14,18 @@ import EditItemForm from "./editItemForm";
 const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?output=csv";
 
+const priceSheetURL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=981080402&single=true&output=csv";
+
 function Step2() {
     const { storage, updateData } = useContext(DataContext);
     console.log("storage =>", storage);
     const [modalShow, setModalShow] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
-    const [sheetData, setSheetData] = useState([{ title: "bed" }]);
+    const [sheetData, setSheetData] = useState([]);
     // console.log(sheetData);
+    const [sheetPriceData, setSheetPriceData] = useState([]);
+    // console.log(sheetPriceData);
     const [materials, setMaterials] = useState([]);
     console.log("materials", materials);
     const [sizes, setSizes] = useState([]);
@@ -45,9 +50,25 @@ function Step2() {
 
                 const parsedData = Papa.parse(csvData, { header: true });
                 const jsonData = parsedData.data;
-
-                console.log(jsonData);
+                // console.log(jsonData);
                 setSheetData(jsonData);
+            } catch (error) {
+                console.error(error);
+                return null;
+            }
+        };
+        const fetchPriceData = async () => {
+            try {
+                const response = await fetch(priceSheetURL);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch sheet data");
+                }
+                const csvData = await response.text();
+
+                const parsedData = Papa.parse(csvData, { header: true });
+                const priceJson = parsedData.data;
+                console.log("priceJson", priceJson);
+                setSheetPriceData(priceJson);
             } catch (error) {
                 console.error(error);
                 return null;
@@ -55,6 +76,7 @@ function Step2() {
         };
 
         fetchData();
+        fetchPriceData();
     }, []);
 
     // const items = ["glass", "wood", "solid wood", "steel", "marble", "metal"];
@@ -86,6 +108,34 @@ function Step2() {
     };
 
     const onSubmit = (data) => {
+        const selectedMaterial = materials.join(", ");
+        console.log("selectedMaterial", selectedMaterial);
+
+        // Split the selectedMaterial into an array of individual materials
+        const selectedMaterialsArray = selectedMaterial.split(", ");
+        // Find all matching entries in priceSheetData based on the selectedMaterial
+        const matchingEntries = selectedMaterialsArray.map((material) =>
+            material.trim().toLowerCase() !== ""
+                ? sheetPriceData.find((entry) =>
+                      entry["price_per_material "]
+                          .toLowerCase()
+                          .includes(material.toLowerCase())
+                  )
+                : null
+        );
+        console.log("matchingEntries", matchingEntries);
+
+        // Calculate the total price based on the matching entries and the item count
+        let totalPrice = 0;
+        matchingEntries.forEach((entry) => {
+            if (entry) {
+                const itemPrice = parseFloat(entry.cost.replace("€", ""));
+                totalPrice += itemPrice;
+            }
+        });
+        totalPrice *= parseInt(data.count);
+        console.log("totalPrice", totalPrice);
+
         let item = {
             width: data.width,
             height: data.height,
@@ -95,6 +145,7 @@ function Step2() {
             image: image.image,
             materials: materials.length ? materials.join(",") : "",
             sizes: sizes.length ? sizes.join(",") : "",
+            cost: totalPrice,
         };
         console.log(item);
         setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
