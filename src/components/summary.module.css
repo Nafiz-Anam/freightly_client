@@ -17,7 +17,11 @@
 }
 
 .addressLabel {
-    font-size: 1.1rem;
+    font-size: .9rem;
+    font-weight: 400;
+}
+.addressLabel span{
+    font-size: 1rem;
 }
 
 .ProductItem {

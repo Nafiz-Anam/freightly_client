@@ -6,6 +6,9 @@ export const DataContext = createContext();
 // Create a data provider component
 export const DataProvider = ({ children }) => {
     let initialStorage = {
+        fromAddress: "",
+        toAddress: "",
+        distance: "",
         starting_point: {
             icon: "",
             title: "",

@@ -6,6 +6,9 @@ const Summary = () => {
     const { storage } = useContext(DataContext);
 
     const {
+        fromAddress,
+        toAddress,
+        distance,
         selected_items,
         starting_point,
         pickup_date,
@@ -16,6 +19,9 @@ const Summary = () => {
         delivery_Assistance,
         delivery_floor,
     } = storage;
+
+    const pickupFrom = fromAddress.split(",")[0];
+    const deliveryTo = toAddress.split(",")[0];
 
     const getTitlesString = (selected_items) => {
         return selected_items.map((item) => item.title).join(", ");
@@ -64,10 +70,12 @@ const Summary = () => {
     };
 
     // Calculate the total price of all items
-    const totalItemsPrice = selected_items.reduce((acc, item) => {
+    let totalItemsPrice = selected_items.reduce((acc, item) => {
         return acc + getItemPrice(item);
     }, 0);
     console.log("totalItemsPrice", totalItemsPrice);
+
+    totalItemsPrice = totalItemsPrice + 30;
 
     // Calculate the total cost by summing up the pickup and delivery costs
     const totalCost =
@@ -109,7 +117,9 @@ const Summary = () => {
             </div>
             {/* pickup details */}
             <div className={style.pickupDetails}>
-                <h2 className={style.addressLabel}>Pickup Address</h2>
+                <h2 className={style.addressLabel}>
+                    Pickup from <span>{pickupFrom}</span>
+                </h2>
                 {starting_point && <p>{`${starting_point.title}`}</p>}
                 <p
                     style={{
@@ -163,7 +173,9 @@ const Summary = () => {
             </div>
             {/* delivery details */}
             <div className={style.deliveryDetails}>
-                <h2 className={style.addressLabel}>Delivery Address</h2>
+                <h2 className={style.addressLabel}>
+                    Delivery to <span>{deliveryTo}</span>
+                </h2>
                 <p
                     style={{
                         display: "flex",
