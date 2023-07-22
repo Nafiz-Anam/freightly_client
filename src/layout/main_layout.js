@@ -80,7 +80,7 @@ const Layout = ({ children, cartSummary, totalPrice }) => {
                         </Link>
                     ) : (
                         <Link className={style["next-button"]}>
-                            Submit & Pay
+                            Checkout
                             <GoArrowRight className={style.arrowRight} />
                         </Link>
                     )}

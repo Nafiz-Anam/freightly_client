@@ -21,7 +21,7 @@
     font-weight: 400;
 }
 
-.businessSection input{
+.businessSection input {
     margin-bottom: 10px;
 }
 
@@ -51,7 +51,7 @@
     display: none;
 }
 
-.tab h3{
+.tab h3 {
     font-size: 1.2em;
 }
 
@@ -78,4 +78,44 @@
 .formContainer button[type="submit"]:hover {
     color: #00ff77;
     transform: scale(1.03);
+}
+
+/* Additional styles for the checkboxes */
+.checkboxesContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.checkbox input {
+    margin-right: 0.8rem;
+}
+
+/* Style the checkboxes as a toggle switch */
+.checkbox input[type="checkbox"] {
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.checkbox input[type="checkbox"]:checked {
+    background-color: #000000; /* Change to your desired color for checked state */
+    border-color: #000000;
+}
+
+.checkbox label {
+    font-size: 1rem;
+    cursor: pointer;
+    color: #000000;
 }

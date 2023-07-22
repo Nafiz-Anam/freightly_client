@@ -167,41 +167,6 @@ const Step12 = () => {
                 </div>
             )}
 
-            {/* Add Checkboxes */}
-            <div className={style.checkboxesContainer}>
-                <div className={style.checkbox}>
-                    <input
-                        type="checkbox"
-                        id="newsletter"
-                        {...register("newsletter")}
-                    />
-                    <label htmlFor="newsletter">
-                        Yes, I would like to subscribe to Freightly newsletter
-                    </label>
-                </div>
-                <div className={style.checkbox}>
-                    <input
-                        type="checkbox"
-                        id="agreeTerms"
-                        {...register("agreeTerms")}
-                    />
-                    <label htmlFor="agreeTerms">
-                        By making use of Freightly, you have to agree with{" "}
-                        <a href="#">Freightly general terms</a>
-                    </label>
-                </div>
-                <div className={style.checkbox}>
-                    <input
-                        type="checkbox"
-                        id="agreePrivacy"
-                        {...register("agreePrivacy")}
-                    />
-                    <label htmlFor="agreePrivacy">
-                        I agree with <a href="#">Freightly Privacy statement</a>
-                    </label>
-                </div>
-            </div>
-
             <button type="submit">Submit</button>
         </form>
     );
