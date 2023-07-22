@@ -17,6 +17,9 @@ const sheetURL =
 const priceSheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=981080402&single=true&output=csv";
 
+const volumeSheetURL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=1568095341&single=true&output=csv";
+
 function Step2() {
     const { storage, updateData } = useContext(DataContext);
     console.log("storage =>", storage);
@@ -26,6 +29,8 @@ function Step2() {
     // console.log(sheetData);
     const [sheetPriceData, setSheetPriceData] = useState([]);
     // console.log(sheetPriceData);
+    const [sheetVolumePriceData, setSheetVolumePriceData] = useState([]);
+    console.log(sheetVolumePriceData);
     const [materials, setMaterials] = useState([]);
     console.log("materials", materials);
     const [sizes, setSizes] = useState([]);
@@ -74,9 +79,27 @@ function Step2() {
                 return null;
             }
         };
+        const fetchVolumePriceData = async () => {
+            try {
+                const response = await fetch(volumeSheetURL);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch sheet data");
+                }
+                const csvData = await response.text();
+
+                const parsedData = Papa.parse(csvData, { header: true });
+                const priceVolumeJson = parsedData.data;
+                console.log("priceVolumeJson", priceVolumeJson);
+                setSheetVolumePriceData(priceVolumeJson);
+            } catch (error) {
+                console.error(error);
+                return null;
+            }
+        };
 
         fetchData();
         fetchPriceData();
+        fetchVolumePriceData();
     }, []);
 
     // const items = ["glass", "wood", "solid wood", "steel", "marble", "metal"];
@@ -109,7 +132,7 @@ function Step2() {
 
     const onSubmit = (data) => {
         const selectedMaterial = materials.join(", ");
-        console.log("selectedMaterial", selectedMaterial);
+        // console.log("selectedMaterial", selectedMaterial);
 
         // Split the selectedMaterial into an array of individual materials
         const selectedMaterialsArray = selectedMaterial.split(", ");
@@ -123,7 +146,7 @@ function Step2() {
                   )
                 : null
         );
-        console.log("matchingEntries", matchingEntries);
+        // console.log("matchingEntries", matchingEntries);
 
         // Calculate the total price based on the matching entries and the item count
         let totalPrice = 0;
@@ -134,7 +157,29 @@ function Step2() {
             }
         });
         totalPrice *= parseInt(data.count);
-        console.log("totalPrice", totalPrice);
+        // console.log("totalPrice", totalPrice);
+
+        // Calculate the volume of the item
+        const volume =
+            (data.width / 100) * (data.height / 100) * (data.length / 100);
+
+        // Find the appropriate price range for the volume
+        let priceRange = null;
+        for (const volumeObj of sheetVolumePriceData) {
+            const [minVolume, maxVolume] = volumeObj.volume_m3.split(" - ");
+            if (minVolume <= volume && volume <= maxVolume) {
+                priceRange = volumeObj;
+                break;
+            }
+        }
+        console.log("priceRange", priceRange);
+        if (!priceRange) {
+            console.log("Volume is not within any price range.");
+            return;
+        } else {
+            totalPrice =
+                totalPrice + parseInt(priceRange.price.replace("€", ""));
+        }
 
         let item = {
             width: data.width,
@@ -148,10 +193,13 @@ function Step2() {
             cost: totalPrice,
         };
         console.log(item);
+
         setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
         updateData({
             selected_items: [...selectedItems, item],
         });
+
+        // clear all states
         setSelectedItem({});
         setSizes([]);
         setMaterials([]);
@@ -271,8 +319,8 @@ function Step2() {
                             <div className={`${style.column} ${style.box}`}>
                                 <input
                                     type="text"
-                                    placeholder="Height"
-                                    {...register("height", {})}
+                                    placeholder="Length"
+                                    {...register("length", {})}
                                 />
                                 <span className={style.placeholderTXT}>cm</span>
                             </div>
@@ -287,8 +335,8 @@ function Step2() {
                             <div className={`${style.column} ${style.box}`}>
                                 <input
                                     type="text"
-                                    placeholder="Length"
-                                    {...register("length", {})}
+                                    placeholder="Height"
+                                    {...register("height", {})}
                                 />
                                 <span className={style.placeholderTXT}>cm</span>
                             </div>

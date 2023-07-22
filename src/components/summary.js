@@ -126,14 +126,15 @@ const Summary = () => {
                         )}
                     </span>
                     <span>
-                        {(pickup_date.cost || pickup_date.cost) && (
-                            <span className={style.cost}>
-                                €{`${totalPickupCost.toFixed(2)}`}
-                            </span>
-                        )}
+                        {(pickup_date.cost || pickup_date.cost) &&
+                            totalPickupCost > 0 && (
+                                <span className={style.cost}>
+                                    €{`${totalPickupCost.toFixed(2)}`}
+                                </span>
+                            )}
                     </span>
                 </p>
-                {pickup_floor && (
+                {pickup_floor.title != "Ground Floor" && (
                     <p
                         style={{
                             display: "flex",
@@ -146,7 +147,7 @@ const Summary = () => {
                         >{`${pickup_floor.cost}`}</span>
                     </p>
                 )}
-                {pickup_Assistance && (
+                {pickup_Assistance.title != "No, not necessary" && (
                     <p
                         style={{
                             display: "flex",
@@ -178,14 +179,15 @@ const Summary = () => {
                         )}
                     </span>
                     <span>
-                        {(delivery_time.cost || pickup_date.cost) && (
-                            <span className={style.cost}>
-                                €{`${totalDeliveryCost.toFixed(2)}`}
-                            </span>
-                        )}
+                        {(delivery_time.cost || pickup_date.cost) &&
+                            totalDeliveryCost > 0 && (
+                                <span className={style.cost}>
+                                    €{`${totalDeliveryCost.toFixed(2)}`}
+                                </span>
+                            )}
                     </span>
                 </p>
-                {delivery_floor && (
+                {delivery_floor.title != "Ground Floor" && (
                     <p
                         style={{
                             display: "flex",
@@ -198,7 +200,7 @@ const Summary = () => {
                         >{`${delivery_floor.cost}`}</span>
                     </p>
                 )}
-                {delivery_Assistance && (
+                {delivery_Assistance.title != "No, not necessary" && (
                     <p
                         style={{
                             display: "flex",
