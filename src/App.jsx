@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "./layout/main_layout";
 import MainPage from "./pages/MainPage";
 import { DataProvider } from "./context/dataContext";
@@ -7,17 +7,17 @@ import "bootstrap/dist/css/bootstrap.css";
 import StepContextProvider from "./context/stepContext";
 
 function App() {
-    const cartSummary = [
-        { name: "Item 1", price: "$10" },
-        { name: "Item 2", price: "$20" },
-        // Add more items here
-    ];
+    useEffect(() => {
+        if (window.location.pathname === "/") {
+            window.location.pathname = "/step1";
+        }
+    }, []);
 
     return (
         <Router>
             <StepContextProvider>
                 <DataProvider>
-                    <Layout cartSummary={cartSummary} totalPrice="$30">
+                    <Layout>
                         <MainPage />
                     </Layout>
                 </DataProvider>
