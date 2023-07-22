@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DataContext } from "../context/dataContext";
 import style from "./summary.module.css";
+import Papa from "papaparse";
 
 const Summary = () => {
+    const sheetURL =
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=1772464100&single=true&output=csv";
     const { storage } = useContext(DataContext);
-
     const {
         fromAddress,
         toAddress,
@@ -19,6 +21,57 @@ const Summary = () => {
         delivery_Assistance,
         delivery_floor,
     } = storage;
+
+    const [sheetData, setSheetData] = useState([]);
+    console.log("sheetData", sheetData);
+    const [kmRange, setKmRange] = useState({});
+
+    console.log("kmRange", kmRange);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(sheetURL);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch sheet data");
+                }
+                const csvData = await response.text();
+
+                const parsedData = Papa.parse(csvData, { header: true });
+                const jsonData = parsedData.data;
+
+                setSheetData(jsonData);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (sheetData.length > 0) {
+            for (const kmObj of sheetData) {
+                const [minValue, maxValue] = kmObj.distance_km.split("-");
+                if (minValue <= distance && distance <= maxValue) {
+                    setKmRange(kmObj);
+                    break;
+                }
+            }
+        }
+    }, [sheetData]);
+
+    let defaultPrice = 0;
+    let distancePrice = 0;
+    useEffect(() => {
+        if (kmRange.default_price) {
+            defaultPrice = parseFloat(kmRange.default_price);
+        }
+        if (kmRange.price) {
+            distancePrice =
+                parseFloat(kmRange.price.replace("€", "")) * distance;
+        }
+    }, [kmRange]);
 
     const pickupFrom = fromAddress.split(",")[0];
     const deliveryTo = toAddress.split(",")[0];
@@ -75,7 +128,7 @@ const Summary = () => {
     }, 0);
     console.log("totalItemsPrice", totalItemsPrice);
 
-    totalItemsPrice = totalItemsPrice + 30;
+    totalItemsPrice = totalItemsPrice + defaultPrice + distancePrice;
 
     // Calculate the total cost by summing up the pickup and delivery costs
     const totalCost =
