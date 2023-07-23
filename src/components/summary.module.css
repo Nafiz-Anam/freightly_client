@@ -17,10 +17,10 @@
 }
 
 .addressLabel {
-    font-size: .9rem;
+    font-size: 0.9rem;
     font-weight: 400;
 }
-.addressLabel span{
+.addressLabel span {
     font-size: 1rem;
 }
 
@@ -69,4 +69,21 @@
 
 .cost {
     font-size: 1.2rem;
+}
+
+.summaryList {
+    overflow-y: scroll;
+    padding: 0 10px;
+    height: 55vh;
+}
+
+/* Thin scrollbar track for .summaryList */
+.summaryList::-webkit-scrollbar {
+    width: 0px;
+    max-width: 3px;
+}
+
+/* Thin scrollbar thumb for .summaryList */
+.summaryList::-webkit-scrollbar-thumb {
+    background-color: #000;
 }

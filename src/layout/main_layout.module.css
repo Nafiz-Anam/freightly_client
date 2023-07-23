@@ -34,7 +34,7 @@
     position: sticky;
     top: 60px; /* Account for top bar height */
     height: calc(100vh - 60px); /* Account for top bar height */
-    padding: 50px;
+    padding: 50px 30px;
 }
 
 .footer {
