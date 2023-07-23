@@ -23,9 +23,8 @@ const Summary = () => {
     } = storage;
 
     const [sheetData, setSheetData] = useState([]);
-    console.log("sheetData", sheetData);
+    // console.log("sheetData", sheetData);
     const [kmRange, setKmRange] = useState({});
-
     console.log("kmRange", kmRange);
 
     useEffect(() => {
@@ -61,17 +60,44 @@ const Summary = () => {
         }
     }, [sheetData]);
 
-    let defaultPrice = 0;
-    let distancePrice = 0;
+    // Define the defaultPrice and distancePrice states
+    const [defaultPrice, setDefaultPrice] = useState(0);
+    console.log("defaultPrice", defaultPrice);
+    const [distancePrice, setDistancePrice] = useState(0);
+    console.log("distancePrice", distancePrice);
+
     useEffect(() => {
+        // Parse the default_price value and set it to defaultPrice state
         if (kmRange.default_price) {
-            defaultPrice = parseFloat(kmRange.default_price);
+            setDefaultPrice(parseFloat(kmRange.default_price));
+        } else {
+            setDefaultPrice(0);
         }
+        // Parse the price value and calculate distancePrice based on the distance
         if (kmRange.price) {
-            distancePrice =
-                parseFloat(kmRange.price.replace("€", "")) * distance;
+            const priceWithoutEuro = parseFloat(kmRange.price.replace("€", ""));
+            setDistancePrice(priceWithoutEuro * distance);
+        } else {
+            setDistancePrice(0);
         }
-    }, [kmRange]);
+    }, [kmRange, distance]);
+
+    // Function to get the price of an item from storage
+    const getItemPrice = (item) => {
+        return item.cost || 0;
+    };
+    // Calculate the total price of all items
+    const totalItemsPrice = selected_items.reduce((acc, item) => {
+        return acc + getItemPrice(item);
+    }, 0);
+    console.log("totalItemsPrice", totalItemsPrice);
+
+    // Calculate the total item price
+    const grandTotalPrice = parseFloat(
+        totalItemsPrice + defaultPrice + distancePrice
+    );
+    // Log the total item price to the console
+    console.log("grand total =>", grandTotalPrice);
 
     const pickupFrom = fromAddress.split(",")[0];
     const deliveryTo = toAddress.split(",")[0];
@@ -95,40 +121,53 @@ const Summary = () => {
     const deliveryTimeCost = delivery_time.cost
         ? parseFloat(delivery_time.cost.replace("€", ""))
         : 0;
-    const pickupFloorCost = parseFloat(
+    let pickupFloorCost = 0;
+    pickupFloorCost = parseFloat(
         (pickup_floor.cost ? pickup_floor.cost : "€0.0").replace("€", "")
     );
-    const pickupAssistCost = parseFloat(
-        (pickup_Assistance.cost ? pickup_Assistance.cost : "€0.0").replace(
-            "€",
-            ""
-        )
-    );
-    const deliveryFloorCost = parseFloat(
+    let deliveryFloorCost = 0;
+    deliveryFloorCost = parseFloat(
         (delivery_floor.cost ? delivery_floor.cost : "€0.0").replace("€", "")
-    );
-    const deliveryAssistCost = parseFloat(
-        (delivery_Assistance.cost ? delivery_Assistance.cost : "€0.0").replace(
-            "€",
-            ""
-        )
     );
 
     const totalPickupCost = pickupDateCost + pickupTimeCost;
     const totalDeliveryCost = deliveryTimeCost;
 
-    // Function to get the price of an item from storage
-    const getItemPrice = (item) => {
-        return item.cost || 0;
-    };
+    let pickupAssistCost = 0;
+    if (Object.keys(pickup_Assistance).length) {
+        // Loop through the keys of the costData object
+        for (const range of Object.keys(pickup_Assistance)) {
+            // Extract the numeric lower and upper bounds from the range
+            const [lower, upper] = range.split("-").map(parseFloat);
 
-    // Calculate the total price of all items
-    let totalItemsPrice = selected_items.reduce((acc, item) => {
-        return acc + getItemPrice(item);
-    }, 0);
-    console.log("totalItemsPrice", totalItemsPrice);
+            // Check if the numericDistance is within the range
+            if (distance >= lower && distance <= upper) {
+                pickupAssistCost = parseFloat(
+                    pickup_Assistance[range].replace("€", "")
+                );
+                break; // Exit the loop since we found the matching range
+            }
+        }
+        // console.log("Cost for distance", distance, "km:", pickupAssistCost);
+    }
 
-    totalItemsPrice = totalItemsPrice + defaultPrice + distancePrice;
+    let deliveryAssistCost = 0;
+    if (Object.keys(delivery_Assistance).length) {
+        // Loop through the keys of the costData object
+        for (const range of Object.keys(delivery_Assistance)) {
+            // Extract the numeric lower and upper bounds from the range
+            const [lower, upper] = range.split("-").map(parseFloat);
+
+            // Check if the numericDistance is within the range
+            if (distance >= lower && distance <= upper) {
+                deliveryAssistCost = parseFloat(
+                    delivery_Assistance[range].replace("€", "")
+                );
+                break; // Exit the loop since we found the matching range
+            }
+        }
+        // console.log("Cost for distance", distance, "km:", deliveryAssistCost);
+    }
 
     // Calculate the total cost by summing up the pickup and delivery costs
     const totalCost =
@@ -138,7 +177,7 @@ const Summary = () => {
         deliveryFloorCost +
         deliveryAssistCost +
         totalDeliveryCost +
-        totalItemsPrice;
+        grandTotalPrice;
 
     return (
         <div className={style.cartSummary}>
@@ -159,9 +198,9 @@ const Summary = () => {
                         </div>
                         <span className={style.cost}>
                             {/* Display the price of each item */}
-                            {totalItemsPrice && (
+                            {grandTotalPrice && (
                                 <span className={style.cost}>
-                                    €{`${totalItemsPrice.toFixed(2)}`}
+                                    €{`${grandTotalPrice.toFixed(2)}`}
                                 </span>
                             )}
                         </span>
@@ -210,19 +249,20 @@ const Summary = () => {
                         >{`${pickup_floor.cost}`}</span>
                     </p>
                 )}
-                {pickup_Assistance.title != "No, not necessary" && (
-                    <p
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                        }}
-                    >
-                        <span>{`${pickup_Assistance.title}`}</span>
-                        <span
-                            className={style.cost}
-                        >{`${pickup_Assistance.cost}`}</span>
-                    </p>
-                )}
+                {pickup_Assistance.title != "No, not necessary" ||
+                    (pickup_Assistance.title != "" && (
+                        <p
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                            }}
+                        >
+                            <span>{`${pickup_Assistance.title}`}</span>
+                            <span className={style.cost}>
+                                €{`${pickupAssistCost.toFixed(2)}`}
+                            </span>
+                        </p>
+                    ))}
             </div>
             {/* delivery details */}
             <div className={style.deliveryDetails}>
@@ -265,19 +305,20 @@ const Summary = () => {
                         >{`${delivery_floor.cost}`}</span>
                     </p>
                 )}
-                {delivery_Assistance.title != "No, not necessary" && (
-                    <p
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                        }}
-                    >
-                        <span>{`${delivery_Assistance.title}`}</span>
-                        <span
-                            className={style.cost}
-                        >{`${delivery_Assistance.cost}`}</span>
-                    </p>
-                )}
+                {delivery_Assistance.title != "No, not necessary" ||
+                    (delivery_Assistance.title != "" && (
+                        <p
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                            }}
+                        >
+                            <span>{`${delivery_Assistance.title}`}</span>
+                            <span className={style.cost}>
+                                €{`${deliveryAssistCost.toFixed(2)}`}
+                            </span>
+                        </p>
+                    ))}
             </div>
             <hr className={style.hrLine} />
             <div className={style.totalPrice}>

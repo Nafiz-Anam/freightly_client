@@ -1,10 +1,43 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import style from "./Step2.module.css";
 import ImageDropzone from "./imageDropzone";
 import { DataContext } from "../context/dataContext";
 
-const EditItemForm = ({ eIndex, editData, setEditModalShow }) => {
+const EditItemForm = ({
+    eIndex,
+    editData,
+    setEditModalShow,
+    sheetVolumePriceData,
+    items,
+    sheetPriceData,
+}) => {
+    // console.log("items", items);
+    // New state variables to hold the matched item's materials and sizes
+    const [matchedMaterials, setMatchedMaterials] = useState([]);
+    const [matchedSizes, setMatchedSizes] = useState([]);
+
+    useEffect(() => {
+        // Function to find the corresponding item from the items array
+        const findMatchingItem = () => {
+            const matchingItem = items.find(
+                (item) => item.title === editData.title
+            );
+            if (matchingItem) {
+                // Extract materials and sizes from the matching item
+                const { materials, sizes } = matchingItem;
+                const materialsArray = materials ? materials.split(",") : [];
+                const sizesArray = sizes ? sizes.split(",") : [];
+
+                // Set the matched materials and sizes options
+                setMatchedMaterials(materialsArray);
+                setMatchedSizes(sizesArray);
+            }
+        };
+
+        findMatchingItem();
+    }, [editData.title, items]);
+
     let materials_old = [];
     let sizes_old = [];
     if (editData.materials) {
@@ -66,6 +99,54 @@ const EditItemForm = ({ eIndex, editData, setEditModalShow }) => {
     });
 
     const onSubmit = (data) => {
+        let totalPrice = 0;
+        const selectedMaterial = materials.join(", ");
+        // console.log("selectedMaterial", selectedMaterial);
+
+        // Split the selectedMaterial into an array of individual materials
+        const selectedMaterialsArray = selectedMaterial.split(", ");
+        // Find all matching entries in priceSheetData based on the selectedMaterial
+        const matchingEntries = selectedMaterialsArray.map((material) =>
+            material.trim().toLowerCase() !== ""
+                ? sheetPriceData.find((entry) =>
+                      entry["price_per_material "]
+                          .toLowerCase()
+                          .includes(material.toLowerCase())
+                  )
+                : null
+        );
+        // console.log("matchingEntries", matchingEntries);
+
+        // Calculate the total price based on the matching entries
+        matchingEntries.forEach((entry) => {
+            if (entry) {
+                const itemPrice = parseFloat(entry.cost.replace("€", ""));
+                totalPrice += itemPrice;
+            }
+        });
+
+        // Calculate the volume of the item
+        const volume =
+            (data.width / 100) * (data.height / 100) * (data.length / 100);
+
+        // Find the appropriate price range for the volume
+        let priceRange = null;
+        for (const volumeObj of sheetVolumePriceData) {
+            const [minVolume, maxVolume] = volumeObj.volume_m3.split(" - ");
+            if (minVolume <= volume && volume <= maxVolume) {
+                priceRange = volumeObj;
+                break;
+            }
+        }
+        // console.log("priceRange", priceRange);
+        if (!priceRange) {
+            console.log("Volume is not within any price range.");
+            return;
+        } else {
+            totalPrice =
+                totalPrice + parseInt(priceRange.price.replace("€", ""));
+        }
+
         let item = {
             width: data.width,
             height: data.height,
@@ -75,6 +156,7 @@ const EditItemForm = ({ eIndex, editData, setEditModalShow }) => {
             image: image.image,
             materials: materials.length ? materials.join(",") : "",
             sizes: sizes.length ? sizes.join(",") : "",
+            cost: (totalPrice *= parseInt(data.count)),
         };
         console.log(item);
         const updatedItems = [...storage.selected_items];
@@ -96,13 +178,12 @@ const EditItemForm = ({ eIndex, editData, setEditModalShow }) => {
             <h2 className={style.addItemHeader}>
                 Check dimensions (l x w x h):
             </h2>
-
             <div className={style.row}>
                 <div className={`${style.column} ${style.box}`}>
                     <input
                         type="text"
-                        placeholder="Height"
-                        {...register("height", {})}
+                        placeholder="Length"
+                        {...register("length", {})}
                     />
                     <span className={style.placeholderTXT}>cm</span>
                 </div>
@@ -117,13 +198,13 @@ const EditItemForm = ({ eIndex, editData, setEditModalShow }) => {
                 <div className={`${style.column} ${style.box}`}>
                     <input
                         type="text"
-                        placeholder="Length"
-                        {...register("length", {})}
+                        placeholder="Height"
+                        {...register("height", {})}
                     />
                     <span className={style.placeholderTXT}>cm</span>
                 </div>
             </div>
-            {editData.materials ? (
+            {matchedMaterials.length ? (
                 <div>
                     <h2
                         style={{ marginTop: "25px" }}
@@ -132,7 +213,7 @@ const EditItemForm = ({ eIndex, editData, setEditModalShow }) => {
                         Does it contain any of these materials?
                     </h2>
                     <div className={style.row} style={{ flexWrap: "wrap" }}>
-                        {editData.materials.split(",").map((item, index) => (
+                        {matchedMaterials.map((item, index) => (
                             <div
                                 key={index}
                                 className={`${style.pills} ${
@@ -150,7 +231,7 @@ const EditItemForm = ({ eIndex, editData, setEditModalShow }) => {
             ) : (
                 ""
             )}
-            {editData.sizes ? (
+            {matchedSizes.length ? (
                 <div>
                     <h2
                         style={{ marginTop: "25px" }}
@@ -159,7 +240,7 @@ const EditItemForm = ({ eIndex, editData, setEditModalShow }) => {
                         What size is it?
                     </h2>
                     <div className={style.row} style={{ flexWrap: "wrap" }}>
-                        {editData.sizes.split(",").map((item, index) => (
+                        {matchedSizes.map((item, index) => (
                             <div
                                 key={index}
                                 className={`${style.pills} ${
@@ -208,12 +289,12 @@ const EditItemForm = ({ eIndex, editData, setEditModalShow }) => {
 
             <div className={style.btnDiv}>
                 <button type="submit"> Add</button>
-                {/* <button
+                <button
                     className={style.closeBtn}
-                    onClick={() => setSelectedItem({})}
+                    onClick={() => setEditModalShow(false)}
                 >
                     Close
-                </button> */}
+                </button>
             </div>
         </form>
     );

@@ -22,7 +22,7 @@ const volumeSheetURL =
 
 function Step2() {
     const { storage, updateData } = useContext(DataContext);
-    console.log("storage =>", storage);
+    // console.log("storage =>", storage);
     const [modalShow, setModalShow] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
     const [sheetData, setSheetData] = useState([]);
@@ -32,16 +32,16 @@ function Step2() {
     const [sheetVolumePriceData, setSheetVolumePriceData] = useState([]);
     console.log(sheetVolumePriceData);
     const [materials, setMaterials] = useState([]);
-    console.log("materials", materials);
+    // console.log("materials", materials);
     const [sizes, setSizes] = useState([]);
-    console.log("sizes", sizes);
+    // console.log("sizes", sizes);
     const [selectedItem, setSelectedItem] = useState({});
-    console.log("selectedItem", selectedItem);
+    // console.log("selectedItem", selectedItem);
     const [selectedItems, setSelectedItems] = useState(
         storage.selected_items || []
     );
     const [image, setImage] = useState({});
-    console.log("selectedItems", selectedItems);
+    // console.log("selectedItems", selectedItems);
     const { register, handleSubmit, reset } = useForm();
 
     useEffect(() => {
@@ -52,7 +52,6 @@ function Step2() {
                     throw new Error("Failed to fetch sheet data");
                 }
                 const csvData = await response.text();
-
                 const parsedData = Papa.parse(csvData, { header: true });
                 const jsonData = parsedData.data;
                 // console.log(jsonData);
@@ -69,10 +68,9 @@ function Step2() {
                     throw new Error("Failed to fetch sheet data");
                 }
                 const csvData = await response.text();
-
                 const parsedData = Papa.parse(csvData, { header: true });
                 const priceJson = parsedData.data;
-                console.log("priceJson", priceJson);
+                // console.log("priceJson", priceJson);
                 setSheetPriceData(priceJson);
             } catch (error) {
                 console.error(error);
@@ -86,10 +84,9 @@ function Step2() {
                     throw new Error("Failed to fetch sheet data");
                 }
                 const csvData = await response.text();
-
                 const parsedData = Papa.parse(csvData, { header: true });
                 const priceVolumeJson = parsedData.data;
-                console.log("priceVolumeJson", priceVolumeJson);
+                // console.log("priceVolumeJson", priceVolumeJson);
                 setSheetVolumePriceData(priceVolumeJson);
             } catch (error) {
                 console.error(error);
@@ -101,9 +98,6 @@ function Step2() {
         fetchPriceData();
         fetchVolumePriceData();
     }, []);
-
-    // const items = ["glass", "wood", "solid wood", "steel", "marble", "metal"];
-    // const items2 = ["2 - seater", "3 - seater", "4 - seater", "5 - seater"];
 
     const handleMaterials = (item) => {
         setMaterials((prevSelectedItems) => {
@@ -148,7 +142,7 @@ function Step2() {
         );
         // console.log("matchingEntries", matchingEntries);
 
-        // Calculate the total price based on the matching entries and the item count
+        // Calculate the total price based on the matching entries
         let totalPrice = 0;
         matchingEntries.forEach((entry) => {
             if (entry) {
@@ -156,8 +150,6 @@ function Step2() {
                 totalPrice += itemPrice;
             }
         });
-        // totalPrice *= parseInt(data.count);
-        // console.log("totalPrice", totalPrice);
 
         // Calculate the volume of the item
         const volume =
@@ -172,7 +164,7 @@ function Step2() {
                 break;
             }
         }
-        console.log("priceRange", priceRange);
+        // console.log("priceRange", priceRange);
         if (!priceRange) {
             console.log("Volume is not within any price range.");
             return;
@@ -192,7 +184,7 @@ function Step2() {
             sizes: sizes.length ? sizes.join(",") : "",
             cost: (totalPrice *= parseInt(data.count)),
         };
-        console.log(item);
+        // console.log(item);
 
         setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
         updateData({
@@ -513,6 +505,9 @@ function Step2() {
                         setEditModalShow={setEditModalShow}
                         eIndex={eIndex}
                         editData={editData}
+                        sheetVolumePriceData={sheetVolumePriceData}
+                        items={sheetData}
+                        sheetPriceData={sheetPriceData}
                     />
                 </Modal.Body>
             </Modal>
