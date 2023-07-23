@@ -156,7 +156,7 @@ function Step2() {
                 totalPrice += itemPrice;
             }
         });
-        totalPrice *= parseInt(data.count);
+        // totalPrice *= parseInt(data.count);
         // console.log("totalPrice", totalPrice);
 
         // Calculate the volume of the item
@@ -190,7 +190,7 @@ function Step2() {
             image: image.image,
             materials: materials.length ? materials.join(",") : "",
             sizes: sizes.length ? sizes.join(",") : "",
-            cost: totalPrice,
+            cost: (totalPrice *= parseInt(data.count)),
         };
         console.log(item);
 
