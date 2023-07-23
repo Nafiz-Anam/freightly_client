@@ -22,7 +22,7 @@ const volumeSheetURL =
 
 function Step2() {
     const { storage, updateData } = useContext(DataContext);
-    // console.log("storage =>", storage);
+    console.log("storage =>", storage);
     const [modalShow, setModalShow] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
     const [sheetData, setSheetData] = useState([]);
@@ -30,7 +30,7 @@ function Step2() {
     const [sheetPriceData, setSheetPriceData] = useState([]);
     // console.log(sheetPriceData);
     const [sheetVolumePriceData, setSheetVolumePriceData] = useState([]);
-    console.log(sheetVolumePriceData);
+    // console.log("sheetVolumePriceData", sheetVolumePriceData);
     const [materials, setMaterials] = useState([]);
     // console.log("materials", materials);
     const [sizes, setSizes] = useState([]);
@@ -38,11 +38,18 @@ function Step2() {
     const [selectedItem, setSelectedItem] = useState({});
     // console.log("selectedItem", selectedItem);
     const [selectedItems, setSelectedItems] = useState(
-        storage.selected_items || []
+        storage.selected_items.length > 0 ? storage.selected_items : []
     );
+    console.log("selectedItems", selectedItems);
     const [image, setImage] = useState({});
     // console.log("selectedItems", selectedItems);
     const { register, handleSubmit, reset } = useForm();
+
+    useEffect(() => {
+        if (storage.selected_items.length > 0) {
+            setSelectedItems(storage.selected_items);
+        }
+    }, [storage]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -125,6 +132,7 @@ function Step2() {
     };
 
     const onSubmit = (data) => {
+        let totalPrice = 0;
         const selectedMaterial = materials.join(", ");
         // console.log("selectedMaterial", selectedMaterial);
 
@@ -143,7 +151,6 @@ function Step2() {
         // console.log("matchingEntries", matchingEntries);
 
         // Calculate the total price based on the matching entries
-        let totalPrice = 0;
         matchingEntries.forEach((entry) => {
             if (entry) {
                 const itemPrice = parseFloat(entry.cost.replace("€", ""));
