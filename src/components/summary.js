@@ -6,6 +6,10 @@ import Papa from "papaparse";
 const Summary = () => {
     const sheetURL =
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=1772464100&single=true&output=csv";
+
+    const materialSheetURL =
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=981080402&single=true&output=csv";
+
     const { storage } = useContext(DataContext);
     const {
         fromAddress,
@@ -23,6 +27,7 @@ const Summary = () => {
     } = storage;
 
     const [sheetData, setSheetData] = useState([]);
+    const [materialData, setMaterialData] = useState([]);
     // console.log("sheetData", sheetData);
     const [kmRange, setKmRange] = useState({});
     console.log("kmRange", kmRange);
@@ -45,7 +50,24 @@ const Summary = () => {
             }
         };
 
+        const fetchMaterialData = async () => {
+            try {
+                const response = await fetch(materialSheetURL);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch sheet data");
+                }
+                const csvData = await response.text();
+                const parsedData = Papa.parse(csvData, { header: true });
+                const priceJson = parsedData.data;
+                setMaterialData(priceJson);
+            } catch (error) {
+                console.error(error);
+                return null;
+            }
+        };
+
         fetchData();
+        fetchMaterialData();
     }, []);
 
     useEffect(() => {
@@ -62,9 +84,9 @@ const Summary = () => {
 
     // Define the defaultPrice and distancePrice states
     const [defaultPrice, setDefaultPrice] = useState(0);
-    console.log("defaultPrice", defaultPrice);
+    // console.log("defaultPrice", defaultPrice);
     const [distancePrice, setDistancePrice] = useState(0);
-    console.log("distancePrice", distancePrice);
+    // console.log("distancePrice", distancePrice);
 
     useEffect(() => {
         // Parse the default_price value and set it to defaultPrice state
@@ -107,6 +129,48 @@ const Summary = () => {
             .map((item) => `${item.height} x ${item.width} x ${item.length} cm`)
             .join(", ");
     };
+
+    // Function to check if an item has "Glass" material
+    const hasGlassMaterial = function (item) {
+        return item.materials && item.materials.toLowerCase().includes("glass");
+    };
+
+    // Filter out the items that have "Glass" material
+    const glassItems = selected_items.filter(hasGlassMaterial);
+    console.log("glassItems", glassItems);
+
+    const calculateGlassMaterialPrice = (selectedItems) => {
+        console.log("selectedItems", selectedItems);
+        // Filter the materialData array to get the "Glass" material
+        const glassMaterial = materialData.find((material) =>
+            material.price_per_material.toLowerCase().includes("glass")
+        );
+        console.log("glassMaterial", glassMaterial);
+
+        if (!glassMaterial) {
+            // If "Glass" material is not found, return 0
+            return 0;
+        }
+
+        // Extract the price of "Glass" material
+        const glassMaterialPrice = parseFloat(
+            glassMaterial.cost.replace("€", "")
+        );
+        console.log("glassMaterialPrice", glassMaterialPrice);
+
+        // Calculate the total material price for items with "Glass" material
+        const totalGlassMaterialPrice = selectedItems.reduce((acc, item) => {
+            if (hasGlassMaterial(item)) {
+                // Add the price of "Glass" material multiplied by item count to the accumulator
+                return acc + glassMaterialPrice * item.count;
+            }
+            return acc;
+        }, 0);
+
+        return totalGlassMaterialPrice;
+    };
+    const totalGlassMaterialPrice = calculateGlassMaterialPrice(glassItems);
+    console.log("totalGlassMaterialPrice", totalGlassMaterialPrice);
 
     const pickupDateCost = pickup_date.cost
         ? parseFloat(pickup_date.cost.replace("€", ""))
@@ -201,13 +265,30 @@ const Summary = () => {
                                 {/* Display the price of each item */}
                                 {totalItemsPrice && (
                                     <span className={style.cost}>
-                                        €{`${totalItemsPrice.toFixed(2)}`}
+                                        €
+                                        {`${(
+                                            totalItemsPrice -
+                                            totalGlassMaterialPrice
+                                        ).toFixed(2)}`}
                                     </span>
                                 )}
                             </span>
                         </div>
                     )}
                 </div>
+                {glassItems.length > 0 && (
+                    <p
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                        }}
+                    >
+                        <span>Fragile Items included</span>
+                        <span className={style.cost}>
+                            €{`${totalGlassMaterialPrice.toFixed(2)}`}
+                        </span>
+                    </p>
+                )}
                 {transportPrice > 0 && (
                     <p
                         style={{

@@ -110,7 +110,7 @@ const EditItemForm = ({
         const matchingEntries = selectedMaterialsArray.map((material) =>
             material.trim().toLowerCase() !== ""
                 ? sheetPriceData.find((entry) =>
-                      entry["price_per_material "]
+                      entry["price_per_material"]
                           .toLowerCase()
                           .includes(material.toLowerCase())
                   )
