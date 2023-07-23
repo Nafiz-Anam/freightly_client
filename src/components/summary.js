@@ -93,11 +93,7 @@ const Summary = () => {
     console.log("totalItemsPrice", totalItemsPrice);
 
     // Calculate the total item price
-    const grandTotalPrice = parseFloat(
-        totalItemsPrice + defaultPrice + distancePrice
-    );
-    // Log the total item price to the console
-    console.log("grand total =>", grandTotalPrice);
+    const transportPrice = parseFloat(defaultPrice + distancePrice);
 
     const pickupFrom = fromAddress.split(",")[0];
     const deliveryTo = toAddress.split(",")[0];
@@ -171,17 +167,31 @@ const Summary = () => {
 
     // Calculate the total cost by summing up the pickup and delivery costs
     const totalCost =
+        transportPrice +
         pickupFloorCost +
         pickupAssistCost +
         totalPickupCost +
         deliveryFloorCost +
         deliveryAssistCost +
         totalDeliveryCost +
-        grandTotalPrice;
+        totalItemsPrice;
 
     return (
         <div className={style.cartSummary}>
             <h2 className={style.sumTitle}>Your delivery</h2>
+            {transportPrice > 0 && (
+                <p
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    <span>Transportation</span>
+                    <span className={style.cost}>
+                        €{`${transportPrice.toFixed(2)}`}
+                    </span>
+                </p>
+            )}
             {/* items lists */}
             <div className={style.mainSummary}>
                 {selected_items.length > 0 && (
@@ -198,9 +208,9 @@ const Summary = () => {
                         </div>
                         <span className={style.cost}>
                             {/* Display the price of each item */}
-                            {grandTotalPrice && (
+                            {totalItemsPrice && (
                                 <span className={style.cost}>
-                                    €{`${grandTotalPrice.toFixed(2)}`}
+                                    €{`${totalItemsPrice.toFixed(2)}`}
                                 </span>
                             )}
                         </span>
@@ -249,8 +259,8 @@ const Summary = () => {
                         >{`${pickup_floor.cost}`}</span>
                     </p>
                 )}
-                {pickup_Assistance.title != "No, not necessary" ||
-                    (pickup_Assistance.title != "" && (
+                {pickup_Assistance.title !== "No, not necessary" &&
+                    pickup_Assistance.title !== "" && (
                         <p
                             style={{
                                 display: "flex",
@@ -262,7 +272,7 @@ const Summary = () => {
                                 €{`${pickupAssistCost.toFixed(2)}`}
                             </span>
                         </p>
-                    ))}
+                    )}
             </div>
             {/* delivery details */}
             <div className={style.deliveryDetails}>
@@ -305,8 +315,8 @@ const Summary = () => {
                         >{`${delivery_floor.cost}`}</span>
                     </p>
                 )}
-                {delivery_Assistance.title != "No, not necessary" ||
-                    (delivery_Assistance.title != "" && (
+                {delivery_Assistance.title != "No, not necessary" &&
+                    delivery_Assistance.title != "" && (
                         <p
                             style={{
                                 display: "flex",
@@ -318,7 +328,7 @@ const Summary = () => {
                                 €{`${deliveryAssistCost.toFixed(2)}`}
                             </span>
                         </p>
-                    ))}
+                    )}
             </div>
             <hr className={style.hrLine} />
             <div className={style.totalPrice}>
