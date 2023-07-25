@@ -117,8 +117,8 @@ const Summary = () => {
     // Calculate the total item price
     const transportPrice = parseFloat(defaultPrice + distancePrice);
 
-    const pickupFrom = fromAddress.split(",")[0];
-    const deliveryTo = toAddress.split(",")[0];
+    const pickupFrom = fromAddress && fromAddress.split(",")[0];
+    const deliveryTo = toAddress && toAddress.split(",")[0];
 
     const getTitlesString = (selected_items) => {
         return selected_items.map((item) => item.title).join(", ");
