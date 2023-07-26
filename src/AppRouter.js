@@ -12,6 +12,7 @@ import Step9 from "./components/Step9";
 import Step10 from "./components/Step10";
 import Step11 from "./components/Step11";
 import Step12 from "./components/Step12";
+import CheckoutForm from "./components/CheckoutForm_demo";
 
 const AppRouter = () => {
     return (
@@ -28,6 +29,7 @@ const AppRouter = () => {
             <Route path="/step10" element={<Step10 />} />
             <Route path="/step11" element={<Step11 />} />
             <Route path="/step12" element={<Step12 />} />
+            <Route path="/checkout" element={<CheckoutForm />} />
         </Routes>
     );
 };
