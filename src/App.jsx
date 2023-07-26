@@ -20,9 +20,7 @@ function App() {
             <StepContextProvider>
                 <DataProvider>
                     <Routes>
-                        {/* Use the CheckoutLayout for the checkout page */}
                         <Route path="/checkout" element={<Checkout />} />
-                        {/* Use the default Layout for other pages */}
                         <Route
                             path="/*"
                             element={

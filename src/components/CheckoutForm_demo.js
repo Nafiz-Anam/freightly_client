@@ -8,7 +8,6 @@ import {
 const CheckoutForm = () => {
     const stripe = useStripe();
     const elements = useElements();
-
     const [errorMessage, setErrorMessage] = useState(null);
 
     const handleSubmit = async (event) => {
@@ -26,7 +25,7 @@ const CheckoutForm = () => {
             // `Elements` instance that was used to create the Payment Element
             elements,
             confirmParams: {
-                return_url: "https://example.com/order/123/complete",
+                return_url: "https://nafizanam.com",
             },
         });
 
