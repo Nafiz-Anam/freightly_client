@@ -5,6 +5,8 @@ import { DataProvider } from "./context/dataContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import StepContextProvider from "./context/stepContext";
+import { Route, Routes } from "react-router-dom";
+import Checkout from "./components/checkout";
 
 function App() {
     useEffect(() => {
@@ -17,9 +19,19 @@ function App() {
         <Router>
             <StepContextProvider>
                 <DataProvider>
-                    <Layout>
-                        <MainPage />
-                    </Layout>
+                    <Routes>
+                        {/* Use the CheckoutLayout for the checkout page */}
+                        <Route path="/checkout" element={<Checkout />} />
+                        {/* Use the default Layout for other pages */}
+                        <Route
+                            path="/*"
+                            element={
+                                <Layout>
+                                    <MainPage />
+                                </Layout>
+                            }
+                        />
+                    </Routes>
                 </DataProvider>
             </StepContextProvider>
         </Router>

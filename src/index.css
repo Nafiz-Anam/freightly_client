@@ -26,3 +26,31 @@ p {
 ::-webkit-scrollbar-thumb {
     background-color: #000;
 }
+
+.payment_form {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.p-FieldLabel {
+    color: #000;
+}
+
+.payment_form button {
+    margin-top: 25px;
+    padding: 12px;
+    color: #fff;
+    background-color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s;
+}
+.payment_form button:hover {
+    color: #00ff77;
+    transform: scale(1.03);
+}
