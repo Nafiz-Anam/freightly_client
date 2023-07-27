@@ -1,9 +1,9 @@
-import React, { useContext, useState, lazy, Suspense } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { StepContext } from "../context/stepContext";
+import Summary from "../components/summary";
 import style from "./main_layout.module.css";
-const Summary = lazy(() => import("../components/summary"));
 
 const Layout = React.memo(({ children }) => {
     const { activeStep, handleStepChange } = useContext(StepContext);
@@ -39,15 +39,11 @@ const Layout = React.memo(({ children }) => {
             <div className={style.mainBody}>
                 <div className={style.leftSide}>
                     {/* Render the current step */}
-                    <div className={style.pageContent}>
-                        <div className={style.pageContent}>{children}</div>
-                    </div>
+                    <div className={style.pageContent}>{children}</div>
                 </div>
                 <div className={style.rightSide}>
                     {/* Summary details and calculation here */}
-                    <Suspense fallback={<div>Loading summary...</div>}>
-                        <Summary />
-                    </Suspense>
+                    <Summary />
                 </div>
             </div>
 

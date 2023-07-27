@@ -4,7 +4,7 @@ import { pickupPlaces } from "../static_data";
 import { useLocation } from "react-router-dom";
 import { DataContext } from "../context/dataContext";
 
-function Step1() {
+const Step1 = React.memo(() => {
     const { storage, updateData } = useContext(DataContext);
     const location = useLocation();
     console.log("location.search =>", location.search);
@@ -47,6 +47,6 @@ function Step1() {
             <ListLayout data={pickupPlaces} step={"step1"} />
         </>
     );
-}
+});
 
-export default React.memo(Step1);
+export default Step1;
