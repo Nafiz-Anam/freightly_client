@@ -5,7 +5,7 @@ import { StepContext } from "../context/stepContext";
 import Summary from "../components/summary";
 import style from "./main_layout.module.css";
 
-const Layout = ({ children, cartSummary, totalPrice }) => {
+const Layout = React.memo(({ children }) => {
     const { activeStep, handleStepChange } = useContext(StepContext);
 
     const handleNext = () => {
@@ -43,10 +43,7 @@ const Layout = ({ children, cartSummary, totalPrice }) => {
                 </div>
                 <div className={style.rightSide}>
                     {/* Summary details and calculation here */}
-                    <Summary
-                        cartSummary={cartSummary}
-                        totalPrice={totalPrice}
-                    />
+                    <Summary />
                 </div>
             </div>
 
@@ -89,6 +86,6 @@ const Layout = ({ children, cartSummary, totalPrice }) => {
             </div>
         </div>
     );
-};
+});
 
 export default Layout;

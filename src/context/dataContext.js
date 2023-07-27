@@ -16,7 +16,7 @@ export const DataProvider = ({ children }) => {
 
     // Function to update data
     const updateData = (newData) => {
-        console.log("nreData=>", newData);
+        console.log("newData => ", newData);
         const updatedStorage = { ...storage, ...newData };
         setStorage(updatedStorage);
     };

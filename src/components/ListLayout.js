@@ -31,7 +31,7 @@ const ListLayout = ({ data, step }) => {
     const markedItems = {
         step1: storage.starting_point,
         step5: storage.pickup_floor,
-        step6: storage.pickup_Assistance,
+        step6: storage.request_assistance,
         step8: storage.delivery_floor,
         step9: storage.delivery_Assistance,
     };
@@ -80,20 +80,15 @@ const ListLayout = ({ data, step }) => {
                 ...storage,
                 pickup_floor: item,
             };
-        } else if (step === "step6" && item !== storage.pickup_Assistance) {
+        } else if (step === "step6" && item !== storage.request_assistance) {
             updatedData = {
                 ...storage,
-                pickup_Assistance: item,
+                request_assistance: item,
             };
         } else if (step === "step8" && item !== storage.delivery_floor) {
             updatedData = {
                 ...storage,
                 delivery_floor: item,
-            };
-        } else if (step === "step9" && item !== storage.delivery_Assistance) {
-            updatedData = {
-                ...storage,
-                delivery_Assistance: item,
             };
         }
 
@@ -130,7 +125,9 @@ const ListLayout = ({ data, step }) => {
                                         {item.title}
                                     </span>
                                     {item.descriptions && (
-                                        <p style={{fontSize: ".8rem"}}>{item.descriptions}</p>
+                                        <p style={{ fontSize: ".8rem" }}>
+                                            {item.descriptions}
+                                        </p>
                                     )}
                                 </div>
                                 <div

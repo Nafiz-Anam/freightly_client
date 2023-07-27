@@ -20,9 +20,8 @@ const Summary = () => {
         pickup_date,
         pickup_time,
         pickup_floor,
-        pickup_Assistance,
+        request_assistance,
         delivery_time,
-        delivery_Assistance,
         delivery_floor,
     } = storage;
 
@@ -112,7 +111,7 @@ const Summary = () => {
     const totalItemsPrice = selected_items.reduce((acc, item) => {
         return acc + getItemPrice(item);
     }, 0);
-    console.log("totalItemsPrice", totalItemsPrice);
+    // console.log("totalItemsPrice", totalItemsPrice);
 
     // Calculate the total item price
     const transportPrice = parseFloat(defaultPrice + distancePrice);
@@ -134,7 +133,6 @@ const Summary = () => {
     const hasGlassMaterial = function (item) {
         return item.materials && item.materials.toLowerCase().includes("glass");
     };
-
     // Filter out the items that have "Glass" material
     const glassItems = selected_items.filter(hasGlassMaterial);
     console.log("glassItems", glassItems);
@@ -194,39 +192,21 @@ const Summary = () => {
     const totalDeliveryCost = deliveryTimeCost;
 
     let pickupAssistCost = 0;
-    if (Object.keys(pickup_Assistance).length) {
+    if (Object.keys(request_assistance).length) {
         // Loop through the keys of the costData object
-        for (const range of Object.keys(pickup_Assistance)) {
+        for (const range of Object.keys(request_assistance)) {
             // Extract the numeric lower and upper bounds from the range
             const [lower, upper] = range.split("-").map(parseFloat);
 
             // Check if the numericDistance is within the range
             if (distance >= lower && distance <= upper) {
                 pickupAssistCost = parseFloat(
-                    pickup_Assistance[range].replace("€", "")
+                    request_assistance[range].replace("€", "")
                 );
                 break; // Exit the loop since we found the matching range
             }
         }
         // console.log("Cost for distance", distance, "km:", pickupAssistCost);
-    }
-
-    let deliveryAssistCost = 0;
-    if (Object.keys(delivery_Assistance).length) {
-        // Loop through the keys of the costData object
-        for (const range of Object.keys(delivery_Assistance)) {
-            // Extract the numeric lower and upper bounds from the range
-            const [lower, upper] = range.split("-").map(parseFloat);
-
-            // Check if the numericDistance is within the range
-            if (distance >= lower && distance <= upper) {
-                deliveryAssistCost = parseFloat(
-                    delivery_Assistance[range].replace("€", "")
-                );
-                break; // Exit the loop since we found the matching range
-            }
-        }
-        // console.log("Cost for distance", distance, "km:", deliveryAssistCost);
     }
 
     // Calculate the total cost by summing up the pickup and delivery costs
@@ -236,17 +216,15 @@ const Summary = () => {
         pickupAssistCost +
         totalPickupCost +
         deliveryFloorCost +
-        deliveryAssistCost +
         totalDeliveryCost +
         totalItemsPrice;
 
-        useEffect(() => {
-            updateData({
-                ...storage,
-                total_price: totalCost,
-            });
-        }, [totalCost]);
-        
+    useEffect(() => {
+        updateData({
+            ...storage,
+            total_price: totalCost,
+        });
+    }, [totalCost]);
 
     return (
         <div className={style.cartSummary}>
@@ -310,6 +288,20 @@ const Summary = () => {
                         </span>
                     </p>
                 )}
+                {request_assistance.title !== "No, not necessary" &&
+                    request_assistance.title !== "" && (
+                        <p
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                            }}
+                        >
+                            <span>{`${request_assistance.title}`}</span>
+                            <span className={style.cost}>
+                                €{`${pickupAssistCost.toFixed(2)}`}
+                            </span>
+                        </p>
+                    )}
                 {/* pickup details */}
                 <div className={style.pickupDetails}>
                     <h2 className={style.addressLabel}>
@@ -352,20 +344,6 @@ const Summary = () => {
                             >{`${pickup_floor.cost}`}</span>
                         </p>
                     )}
-                    {pickup_Assistance.title !== "No, not necessary" &&
-                        pickup_Assistance.title !== "" && (
-                            <p
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                }}
-                            >
-                                <span>{`${pickup_Assistance.title}`}</span>
-                                <span className={style.cost}>
-                                    €{`${pickupAssistCost.toFixed(2)}`}
-                                </span>
-                            </p>
-                        )}
                 </div>
                 {/* delivery details */}
                 <div className={style.deliveryDetails}>
@@ -408,27 +386,13 @@ const Summary = () => {
                             >{`${delivery_floor.cost}`}</span>
                         </p>
                     )}
-                    {delivery_Assistance.title != "No, not necessary" &&
-                        delivery_Assistance.title != "" && (
-                            <p
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                }}
-                            >
-                                <span>{`${delivery_Assistance.title}`}</span>
-                                <span className={style.cost}>
-                                    €{`${deliveryAssistCost.toFixed(2)}`}
-                                </span>
-                            </p>
-                        )}
                 </div>
             </div>
             <hr className={style.hrLine} />
             <div className={style.totalPrice}>
                 <h3>Total</h3>
-                <h3>€{totalCost.toFixed(2)}</h3>{" "}
                 {/* Display the calculated total cost */}
+                <h3>€{totalCost.toFixed(2)}</h3>
             </div>
         </div>
     );

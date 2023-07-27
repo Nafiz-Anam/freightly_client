@@ -22,7 +22,7 @@ export const initialStorage = {
         icon: "",
         title: "",
     },
-    pickup_Assistance: {
+    request_assistance: {
         cost: "",
         icon: "",
         title: "",
@@ -34,11 +34,6 @@ export const initialStorage = {
     delivery_floor: {
         cost: "",
         desc: "",
-        icon: "",
-        title: "",
-    },
-    delivery_Assistance: {
-        cost: "",
         icon: "",
         title: "",
     },

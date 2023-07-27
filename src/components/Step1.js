@@ -7,9 +7,10 @@ import { DataContext } from "../context/dataContext";
 function Step1() {
     const { storage, updateData } = useContext(DataContext);
     const location = useLocation();
-    console.log("location.search", location.search);
+    console.log("location.search =>", location.search);
 
     useEffect(() => {
+        console.log("inside useffect");
         if (location.search) {
             const queryParams = new URLSearchParams(location.search);
             const {
@@ -18,8 +19,11 @@ function Step1() {
                 km: distance = 0,
             } = Object.fromEntries(queryParams);
 
-            // Check if any of the important values are present in the URL
-            if (fromAddress && toAddress && distance !== 0) {
+            // Check if all the necessary values are present in the URL
+            const areValuesPresent = fromAddress && toAddress && distance !== 0;
+
+            if (areValuesPresent) {
+                console.log("<= inside step1 =>");
                 updateData({
                     ...storage,
                     fromAddress,
@@ -27,7 +31,6 @@ function Step1() {
                     distance: parseFloat(distance),
                 });
             }
-
             clearURL(location.pathname);
         }
     }, [location.search]);
@@ -46,4 +49,4 @@ function Step1() {
     );
 }
 
-export default Step1;
+export default React.memo(Step1);
