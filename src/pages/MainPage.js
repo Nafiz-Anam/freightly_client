@@ -46,7 +46,7 @@ function MainPage() {
                         <LinearProgress
                             style={{ backgroundColor: "#000000" }}
                             variant="determinate"
-                            value={(activeStep / 12) * 100}
+                            value={(activeStep / 11) * 100}
                             className={classes.progressBar}
                         />
                         <AppRouter />

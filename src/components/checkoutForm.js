@@ -69,7 +69,8 @@ export default function CheckoutForm() {
 
     const options = {
         layout: {
-            type: "accordion",
+            type: "tabs",
+            // type: "accordion",
             defaultCollapsed: false,
             radios: false,
             spacedAccordionItems: true,

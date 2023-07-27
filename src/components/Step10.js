@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import style from "./Step11.module.css";
+import style from "./Step10.module.css";
 import { DataContext } from "../context/dataContext";
 
 function Step10() {
@@ -10,22 +10,20 @@ function Step10() {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        defaultValues: storage.pickup_contact, // Set the default values from storage.pickup_contact
+        defaultValues: storage.delivery_contact, // Set the default values from storage.delivery_contact
     });
 
     const onSubmit = (data) => {
         console.log(data);
         updateData({
             ...storage,
-            pickup_contact: data,
+            delivery_contact: data,
         });
     };
 
     return (
         <div style={{ marginTop: "40px" }}>
-            <h2 style={{ textAlign: "center" }}>
-                Pickup address contact details
-            </h2>
+            <h2 style={{ textAlign: "center" }}>Delivery contact details</h2>
             <form
                 className={style.formContainer}
                 onSubmit={handleSubmit(onSubmit)}

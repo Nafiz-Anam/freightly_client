@@ -3,7 +3,7 @@ import ListLayout from "./ListLayout";
 import Papa from "papaparse";
 import { Spinner } from "react-bootstrap";
 
-function Step6() {
+function Step9_no() {
     const sheetURL =
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=1995630682&single=true&output=csv";
 
@@ -32,6 +32,7 @@ function Step6() {
 
         fetchData();
     }, []);
+
     return (
         <>
             <h2
@@ -40,17 +41,17 @@ function Step6() {
                     paddingTop: "40px",
                 }}
             >
-                Request Additional Assistance, Pickup or Delivery
+                Request Additional Delivery Assistance, if Needed
             </h2>
             {isLoading ? (
                 <div className="text-center">
                     <Spinner animation="border" />
                 </div>
             ) : (
-                <ListLayout data={sheetData} step="step6" />
+                <ListLayout data={sheetData} step="step9" />
             )}
         </>
     );
 }
 
-export default Step6;
+export default Step9_no;
