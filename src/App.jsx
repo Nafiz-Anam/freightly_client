@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import StepContextProvider from "./context/stepContext";
 import { Route, Routes } from "react-router-dom";
 import Checkout from "./components/checkout";
+import ThanksYou from "./pages/thankYou";
 
 function App() {
     useEffect(() => {
@@ -21,6 +22,7 @@ function App() {
                 <DataProvider>
                     <Routes>
                         <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/thankyou" element={<ThanksYou />} />
                         <Route
                             path="/*"
                             element={

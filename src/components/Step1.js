@@ -11,26 +11,30 @@ function Step1() {
 
     useEffect(() => {
         if (location.search) {
-            // Parse the query parameters from the URL
             const queryParams = new URLSearchParams(location.search);
-            // Extract the from address, to address, and distance from the query parameters
-            const fromAddress = queryParams.get("from") || "";
-            const toAddress = queryParams.get("to") || "";
-            const distance = parseFloat(queryParams.get("km")) || 0;
+            const {
+                from: fromAddress = "",
+                to: toAddress = "",
+                km: distance = 0,
+            } = Object.fromEntries(queryParams);
 
-            // Update the global storage with the extracted data
-            updateData({
-                ...storage,
-                fromAddress: fromAddress,
-                toAddress: toAddress,
-                distance: distance,
-            });
+            // Check if any of the important values are present in the URL
+            if (fromAddress && toAddress && distance !== 0) {
+                updateData({
+                    ...storage,
+                    fromAddress,
+                    toAddress,
+                    distance: parseFloat(distance),
+                });
+            }
 
-            // Clear the URL by removing all queries
-            const cleanURL = location.pathname;
-            window.history.replaceState({}, document.title, cleanURL);
+            clearURL(location.pathname);
         }
     }, [location.search]);
+
+    const clearURL = (path) => {
+        window.history.replaceState({}, document.title, path);
+    };
 
     return (
         <>

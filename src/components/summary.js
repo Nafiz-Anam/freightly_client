@@ -10,7 +10,7 @@ const Summary = () => {
     const materialSheetURL =
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=981080402&single=true&output=csv";
 
-    const { storage } = useContext(DataContext);
+    const { storage, updateData } = useContext(DataContext);
     const {
         fromAddress,
         toAddress,
@@ -239,6 +239,14 @@ const Summary = () => {
         deliveryAssistCost +
         totalDeliveryCost +
         totalItemsPrice;
+
+        useEffect(() => {
+            updateData({
+                ...storage,
+                total_price: totalCost,
+            });
+        }, [totalCost]);
+        
 
     return (
         <div className={style.cartSummary}>

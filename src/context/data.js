@@ -1,0 +1,71 @@
+export const initialStorage = {
+    fromAddress: "",
+    toAddress: "",
+    distance: 0,
+    starting_point: {
+        icon: "",
+        title: "",
+    },
+    selected_items: [],
+    pickup_date: {
+        date: "",
+        day: "",
+        cost: "",
+    },
+    pickup_time: {
+        time: "",
+        cost: "",
+    },
+    pickup_floor: {
+        cost: "",
+        desc: "",
+        icon: "",
+        title: "",
+    },
+    pickup_Assistance: {
+        cost: "",
+        icon: "",
+        title: "",
+    },
+    delivery_time: {
+        time: "",
+        cost: "",
+    },
+    delivery_floor: {
+        cost: "",
+        desc: "",
+        icon: "",
+        title: "",
+    },
+    delivery_Assistance: {
+        cost: "",
+        icon: "",
+        title: "",
+    },
+    pickup_contact: {
+        pickup_address: "",
+        name: "",
+        email: "",
+        phone: "",
+    },
+    delivery_contact: {
+        delivery_address: "",
+        name: "",
+        email: "",
+        phone: "",
+    },
+    personal_details: {
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        company_name: "",
+        coc_number: "",
+        vat_number: "",
+        company_address: "",
+        postal_code: "",
+        area: "",
+        area_code: "",
+    },
+    total_price: 0,
+};
