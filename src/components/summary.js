@@ -331,7 +331,7 @@ const Summary = () => {
                                 )}
                         </span>
                     </p>
-                    {pickup_floor.title != "Ground Floor" && (
+                    {pickup_floor.title !== "Ground Floor" && (
                         <p
                             style={{
                                 display: "flex",
@@ -373,7 +373,7 @@ const Summary = () => {
                                 )}
                         </span>
                     </p>
-                    {delivery_floor.title != "Ground Floor" && (
+                    {delivery_floor.title !== "Ground Floor" && (
                         <p
                             style={{
                                 display: "flex",

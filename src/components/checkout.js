@@ -6,9 +6,7 @@ import { DataContext } from "../context/dataContext";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
 
-const stripePromise = loadStripe(
-    "pk_test_51NY3V5FurZ1eGDKkZOZ1jdyT4mBCAUQJ07KbgQuPCoOszdjFLErWRHTdZ7jyLe3SFXVj7u5XzE1i3MjLcg80eo39007tdj4Bpr"
-);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_CLIENT_ID);
 
 const Checkout = () => {
     const { storage } = useContext(DataContext);
@@ -21,7 +19,7 @@ const Checkout = () => {
 
     let makePayment = async () => {
         await axios
-            .post("http://localhost:5000/api/v1/payment/create", {
+            .post(`${process.env.REACT_APP_SERVER_URL}/api/v1/payment/create`, {
                 orderData,
             })
             .then((result) => {

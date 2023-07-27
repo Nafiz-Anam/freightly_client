@@ -56,7 +56,7 @@ export default function CheckoutForm() {
             elements,
             confirmParams: {
                 // Make sure to change this to your payment completion page
-                return_url: "https://freight-app.onrender.com/thankyou",
+                return_url: `${process.env.REACT_APP_CLIENT_URL}/checkout`,
             },
         });
         if (error.type === "card_error" || error.type === "validation_error") {
