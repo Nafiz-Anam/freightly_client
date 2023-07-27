@@ -1,6 +1,10 @@
 import React from "react";
 
 const ThanksYou = () => {
+    const handleClean = () => {
+        localStorage.removeItem("activeStep");
+        localStorage.removeItem("storage");
+    };
     return (
         <div
             style={{
@@ -12,7 +16,7 @@ const ThanksYou = () => {
         >
             <div>Thanks You for the Order You will be contacted shorty.</div>
             <a href="https://freightly.nl/">
-                <button>Go to Website</button>
+                <button onClick={handleClean}>Go to Website</button>
             </a>
         </div>
     );

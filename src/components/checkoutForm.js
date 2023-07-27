@@ -56,7 +56,7 @@ export default function CheckoutForm() {
             elements,
             confirmParams: {
                 // Make sure to change this to your payment completion page
-                return_url: `${process.env.REACT_APP_CLIENT_URL}/checkout`,
+                return_url: `${process.env.REACT_APP_CLIENT_URL}/thankyou`,
             },
         });
         if (error.type === "card_error" || error.type === "validation_error") {
