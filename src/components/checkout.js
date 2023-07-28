@@ -30,6 +30,10 @@ const Checkout = () => {
         window.history.replaceState({}, document.title, path);
     };
 
+    useEffect(() => {
+        localStorage.setItem("clientSecret", clientSecret);
+    }, [clientSecret]);
+
     const options = {
         clientSecret,
     };

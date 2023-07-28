@@ -1,35 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import ThanksYou from "../components/thanksYou";
+import { Spinner } from "react-bootstrap";
+import { loadStripe } from "@stripe/stripe-js";
 
-const ThanksYou = () => {
-    const handleClean = () => {
-        localStorage.removeItem("activeStep");
-        localStorage.removeItem("storage");
-        window.location.href = "https://freightly.nl/";
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_CLIENT_ID);
+
+const ThanksYourPage = () => {
+    const [clientSecret, setClientSecret] = useState("");
+
+    useEffect(() => {
+        setClientSecret(localStorage.getItem("clientSecret"));
+    }, []);
+
+    const options = {
+        clientSecret,
     };
 
     return (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-                textAlign: "center",
-            }}
-        >
-            <h1>
-                Thanks You for the Order.
-                <br />
-                You will be contacted shorty.
-            </h1>
-            <div>
-                <button className="web-btn" onClick={handleClean}>
-                    Go to Website
-                </button>
-            </div>
-        </div>
+        <>
+            {clientSecret ? (
+                <Elements options={options} stripe={stripePromise}>
+                    <ThanksYou />
+                </Elements>
+            ) : (
+                <div className="text-center checkout">
+                    <Spinner animation="border" />
+                </div>
+            )}
+        </>
     );
 };
 
-export default ThanksYou;
+export default ThanksYourPage;
