@@ -13,7 +13,7 @@ const Checkout = () => {
     const [clientSecret, setClientSecret] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const location = useLocation();
-    console.log("location.search =>", location.search);
+    // console.log("location.search =>", location.search);
 
     useEffect(() => {
         if (location.search) {

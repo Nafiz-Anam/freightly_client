@@ -2,11 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { DataContext } from "../context/dataContext";
+import { toast } from "react-hot-toast";
+import { BsFillClockFill } from "react-icons/bs";
 
 const ThanksYou = () => {
     const stripe = useStripe();
     const [message, setMessage] = useState(null);
     const { storage } = useContext(DataContext);
+    const [status, setStatus] = useState(null);
 
     useEffect(() => {
         if (!stripe) {
@@ -24,23 +27,43 @@ const ThanksYou = () => {
         stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
             switch (paymentIntent.status) {
                 case "succeeded":
+                    setStatus("success");
                     handleSuccess();
                     setMessage("Payment succeeded!");
                     break;
                 case "processing":
+                    setStatus("custom");
                     setMessage("Your payment is processing.");
                     break;
                 case "requires_payment_method":
+                    setStatus("custom");
                     setMessage(
                         "Your payment was not successful, please try again."
                     );
                     break;
                 default:
+                    setStatus("error");
                     setMessage("Something went wrong.");
                     break;
             }
         });
     }, [stripe]);
+
+    useEffect(() => {
+        if (message) {
+            if (status === "success") {
+                toast.success(message);
+            } else if (status === "error") {
+                toast.error(message);
+            } else {
+                toast((t) => (
+                    <span>
+                        <BsFillClockFill /> {message}
+                    </span>
+                ));
+            }
+        }
+    }, [message]);
 
     let emailData = {
         email: storage.delivery_contact.email,
@@ -53,6 +76,9 @@ const ThanksYou = () => {
             })
             .then((result) => {
                 console.log(result);
+                localStorage.removeItem("activeStep");
+                localStorage.removeItem("storage");
+                localStorage.removeItem("clientSecret");
             })
             .catch((error) => {
                 console.log(error);
@@ -60,8 +86,6 @@ const ThanksYou = () => {
     };
 
     const handleClean = () => {
-        localStorage.removeItem("activeStep");
-        localStorage.removeItem("storage");
         window.location.href = "https://freightly.nl/";
     };
 

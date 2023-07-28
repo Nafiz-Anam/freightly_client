@@ -8,6 +8,7 @@ import StepContextProvider from "./context/stepContext";
 import { Route, Routes } from "react-router-dom";
 import Checkout from "./components/checkout";
 import ThanksYou from "./pages/thankYou";
+import HotToaster from "./components/HotToaster";
 
 function App() {
     useEffect(() => {
@@ -20,6 +21,7 @@ function App() {
         <Router>
             <StepContextProvider>
                 <DataProvider>
+                    <HotToaster />
                     <Routes>
                         <Route path="/checkout" element={<Checkout />} />
                         <Route path="/thankyou" element={<ThanksYou />} />
