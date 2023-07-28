@@ -191,23 +191,27 @@ const Summary = () => {
     const totalPickupCost = pickupDateCost + pickupTimeCost;
     const totalDeliveryCost = deliveryTimeCost;
 
-    let pickupAssistCost = 0;
-    if (Object.keys(request_assistance).length) {
-        // Loop through the keys of the costData object
-        for (const range of Object.keys(request_assistance)) {
-            // Extract the numeric lower and upper bounds from the range
-            const [lower, upper] = range.split("-").map(parseFloat);
+    let pickupAssistCost = request_assistance.cost
+        ? parseFloat(request_assistance.cost.slice(1))
+        : 0;
+    // console.log(request_assistance);
+    // if (Object.keys(request_assistance).length) {
+    //     // Loop through the keys of the costData object
+    //     for (const range of Object.keys(request_assistance)) {
+    //         console.log(range);
+    //         // Extract the numeric lower and upper bounds from the range
+    //         const [lower, upper] = range.split("-").map(parseFloat);
 
-            // Check if the numericDistance is within the range
-            if (distance >= lower && distance <= upper) {
-                pickupAssistCost = parseFloat(
-                    request_assistance[range].replace("€", "")
-                );
-                break; // Exit the loop since we found the matching range
-            }
-        }
-        // console.log("Cost for distance", distance, "km:", pickupAssistCost);
-    }
+    //         // Check if the numericDistance is within the range
+    //         if (distance >= lower && distance <= upper) {
+    //             pickupAssistCost = parseFloat(
+    //                 request_assistance[range].replace("€", "")
+    //             );
+    //             break; // Exit the loop since we found the matching range
+    //         }
+    //     }
+    //     // console.log("Cost for distance", distance, "km:", pickupAssistCost);
+    // }
 
     // Calculate the total cost by summing up the pickup and delivery costs
     console.log(

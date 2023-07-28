@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ListLayout from "./ListLayout";
 import Papa from "papaparse";
 import { Spinner } from "react-bootstrap";
+import { DataContext } from "../context/dataContext";
 
 function Step6() {
     const sheetURL =
@@ -9,6 +10,20 @@ function Step6() {
 
     const [sheetData, setSheetData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const { storage } = useContext(DataContext);
+
+    const distance = parseFloat(storage.distance).toFixed(2);
+
+    // Helper function to determine the price based on distance range
+    function getPrice(distance, priceObject) {
+        for (const key in priceObject) {
+            const [min, max] = key.split("-").map(parseFloat);
+            if (distance >= min && distance <= max) {
+                return priceObject[key];
+            }
+        }
+        return 0;
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,7 +37,15 @@ function Step6() {
                 const parsedData = Papa.parse(csvData, { header: true });
                 const jsonData = parsedData.data;
                 console.log("jsonData", jsonData);
-                setSheetData(jsonData);
+
+                // Create a new array with the updated objects containing the "price" key
+                const newArray = jsonData.map((item) => ({
+                    ...item,
+                    cost: getPrice(distance, item),
+                }));
+                console.log("newArray", newArray);
+
+                setSheetData(newArray);
                 setIsLoading(false);
             } catch (error) {
                 console.error(error);

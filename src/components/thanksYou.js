@@ -76,6 +76,20 @@ const ThanksYou = () => {
             })
             .then((result) => {
                 console.log(result);
+                handleOrderPlace();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const handleOrderPlace = async () => {
+        await axios
+            .post(`${process.env.REACT_APP_SERVER_URL}/api/v1/order/create`, {
+                storage,
+            })
+            .then((result) => {
+                console.log(result);
                 localStorage.removeItem("activeStep");
                 localStorage.removeItem("storage");
                 localStorage.removeItem("clientSecret");
