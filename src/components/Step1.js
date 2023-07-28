@@ -10,7 +10,6 @@ const Step1 = React.memo(() => {
     console.log("location.search =>", location.search);
 
     useEffect(() => {
-        console.log("inside useffect");
         if (location.search) {
             const queryParams = new URLSearchParams(location.search);
             const {
@@ -23,7 +22,6 @@ const Step1 = React.memo(() => {
             const areValuesPresent = fromAddress && toAddress && distance !== 0;
 
             if (areValuesPresent) {
-                console.log("<= inside step1 =>");
                 updateData({
                     ...storage,
                     fromAddress,

@@ -16,32 +16,32 @@ export default function CheckoutForm() {
             return;
         }
 
-        const clientSecret = new URLSearchParams(window.location.search).get(
-            "payment_intent_client_secret"
-        );
+        // const clientSecret = new URLSearchParams(window.location.search).get(
+        //     "payment_intent_client_secret"
+        // );
 
-        if (!clientSecret) {
-            return;
-        }
+        // if (!clientSecret) {
+        //     return;
+        // }
 
-        stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-            switch (paymentIntent.status) {
-                case "succeeded":
-                    setMessage("Payment succeeded!");
-                    break;
-                case "processing":
-                    setMessage("Your payment is processing.");
-                    break;
-                case "requires_payment_method":
-                    setMessage(
-                        "Your payment was not successful, please try again."
-                    );
-                    break;
-                default:
-                    setMessage("Something went wrong.");
-                    break;
-            }
-        });
+        // stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+        //     switch (paymentIntent.status) {
+        //         case "succeeded":
+        //             setMessage("Payment succeeded!");
+        //             break;
+        //         case "processing":
+        //             setMessage("Your payment is processing.");
+        //             break;
+        //         case "requires_payment_method":
+        //             setMessage(
+        //                 "Your payment was not successful, please try again."
+        //             );
+        //             break;
+        //         default:
+        //             setMessage("Something went wrong.");
+        //             break;
+        //     }
+        // });
     }, [stripe]);
 
     const handleSubmit = async (e) => {
@@ -78,8 +78,8 @@ export default function CheckoutForm() {
     };
 
     return (
-        <div className="payment_form">
-            <form id="payment-form" onSubmit={handleSubmit}>
+        <div className="payment_container">
+            <form id="payment-form" className="payment-form" onSubmit={handleSubmit}>
                 <PaymentElement id="payment-element" options={options} />
                 <button
                     disabled={isLoading || !stripe || !elements}

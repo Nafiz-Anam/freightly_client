@@ -1,19 +1,12 @@
 import React, { useContext, useState, lazy, Suspense } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { StepContext } from "../context/stepContext";
 import style from "./main_layout.module.css";
-import { DataContext } from "../context/dataContext";
-import axios from "axios";
-import { Spinner } from "react-bootstrap";
 const Summary = lazy(() => import("../components/summary"));
 
 const Layout = React.memo(({ children }) => {
     const { activeStep, handleStepChange } = useContext(StepContext);
-    const { storage } = useContext(DataContext);
-    const [clientSecret, setClientSecret] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
 
     const handleNext = () => {
         handleStepChange(activeStep + 1);
@@ -21,37 +14,6 @@ const Layout = React.memo(({ children }) => {
 
     const handlePrevious = () => {
         handleStepChange(activeStep - 1);
-    };
-
-    let orderData = {
-        total_price: storage.total_price,
-    };
-
-    let makePayment = async () => {
-        await axios
-            .post(`${process.env.REACT_APP_SERVER_URL}/api/v1/payment/create`, {
-                orderData,
-            })
-            .then((result) => {
-                console.log(result);
-                setClientSecret(result.data.clientSecret);
-                // Navigate to the checkout page with the clientSecret parameter
-                navigate(
-                    `/checkout?clientSecret=${encodeURIComponent(
-                        result.data.clientSecret
-                    )}`
-                );
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setIsLoading(false);
-            });
-    };
-
-    let handlePayment = () => {
-        setIsLoading(true);
-        makePayment();
     };
 
     return (
@@ -117,16 +79,9 @@ const Layout = React.memo(({ children }) => {
                             Continue
                             <GoArrowRight className={style.arrowRight} />
                         </Link>
-                    ) : isLoading ? (
-                        <Link className={style["next-button"]}>
-                            Checkout <Spinner />
-                        </Link>
                     ) : (
-                        <Link
-                            className={style["next-button"]}
-                            onClick={handlePayment}
-                        >
-                            Checkout{" "}
+                        <Link className={style["next-button"]} to={"/checkout"}>
+                            Checkout
                             <GoArrowRight className={style.arrowRight} />
                         </Link>
                     )}

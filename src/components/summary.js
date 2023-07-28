@@ -210,6 +210,15 @@ const Summary = () => {
     }
 
     // Calculate the total cost by summing up the pickup and delivery costs
+    console.log(
+        transportPrice,
+        pickupFloorCost,
+        pickupAssistCost,
+        totalPickupCost,
+        deliveryFloorCost,
+        totalDeliveryCost,
+        totalItemsPrice
+    );
     const totalCost =
         transportPrice +
         pickupFloorCost +
@@ -222,7 +231,7 @@ const Summary = () => {
     useEffect(() => {
         updateData({
             ...storage,
-            total_price: totalCost,
+            total_price: parseFloat(totalCost.toFixed(2)),
         });
     }, [totalCost]);
 

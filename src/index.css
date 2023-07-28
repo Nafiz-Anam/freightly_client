@@ -27,7 +27,7 @@ p {
     background-color: #000;
 }
 
-.payment_form {
+.payment_container {
     height: 100vh;
     width: 100%;
     display: flex;
@@ -35,11 +35,15 @@ p {
     align-items: center;
 }
 
+.payment_container .payment-form {
+    width: 600px;
+}
+
 .p-FieldLabel {
     color: #000;
 }
 
-.payment_form button {
+.payment_container button, .web-btn {
     margin-top: 25px;
     padding: 12px;
     color: #fff;
@@ -50,7 +54,14 @@ p {
     font-size: 16px;
     transition: transform 0.2s;
 }
-.payment_form button:hover {
+.payment_container button:hover, .web-btn:hover {
     color: #00ff77;
     transform: scale(1.03);
+}
+
+.checkout {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -5,37 +5,30 @@ import { loadStripe } from "@stripe/stripe-js";
 import { DataContext } from "../context/dataContext";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_CLIENT_ID);
 
 const Checkout = () => {
-    const { storage } = useContext(DataContext);
     const [clientSecret, setClientSecret] = useState("");
     const [isLoading, setIsLoading] = useState(true);
-
-    let orderData = {
-        total_price: storage.total_price,
-    };
-
-    let makePayment = async () => {
-        await axios
-            .post(`${process.env.REACT_APP_SERVER_URL}/api/v1/payment/create`, {
-                orderData,
-            })
-            .then((result) => {
-                console.log(result);
-                setClientSecret(result.data.clientSecret);
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setIsLoading(false);
-            });
-    };
+    const location = useLocation();
+    console.log("location.search =>", location.search);
 
     useEffect(() => {
-        makePayment();
-    }, []);
+        if (location.search) {
+            const queryParams = new URLSearchParams(location.search);
+            const { clientSecret: clientSecret = "" } =
+                Object.fromEntries(queryParams);
+            setClientSecret(clientSecret);
+            setIsLoading(false);
+            console.log(clientSecret);
+            clearURL(location.pathname);
+        }
+    }, [location.search]);
+    const clearURL = (path) => {
+        window.history.replaceState({}, document.title, path);
+    };
 
     const options = {
         clientSecret,
@@ -48,7 +41,7 @@ const Checkout = () => {
                     <CheckoutForm />
                 </Elements>
             ) : (
-                <div className="text-center">
+                <div className="text-center checkout">
                     <Spinner animation="border" />
                 </div>
             )}
