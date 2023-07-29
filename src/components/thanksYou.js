@@ -66,7 +66,7 @@ const ThanksYou = () => {
     }, [message]);
 
     let emailData = {
-        email: storage.delivery_contact.email,
+        email: storage.personal_details.email,
     };
 
     const handleSuccess = async () => {
