@@ -12,7 +12,6 @@ function Step3() {
     const [selectedItem, setSelectedItem] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const { storage, updateData } = useContext(DataContext);
-    const [itemLimit, setItemLimit] = useState(10);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,7 +26,7 @@ function Step3() {
                 const jsonData = parsedData.data;
 
                 const currentDate = moment();
-                const futureDate = moment().add(itemLimit, "days");
+                const futureDate = moment().add(10, "days");
 
                 const filteredData = jsonData.filter((item) => {
                     const itemDate = moment(item.date, "DD-MMM");
@@ -47,7 +46,7 @@ function Step3() {
         };
 
         fetchData();
-    }, [itemLimit]);
+    }, []);
 
     useEffect(() => {
         setSelectedItem(storage.pickup_date);
@@ -59,10 +58,6 @@ function Step3() {
             ...storage,
             pickup_date: item,
         });
-    };
-
-    const handleLoad = () => {
-        setItemLimit((prev) => prev + 10);
     };
 
     return (
@@ -114,16 +109,6 @@ function Step3() {
                             </button>
                         </li>
                     ))}
-                    <li>
-                        <button className={`list-item2`} onClick={handleLoad}>
-                            <span
-                                style={{ textAlign: "center", width: "100%" }}
-                                className="item-name"
-                            >
-                                Load More
-                            </span>
-                        </button>
-                    </li>
                 </ul>
             )}
         </div>
