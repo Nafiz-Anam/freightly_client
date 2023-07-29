@@ -69,6 +69,10 @@ export const initialStorage = {
         agreeTerms: false,
         agreePrivacy: false,
     },
+    auction_details: {
+        auction_name: "",
+        image: "",
+    },
     transportPrice: 0,
     total_price: 0,
 };

@@ -23,10 +23,6 @@ import { PiDoorFill, PiElevatorFill } from "react-icons/pi";
 import { GrForwardTen } from "react-icons/gr";
 import "./listLayout.css";
 import { DataContext } from "../context/dataContext";
-import { Modal } from "react-bootstrap";
-import ImageDropzone from "./imageDropzone";
-import { useForm } from "react-hook-form";
-import style from "./ListLayout.module.css";
 
 const ListLayout = ({ data, step }) => {
     const [selectedItem, setSelectedItem] = useState("");
@@ -39,13 +35,6 @@ const ListLayout = ({ data, step }) => {
         step8: storage.delivery_floor,
         step9: storage.delivery_Assistance,
     };
-
-    const [showModal, setShowModal] = useState(false);
-    const [image, setImage] = useState({});
-    console.log(image);
-
-    const handleCloseModal = () => setShowModal(false);
-    const handleShowModal = () => setShowModal(true);
 
     useEffect(() => {
         setSelectedItem(markedItems[step] || "");
@@ -86,11 +75,6 @@ const ListLayout = ({ data, step }) => {
                 ...storage,
                 starting_point: item,
             };
-
-            // Show modal if the selected item is "Auction"
-            if (item.title === "Auction") {
-                handleShowModal();
-            }
         } else if (step === "step5" && item !== storage.pickup_floor) {
             updatedData = {
                 ...storage,
@@ -112,22 +96,6 @@ const ListLayout = ({ data, step }) => {
             updateData(updatedData);
         }
     };
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
-    const onSubmit = (data) => {
-        data.image = image.image ? image.image : "";
-        console.log(data);
-        updateData({
-            ...storage,
-            auction_details: data,
-        });
-        handleCloseModal();
-    };
-    console.log(errors);
 
     return (
         <div className="list-layout">
@@ -175,62 +143,6 @@ const ListLayout = ({ data, step }) => {
                         </li>
                     ))}
             </ul>
-
-            {/* Add the Modal component */}
-            <Modal
-                show={showModal}
-                onHide={handleCloseModal}
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title>Upload Authorized Document</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <form
-                        className={style.formContainer}
-                        onSubmit={handleSubmit(onSubmit)}
-                    >
-                        <div
-                            className={style.box}
-                            style={{ width: "100%", padding: "5px" }}
-                        >
-                            <h2 className={style.addItemHeader}>
-                                Auction Name
-                            </h2>
-                            <input
-                                type="text"
-                                placeholder="Auction Name"
-                                {...register("auction_name", {})}
-                            />
-                        </div>
-                        <div>
-                            <h2
-                                style={{ marginTop: "25px" }}
-                                className={style.addItemHeader}
-                            >
-                                Upload Document Image
-                            </h2>
-                            <div
-                                className={style.row}
-                                style={{ flexWrap: "wrap" }}
-                            >
-                                <ImageDropzone image={image} />
-                            </div>
-                        </div>
-
-                        <div className={style.btnDiv}>
-                            <button type="submit">Upload</button>
-                            <button
-                                className={style.closeBtn}
-                                onClick={handleCloseModal}
-                            >
-                                Close
-                            </button>
-                        </div>
-                    </form>
-                </Modal.Body>
-            </Modal>
         </div>
     );
 };
