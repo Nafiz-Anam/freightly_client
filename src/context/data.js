@@ -69,5 +69,6 @@ export const initialStorage = {
         agreeTerms: false,
         agreePrivacy: false,
     },
+    transportPrice: 0,
     total_price: 0,
 };

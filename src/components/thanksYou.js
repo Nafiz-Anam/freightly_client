@@ -65,10 +65,6 @@ const ThanksYou = () => {
         }
     }, [message]);
 
-    let emailData = {
-        email: storage.personal_details.email,
-    };
-
     const handleOrderPlace = async () => {
         await axios
             .post(`${process.env.REACT_APP_SERVER_URL}/api/v1/order/create`, {

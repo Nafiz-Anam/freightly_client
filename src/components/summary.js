@@ -239,6 +239,13 @@ const Summary = () => {
         });
     }, [totalCost]);
 
+    useEffect(() => {
+        updateData({
+            ...storage,
+            transportPrice: parseFloat(transportPrice.toFixed(2)),
+        });
+    }, [transportPrice]);
+
     return (
         <div className={style.cartSummary}>
             <h2 className={style.sumTitle}>Your delivery</h2>
