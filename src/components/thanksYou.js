@@ -28,7 +28,7 @@ const ThanksYou = () => {
             switch (paymentIntent.status) {
                 case "succeeded":
                     setStatus("success");
-                    handleSuccess();
+                    handleOrderPlace();
                     setMessage("Payment succeeded!");
                     break;
                 case "processing":
@@ -69,24 +69,24 @@ const ThanksYou = () => {
         email: storage.personal_details.email,
     };
 
-    const handleSuccess = async () => {
+    const handleOrderPlace = async () => {
         await axios
-            .post(`${process.env.REACT_APP_SERVER_URL}/api/v1/payment/mail`, {
-                emailData,
+            .post(`${process.env.REACT_APP_SERVER_URL}/api/v1/order/create`, {
+                storage,
             })
             .then((result) => {
                 console.log(result);
-                handleOrderPlace();
+                handleInvoice(result.data.order_id);
             })
             .catch((error) => {
                 console.log(error);
             });
     };
 
-    const handleOrderPlace = async () => {
+    const handleInvoice = async (order_id) => {
         await axios
-            .post(`${process.env.REACT_APP_SERVER_URL}/api/v1/order/create`, {
-                storage,
+            .post(`${process.env.REACT_APP_SERVER_URL}/api/v1/payment/mail`, {
+                order_id,
             })
             .then((result) => {
                 console.log(result);
