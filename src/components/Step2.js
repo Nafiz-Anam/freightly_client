@@ -232,13 +232,7 @@ function Step2() {
             {storage.selected_items.length > 0 &&
             Object.keys(selectedItem).length === 0 ? (
                 <>
-                    <div
-                        style={{
-                            width: "70%",
-                            display: "flex",
-                            justifyContent: "space-between",
-                        }}
-                    >
+                    <div className={style["item-list"]}>
                         <h2 style={{ marginBottom: "25px" }}>Your item(s)</h2>
 
                         <button
@@ -250,11 +244,7 @@ function Step2() {
                         </button>
                     </div>
                     <div
-                        style={{
-                            width: "70%",
-                            marginBottom: "100px",
-                            marginTop: "20px",
-                        }}
+                        className={style.item_selected}
                     >
                         <ul className={style.searchResults}>
                             {storage.selected_items.map((item, index) => (

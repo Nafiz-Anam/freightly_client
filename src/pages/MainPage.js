@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 function MainPage() {
     const classes = useStyles();
     const { activeStep } = useContext(StepContext);
+    const isPhone = window.innerWidth < 600;
 
     return (
         <>
@@ -37,7 +38,7 @@ function MainPage() {
             >
                 <Card
                     style={{
-                        width: "80vw",
+                        width: isPhone ? "100vw" : "80vw",
                         fullHeight: true,
                         boxShadow: "0px 0px 0px rgba(0, 0, 0, 0.1)",
                     }}

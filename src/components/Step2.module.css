@@ -5,6 +5,12 @@
     padding-bottom: 100px;
 }
 
+@media (max-width: 768px) {
+    .formContainer {
+        width: 100%;
+    }
+}
+
 .formContainer_edit {
     width: 100%;
     margin: auto;
@@ -27,7 +33,8 @@
     font-weight: 400;
 }
 
-.formContainer input, .formContainer_edit input {
+.formContainer input,
+.formContainer_edit input {
     width: 100%;
     height: 50px;
     font-size: 1rem;
@@ -38,7 +45,8 @@
 }
 
 .formContainer button[type="submit"],
-.closeBtn, .formContainer_edit button[type="submit"] {
+.closeBtn,
+.formContainer_edit button[type="submit"] {
     background-color: #000000;
     color: white;
     padding: 10px 35px;
@@ -50,7 +58,8 @@
 }
 
 .formContainer button[type="submit"]:hover,
-.closeBtn:hover, .formContainer_edit button[type="submit"]:hover {
+.closeBtn:hover,
+.formContainer_edit button[type="submit"]:hover {
     color: #00ff77;
     transform: scale(1.03);
 }
@@ -64,6 +73,12 @@
     margin-top: -0.8em;
     top: 50%;
     right: 2em;
+}
+
+@media (max-width: 768px) {
+    .placeholderTXT {
+        right: 1em;
+    }
 }
 
 .pills {
@@ -156,6 +171,21 @@
     max-height: 90%;
 }
 
+@media (max-width: 768px) {
+    .imgBox {
+        width: 100px;
+        height: 90px;
+        margin: 10px;
+    }
+    .itemIMG {
+        max-width: 70%;
+        max-height: 70%;
+    }
+    .listItem {
+        padding: 10px;
+    }
+}
+
 .searchDemo {
     width: 70%;
 }
@@ -230,4 +260,25 @@
 .btnDiv {
     display: flex;
     gap: 10px;
+}
+
+.item-list {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+}
+.item_selected {
+    width: 70%;
+    margin-bottom: 100px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .item-list {
+        width: 100%;
+        align-items: center;
+    }
+    .item_selected {
+        width: 100% !important;
+    }
 }

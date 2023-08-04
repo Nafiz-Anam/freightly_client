@@ -5,6 +5,16 @@
     padding-bottom: 100px;
 }
 
+@media (max-width: 768px) {
+    .formContainer {
+        width: 100%;
+    }
+
+    .tabButtons button {
+        font-size: 1rem!important;
+    }
+}
+
 .tabButtons {
     display: flex;
     justify-content: space-between;

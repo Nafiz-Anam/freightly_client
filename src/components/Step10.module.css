@@ -5,6 +5,12 @@
     padding-bottom: 100px;
 }
 
+@media (max-width: 768px) {
+  .formContainer {
+    width: 100%;
+}
+}
+
 .row {
     display: flex;
     gap: 10px;

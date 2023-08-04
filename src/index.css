@@ -19,6 +19,13 @@ p {
     width: 70%;
 }
 
+@media (max-width: 768px) {
+  .list li {
+    width: 100%;
+}
+
+}
+
 ::-webkit-scrollbar {
     width: 8px;
 }

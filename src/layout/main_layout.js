@@ -14,6 +14,9 @@ const Layout = React.memo(({ children }) => {
     const [clientSecret, setClientSecret] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const isPhone = window.innerWidth < 600;
+
+    console.log("isPhone", isPhone);
 
     const handleNext = () => {
         handleStepChange(activeStep + 1);
@@ -81,12 +84,18 @@ const Layout = React.memo(({ children }) => {
                         <div className={style.pageContent}>{children}</div>
                     </div>
                 </div>
-                <div className={style.rightSide}>
-                    {/* Summary details and calculation here */}
-                    <Suspense fallback={<div>Loading summary...</div>}>
-                        <Summary />
-                    </Suspense>
-                </div>
+                
+                {!isPhone ? (
+                    <div className={style.rightSide}>
+                        {/* Summary details and calculation here */}
+                        <Suspense fallback={<div>Loading summary...</div>}>
+                            <Summary />
+                        </Suspense>
+                    </div>
+                ) : (
+                    ""
+                )}
+                
             </div>
 
             {/* Footer */}

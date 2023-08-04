@@ -28,6 +28,13 @@
     padding: 0px 16px;
 }
 
+@media (max-width: 768px) {
+  .leftSide {
+    width: 100%;
+    padding: 0px 16px;
+}
+}
+
 .rightSide {
     width: 30%;
     background-color: #f9f9f9;
