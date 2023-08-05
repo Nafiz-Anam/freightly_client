@@ -9,6 +9,10 @@
     .formContainer {
         width: 100%;
     }
+    .formContainer_edit {
+        
+        padding: 30px 5px!important;
+    }
 }
 
 .formContainer_edit {
@@ -185,7 +189,7 @@
         padding: 10px;
     }
     .searchDemo {
-        width: 100%!important;
+        width: 100% !important;
     }
 }
 
