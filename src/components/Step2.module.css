@@ -184,6 +184,9 @@
     .listItem {
         padding: 10px;
     }
+    .searchDemo {
+        width: 100%!important;
+    }
 }
 
 .searchDemo {
