@@ -1,10 +1,7 @@
 import React, { useContext, useState, lazy, Suspense } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
-import {
-    BsFillArrowUpSquareFill,
-    BsFillArrowDownSquareFill,
-} from "react-icons/bs";
+import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import { StepContext } from "../context/stepContext";
 import style from "./main_layout.module.css";
 import { DataContext } from "../context/dataContext";
@@ -147,9 +144,9 @@ const Layout = React.memo(({ children }) => {
                     <div className="mobile_summary" onClick={handleSummary}>
                         <p>
                             {show ? (
-                                <BsFillArrowDownSquareFill />
+                                <AiOutlineArrowDown />
                             ) : (
-                                <BsFillArrowUpSquareFill />
+                                <AiOutlineArrowUp />
                             )}{" "}
                             Transport Summary
                         </p>
