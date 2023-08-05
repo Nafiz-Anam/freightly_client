@@ -141,17 +141,23 @@ const Layout = React.memo(({ children }) => {
                         </Link>
                     )}
 
-                    <div className="mobile_summary" onClick={handleSummary}>
-                        <p>
-                            {show ? (
-                                <AiOutlineArrowDown />
-                            ) : (
-                                <AiOutlineArrowUp />
-                            )}{" "}
-                            Transport Summary
-                        </p>
-                        <h2>€{parseFloat(storage.total_price).toFixed(2)}</h2>
-                    </div>
+                    {isPhone ? (
+                        <div className="mobile_summary" onClick={handleSummary}>
+                            <p>
+                                {show ? (
+                                    <AiOutlineArrowDown />
+                                ) : (
+                                    <AiOutlineArrowUp />
+                                )}{" "}
+                                Transport Summary
+                            </p>
+                            <h2>
+                                €{parseFloat(storage.total_price).toFixed(2)}
+                            </h2>
+                        </div>
+                    ) : (
+                        ""
+                    )}
 
                     {activeStep <= 10 ? (
                         <Link
