@@ -57,6 +57,11 @@ const Layout = React.memo(({ children }) => {
         makePayment();
     };
 
+    const [show, setShow] = useState(false);
+    const handleSummary = () => {
+        setShow(!show);
+    };
+
     return (
         <div className={style.app}>
             {/* Top Bar */}
@@ -80,9 +85,18 @@ const Layout = React.memo(({ children }) => {
             <div className={style.mainBody}>
                 <div className={style.leftSide}>
                     {/* Render the current step */}
-                    <div className={style.pageContent}>
+                    {show ? (
+                        <div
+                            style={{ paddingTop: "100px" }}
+                            className={style.pageContent}
+                        >
+                            <Suspense fallback={<div>Loading summary...</div>}>
+                                <Summary />
+                            </Suspense>
+                        </div>
+                    ) : (
                         <div className={style.pageContent}>{children}</div>
-                    </div>
+                    )}
                 </div>
 
                 {!isPhone ? (
@@ -125,6 +139,11 @@ const Layout = React.memo(({ children }) => {
                             {isPhone ? "" : `Previous`}
                         </Link>
                     )}
+
+                    <div className="mobile_summary" onClick={handleSummary}>
+                        <p>Transport Summary</p>
+                        <h2>€{parseFloat(storage.total_price).toFixed(2)}</h2>
+                    </div>
 
                     {activeStep <= 10 ? (
                         <Link
