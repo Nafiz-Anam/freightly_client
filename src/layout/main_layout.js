@@ -1,6 +1,10 @@
 import React, { useContext, useState, lazy, Suspense } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
+import {
+    BsFillArrowUpSquareFill,
+    BsFillArrowDownSquareFill,
+} from "react-icons/bs";
 import { StepContext } from "../context/stepContext";
 import style from "./main_layout.module.css";
 import { DataContext } from "../context/dataContext";
@@ -141,7 +145,14 @@ const Layout = React.memo(({ children }) => {
                     )}
 
                     <div className="mobile_summary" onClick={handleSummary}>
-                        <p>Transport Summary</p>
+                        <p>
+                            {show ? (
+                                <BsFillArrowDownSquareFill />
+                            ) : (
+                                <BsFillArrowUpSquareFill />
+                            )}{" "}
+                            Transport Summary
+                        </p>
                         <h2>€{parseFloat(storage.total_price).toFixed(2)}</h2>
                     </div>
 
