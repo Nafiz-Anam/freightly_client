@@ -77,10 +77,10 @@
 
 @media (max-width: 768px) {
     .list-item2 {
-        padding: 15px 10px;
+        padding: 15px 12px;
     }
     .item-name {
-        font-size: 18px!important;
+        font-size: 16px!important;
     }
 }
 

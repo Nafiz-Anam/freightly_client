@@ -84,7 +84,7 @@ const Layout = React.memo(({ children }) => {
                         <div className={style.pageContent}>{children}</div>
                     </div>
                 </div>
-                
+
                 {!isPhone ? (
                     <div className={style.rightSide}>
                         {/* Summary details and calculation here */}
@@ -95,25 +95,34 @@ const Layout = React.memo(({ children }) => {
                 ) : (
                     ""
                 )}
-                
             </div>
 
             {/* Footer */}
             <div className={style.footer}>
                 <div className={style.footerContainer}>
                     {activeStep === 1 ? (
-                        <button className={style["next-button-disabled"]}>
+                        <button
+                            className={
+                                !isPhone
+                                    ? style["next-button-disabled"]
+                                    : style["mobile-button-disabled"]
+                            }
+                        >
                             <GoArrowLeft className={style.arrowRight} />
-                            Previous
+                            {isPhone ? "" : `Previous`}
                         </button>
                     ) : (
                         <Link
-                            className={style["next-button"]}
+                            className={
+                                !isPhone
+                                    ? style["next-button"]
+                                    : style["mobile-button"]
+                            }
                             to={"/step" + (activeStep - 1)}
                             onClick={handlePrevious}
                         >
                             <GoArrowLeft className={style.arrowRight} />
-                            Previous
+                            {isPhone ? "" : `Previous`}
                         </Link>
                     )}
 
@@ -140,7 +149,11 @@ const Layout = React.memo(({ children }) => {
                         </Link>
                     )}
                 </div>
-                <div className={style["footer-container-right"]}></div>
+                {!isPhone ? (
+                    <div className={style["footer-container-right"]}></div>
+                ) : (
+                    ""
+                )}
             </div>
         </div>
     );
