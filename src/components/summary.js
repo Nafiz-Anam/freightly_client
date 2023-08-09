@@ -120,12 +120,22 @@ const Summary = () => {
     const deliveryTo = toAddress && toAddress.split(",")[0];
 
     const getTitlesString = (selected_items) => {
-        return selected_items.map((item) => item.title).join(", ");
+        return selected_items
+            .map((item) => {
+                if (item.title === "Custom Item") {
+                    return item.item_name;
+                }
+                return item.title;
+            })
+            .join(", ");
     };
 
     const getDimensionsString = (selected_items) => {
         return selected_items
-            .map((item) => `${item.height} x ${item.width} x ${item.length} cm`)
+            .map(
+                (item) =>
+                    `${item.height} x ${item.width} x ${item.length} cm (${item.count}x)`
+            )
             .join(", ");
     };
 
@@ -197,15 +207,15 @@ const Summary = () => {
     // console.log(request_assistance);
 
     // Calculate the total cost by summing up the pickup and delivery costs
-    console.log(
-        transportPrice,
-        pickupFloorCost,
-        pickupAssistCost,
-        totalPickupCost,
-        deliveryFloorCost,
-        totalDeliveryCost,
-        totalItemsPrice
-    );
+    // console.log(
+    //     transportPrice,
+    //     pickupFloorCost,
+    //     pickupAssistCost,
+    //     totalPickupCost,
+    //     deliveryFloorCost,
+    //     totalDeliveryCost,
+    //     totalItemsPrice
+    // );
 
     const [totalCost, setTotalCost] = useState(0);
 
