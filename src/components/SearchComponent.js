@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import style from "./SearchComponent.module.css";
+import { MdArrowForwardIos } from "react-icons/md";
 
 const SearchComponent = ({ items, setModalShow, setSelectedItem }) => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -20,7 +21,7 @@ const SearchComponent = ({ items, setModalShow, setSelectedItem }) => {
     };
 
     const handleItemClick = (item) => {
-        console.log("item", item);
+        // console.log("item", item);
         // const filteredData = items.filter((item) => item.title === title);
         setSelectedItem(item);
         setModalShow(false);
@@ -46,6 +47,29 @@ const SearchComponent = ({ items, setModalShow, setSelectedItem }) => {
                         {item.title}
                     </li>
                 ))}
+
+                {searchResults.length === 0 && searchTerm ? (
+                    <li
+                        className={style.listItem}
+                        onClick={() =>
+                            handleItemClick({
+                                materials:
+                                    "Glass,Wood,Solid wood,Steel,Marble,Metal,Concrete",
+                                sizes: "",
+                                title: "Custom Item",
+                                weight_kg: "",
+                            })
+                        }
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                        }}
+                    >
+                        Not found? Add your item manually <MdArrowForwardIos />
+                    </li>
+                ) : (
+                    ""
+                )}
             </ul>
         </div>
     );

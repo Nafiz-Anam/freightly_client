@@ -67,6 +67,17 @@ const EditItemForm = ({
                 // Set the matched materials and sizes options
                 setMatchedMaterials(materialsArray);
                 setMatchedSizes(sizesArray);
+            } else {
+                const materialsArray = [
+                    "Glass",
+                    "Wood",
+                    "Solid wood",
+                    "Steel",
+                    "Marble",
+                    "Metal",
+                    "Concrete",
+                ];
+                setMatchedMaterials(materialsArray);
             }
         };
 
