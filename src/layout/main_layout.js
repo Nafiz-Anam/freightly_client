@@ -1,4 +1,4 @@
-import React, { useContext, useState, lazy, Suspense } from "react";
+import React, { useContext, useState, lazy, Suspense, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
@@ -16,8 +16,46 @@ const Layout = React.memo(({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const isPhone = window.innerWidth < 600;
+    const [inactive, setInactive] = useState(true);
 
-    console.log("isPhone", isPhone);
+    useEffect(() => {
+        setInactive(true);
+        if (activeStep === 1 && storage.starting_point.title !== "") {
+            setInactive(false);
+        }
+        if (activeStep === 2 && storage.selected_items.length > 0) {
+            setInactive(false);
+        }
+        if (activeStep === 3 && storage.pickup_date.date !== "") {
+            setInactive(false);
+        }
+        if (activeStep === 4 && storage.pickup_time.time !== "") {
+            setInactive(false);
+        }
+        if (activeStep === 5 && storage.pickup_floor.title !== "") {
+            setInactive(false);
+        }
+        if (activeStep === 6 && storage.request_assistance.title !== "") {
+            setInactive(false);
+        }
+        if (activeStep === 7 && storage.delivery_time.time !== "") {
+            setInactive(false);
+        }
+        if (activeStep === 8 && storage.delivery_floor.title !== "") {
+            setInactive(false);
+        }
+        if (activeStep === 9 && storage.pickup_contact.name !== "") {
+            setInactive(false);
+        }
+        if (activeStep === 10 && storage.delivery_contact.name !== "") {
+            setInactive(false);
+        }
+        if (activeStep === 11 && storage.personal_details.firstName !== "") {
+            setInactive(false);
+        }
+    }, [activeStep, storage]);
+
+    // console.log("isPhone", isPhone);
 
     const handleNext = () => {
         handleStepChange(activeStep + 1);
@@ -160,18 +198,24 @@ const Layout = React.memo(({ children }) => {
                     )}
 
                     {activeStep <= 10 ? (
-                        <Link
-                            className={style["next-button"]}
-                            to={"/step" + (activeStep + 1)}
-                            onClick={handleNext}
-                        >
-                            Continue
-                            <GoArrowRight className={style.arrowRight} />
-                        </Link>
+                        inactive ? (
+                            ""
+                        ) : (
+                            <Link
+                                className={style["next-button"]}
+                                to={"/step" + (activeStep + 1)}
+                                onClick={handleNext}
+                            >
+                                Continue
+                                <GoArrowRight className={style.arrowRight} />
+                            </Link>
+                        )
                     ) : isLoading ? (
                         <Link className={style["next-button"]}>
                             Checkout <Spinner />
                         </Link>
+                    ) : inactive ? (
+                        ""
                     ) : (
                         <Link
                             className={style["next-button"]}

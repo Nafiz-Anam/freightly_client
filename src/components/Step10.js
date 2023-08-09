@@ -2,9 +2,14 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import style from "./Step10.module.css";
 import { DataContext } from "../context/dataContext";
+import { StepContext } from "../context/stepContext";
+import { useNavigate } from "react-router-dom";
 
 function Step10() {
     const { storage, updateData } = useContext(DataContext);
+    const { activeStep, handleStepChange } = useContext(StepContext);
+    const navigate = useNavigate();
+
     const {
         register,
         handleSubmit,
@@ -19,6 +24,8 @@ function Step10() {
             ...storage,
             delivery_contact: data,
         });
+        handleStepChange(activeStep + 1);
+        navigate("/step11");
     };
 
     return (
