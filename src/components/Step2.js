@@ -10,6 +10,7 @@ import style from "./Step2.module.css";
 import ImageDropzone from "./imageDropzone";
 import { DataContext } from "../context/dataContext";
 import EditItemForm from "./editItemForm";
+import { toast } from "react-hot-toast";
 
 const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?output=csv";
@@ -25,6 +26,7 @@ function Step2() {
     // console.log("storage =>", storage);
     const [modalShow, setModalShow] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
+    const [lengthAlertShow, setLengthAlertShow] = useState(false);
     const [sheetData, setSheetData] = useState([]);
     // console.log(sheetData);
     const [sheetPriceData, setSheetPriceData] = useState([]);
@@ -179,8 +181,8 @@ function Step2() {
         }
         // console.log("priceRange", priceRange);
         if (!priceRange) {
-            console.log("Volume is not within any price range.");
-            return;
+            // toast.error("Volume is not within any price range");
+            setLengthAlertShow(true);
         } else {
             totalPrice =
                 totalPrice + parseInt(priceRange.price.replace("€", ""));
@@ -579,6 +581,30 @@ function Step2() {
                         items={sheetData}
                         sheetPriceData={sheetPriceData}
                     />
+                </Modal.Body>
+            </Modal>
+            {/* alert modal */}
+            <Modal
+                show={lengthAlertShow}
+                onHide={() => setLengthAlertShow(false)}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        Attention please!!!
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p style={{ textAlign: "center", padding: "25px 0px" }}>
+                        The size of your items may require special handling.
+                        This could cause a minor delay in securing the right
+                        driver. We're experienced in managing such situations.
+                    </p>
+                    <h5 style={{ textAlign: "center", paddingBottom: "20px" }}>
+                        Thank you for your patience
+                    </h5>
                 </Modal.Body>
             </Modal>
         </div>

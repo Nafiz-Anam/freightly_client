@@ -5,7 +5,7 @@ const ImageDropzone = ({ image }) => {
     const [imagePreview, setImagePreview] = useState("");
     const [showInstruction, setShowInstruction] = useState(true);
     const fileInputRef = useRef(null);
-    console.log("image =>", image);
+    // console.log("image =>", image);
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];

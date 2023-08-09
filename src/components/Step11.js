@@ -17,7 +17,7 @@ const Step11 = () => {
     console.log(errors);
 
     const onSubmit = (data) => {
-        console.log(data);
+        // console.log(data);
         updateData({
             ...storage,
             personal_details: data,
