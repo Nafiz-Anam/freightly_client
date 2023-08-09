@@ -22,7 +22,7 @@ const volumeSheetURL =
 
 function Step2() {
     const { storage, updateData } = useContext(DataContext);
-    console.log("storage =>", storage);
+    // console.log("storage =>", storage);
     const [modalShow, setModalShow] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
     const [sheetData, setSheetData] = useState([]);
@@ -40,10 +40,16 @@ function Step2() {
     const [selectedItems, setSelectedItems] = useState(
         storage.selected_items.length > 0 ? storage.selected_items : []
     );
-    console.log("selectedItems", selectedItems);
+    // console.log("selectedItems", selectedItems);
     const [image, setImage] = useState({});
     // console.log("selectedItems", selectedItems);
-    const { register, handleSubmit, reset } = useForm();
+    const [imgErr, setImgErr] = useState(false);
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm();
 
     useEffect(() => {
         if (storage.selected_items.length > 0) {
@@ -180,6 +186,13 @@ function Step2() {
                 totalPrice + parseInt(priceRange.price.replace("€", ""));
         }
 
+        if (Object.keys(image).length === 0) {
+            setImgErr(true);
+            return;
+        } else {
+            setImgErr(false);
+        }
+
         let item = {
             width: data.width,
             height: data.height,
@@ -262,17 +275,19 @@ function Step2() {
                                     <div className={style.contextBox}>
                                         <h2>
                                             {item.title}
-                                            {item.item_name ? ` ( ${item.item_name} )` : ""}
+                                            {item.item_name
+                                                ? ` ( ${item.item_name} )`
+                                                : ""}
                                         </h2>
                                         <p>{`Dimensions: ${
-                                            item.length ? item.length : "L"
+                                            item.length ? item.length : "0"
                                         } x ${
-                                            item.width ? item.width : "W"
+                                            item.width ? item.width : "0"
                                         } x ${
-                                            item.height ? item.height : "H"
+                                            item.height ? item.height : "0"
                                         } cm`}</p>
                                         <p>{`Quantity: ${
-                                            item.count ? item.count : "1"
+                                            item.count ? item.count : "0"
                                         }`}</p>
                                     </div>
                                     <div className={style.iconBox}>
@@ -311,7 +326,9 @@ function Step2() {
                                     <input
                                         type="text"
                                         placeholder="Enter custom item name"
-                                        {...register("item_name", {})}
+                                        {...register("item_name", {
+                                            required: true,
+                                        })}
                                     />
                                 </div>
                             </>
@@ -330,25 +347,46 @@ function Step2() {
                                 <input
                                     type="text"
                                     placeholder="Length"
-                                    {...register("length", {})}
+                                    {...register("length", { required: true })}
                                 />
                                 <span className={style.placeholderTXT}>cm</span>
+                                {errors && errors.length ? (
+                                    <span className={style.error_msg}>
+                                        Length is required
+                                    </span>
+                                ) : (
+                                    ""
+                                )}
                             </div>
                             <div className={`${style.column} ${style.box}`}>
                                 <input
                                     type="text"
                                     placeholder="Width"
-                                    {...register("width", {})}
+                                    {...register("width", { required: true })}
                                 />
                                 <span className={style.placeholderTXT}>cm</span>
+                                {errors && errors.width ? (
+                                    <span className={style.error_msg}>
+                                        Width is required
+                                    </span>
+                                ) : (
+                                    ""
+                                )}
                             </div>
                             <div className={`${style.column} ${style.box}`}>
                                 <input
                                     type="text"
                                     placeholder="Height"
-                                    {...register("height", {})}
+                                    {...register("height", { required: true })}
                                 />
                                 <span className={style.placeholderTXT}>cm</span>
+                                {errors && errors.height ? (
+                                    <span className={style.error_msg}>
+                                        Height is required
+                                    </span>
+                                ) : (
+                                    ""
+                                )}
                             </div>
                         </div>
                         {selectedItem.materials ? (
@@ -432,6 +470,13 @@ function Step2() {
                             >
                                 <ImageDropzone image={image} />
                             </div>
+                            {imgErr ? (
+                                <span className={style.error_msg}>
+                                    Document image is required
+                                </span>
+                            ) : (
+                                ""
+                            )}
                         </div>
                         <div className={style.row}>
                             <div
@@ -444,7 +489,7 @@ function Step2() {
                                 <input
                                     type="text"
                                     placeholder="Enter item count"
-                                    {...register("count", {})}
+                                    {...register("count", { required: true })}
                                 />
                                 <span
                                     className={style.placeholderTXT}
@@ -452,6 +497,13 @@ function Step2() {
                                 >
                                     How many?
                                 </span>
+                                {errors && errors.count ? (
+                                    <span className={style.error_msg}>
+                                        Count is required
+                                    </span>
+                                ) : (
+                                    ""
+                                )}
                             </div>
                         </div>
 

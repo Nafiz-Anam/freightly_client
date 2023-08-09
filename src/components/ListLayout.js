@@ -113,6 +113,8 @@ const ListLayout = ({ data, step }) => {
         }
     };
 
+    const [imgErr, setImgErr] = useState(false);
+
     const {
         register,
         handleSubmit,
@@ -121,6 +123,10 @@ const ListLayout = ({ data, step }) => {
     const onSubmit = (data) => {
         data.image = image.image ? image.image : "";
         console.log(data);
+        if (data.image === "") {
+            setImgErr(true);
+            return;
+        }
         updateData({
             ...storage,
             auction_details: data,
@@ -201,8 +207,17 @@ const ListLayout = ({ data, step }) => {
                             <input
                                 type="text"
                                 placeholder="Auction Name"
-                                {...register("auction_name", {})}
+                                {...register("auction_name", {
+                                    required: true,
+                                })}
                             />
+                            {errors && errors.auction_name ? (
+                                <span className={style.error_msg}>
+                                    Auction name is required
+                                </span>
+                            ) : (
+                                ""
+                            )}
                         </div>
                         <div>
                             <h2
@@ -217,6 +232,13 @@ const ListLayout = ({ data, step }) => {
                             >
                                 <ImageDropzone image={image} />
                             </div>
+                            {imgErr ? (
+                                <span className={style.error_msg}>
+                                    Document image is required
+                                </span>
+                            ) : (
+                                ""
+                            )}
                         </div>
 
                         <div className={style.btnDiv}>

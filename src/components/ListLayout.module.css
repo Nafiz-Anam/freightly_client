@@ -118,6 +118,11 @@
     color: red;
     font-size: 20px;
 }
+.error_msg {
+    color: red;
+}
+
+
 .listIcon2 {
     color: #000;
     font-size: 20px;

@@ -40,9 +40,9 @@ const EditItemForm = ({
     }
 
     const [materials, setMaterials] = useState(materials_old);
-    console.log("materials", materials);
+    // console.log("materials", materials);
     const [sizes, setSizes] = useState(sizes_old);
-    console.log("sizes", sizes);
+    // console.log("sizes", sizes);
 
     const {
         register,
@@ -110,6 +110,8 @@ const EditItemForm = ({
         });
     };
 
+     const [imgErr, setImgErr] = useState(false);
+
     const onSubmit = (data) => {
         let totalPrice = 0;
         const selectedMaterial = materials.join(", ");
@@ -157,6 +159,11 @@ const EditItemForm = ({
         } else {
             totalPrice =
                 totalPrice + parseInt(priceRange.price.replace("€", ""));
+        }
+
+        if (Object.keys(image).length === 0) {
+            setImgErr(true);
+            return;
         }
 
         let item = {
@@ -212,25 +219,46 @@ const EditItemForm = ({
                     <input
                         type="text"
                         placeholder="Length"
-                        {...register("length", {})}
+                        {...register("length", { required: true })}
                     />
                     <span className={style.placeholderTXT}>cm</span>
+                    {errors && errors.length ? (
+                        <span className={style.error_msg}>
+                            Length is required
+                        </span>
+                    ) : (
+                        ""
+                    )}
                 </div>
                 <div className={`${style.column} ${style.box}`}>
                     <input
                         type="text"
                         placeholder="Width"
-                        {...register("width", {})}
+                        {...register("width", { required: true })}
                     />
                     <span className={style.placeholderTXT}>cm</span>
+                    {errors && errors.width ? (
+                        <span className={style.error_msg}>
+                            Width is required
+                        </span>
+                    ) : (
+                        ""
+                    )}
                 </div>
                 <div className={`${style.column} ${style.box}`}>
                     <input
                         type="text"
                         placeholder="Height"
-                        {...register("height", {})}
+                        {...register("height", { required: true })}
                     />
                     <span className={style.placeholderTXT}>cm</span>
+                    {errors && errors.height ? (
+                        <span className={style.error_msg}>
+                            Height is required
+                        </span>
+                    ) : (
+                        ""
+                    )}
                 </div>
             </div>
             {matchedMaterials.length ? (
@@ -295,6 +323,13 @@ const EditItemForm = ({
                 <div className={style.row} style={{ flexWrap: "wrap" }}>
                     <ImageDropzone image={image} />
                 </div>
+                {imgErr ? (
+                    <span className={style.error_msg}>
+                        Document image is required
+                    </span>
+                ) : (
+                    ""
+                )}
             </div>
             <div className={style.row}>
                 <div
@@ -305,7 +340,7 @@ const EditItemForm = ({
                     <input
                         type="text"
                         placeholder="Enter item count"
-                        {...register("count", {})}
+                        {...register("count", { required: true })}
                     />
                     <span
                         className={style.placeholderTXT}
@@ -313,6 +348,13 @@ const EditItemForm = ({
                     >
                         How many?
                     </span>
+                    {errors && errors.count ? (
+                        <span className={style.error_msg}>
+                            Count is required
+                        </span>
+                    ) : (
+                        ""
+                    )}
                 </div>
             </div>
 

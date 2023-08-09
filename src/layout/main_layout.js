@@ -21,7 +21,14 @@ const Layout = React.memo(({ children }) => {
     useEffect(() => {
         setInactive(true);
         if (activeStep === 1 && storage.starting_point.title !== "") {
-            setInactive(false);
+            if (
+                storage.starting_point.title === "Auction" &&
+                storage.auction_details.auction_name === ""
+            ) {
+                setInactive(true);
+            } else {
+                setInactive(false);
+            }
         }
         if (activeStep === 2 && storage.selected_items.length > 0) {
             setInactive(false);
