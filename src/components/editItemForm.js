@@ -169,6 +169,7 @@ const EditItemForm = ({
             materials: materials.length ? materials.join(",") : "",
             sizes: sizes.length ? sizes.join(",") : "",
             cost: (totalPrice *= parseInt(data.count)),
+            item_name: data.item_name,
         };
         console.log(item);
         const updatedItems = [...storage.selected_items];
@@ -187,7 +188,23 @@ const EditItemForm = ({
             className={style.formContainer_edit}
             onSubmit={handleSubmit(onSubmit)}
         >
-            <h2 className={style.addItemHeader}>
+            {editData.title === "Custom Item" ? (
+                <>
+                    <h2 className={style.addItemHeader}>
+                        What you want to transport?
+                    </h2>
+                    <div className={`${style.column} ${style.box}`}>
+                        <input
+                            type="text"
+                            placeholder="Enter custom item name"
+                            {...register("item_name", {})}
+                        />
+                    </div>
+                </>
+            ) : (
+                ""
+            )}
+            <h2 className={style.addItemHeader} style={{ marginTop: "25px" }}>
                 Check dimensions (l x w x h):
             </h2>
             <div className={style.row}>

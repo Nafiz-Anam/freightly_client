@@ -190,6 +190,7 @@ function Step2() {
             materials: materials.length ? materials.join(",") : "",
             sizes: sizes.length ? sizes.join(",") : "",
             cost: (totalPrice *= parseInt(data.count)),
+            item_name: data.item_name,
         };
         // console.log(item);
 
@@ -220,8 +221,8 @@ function Step2() {
     const [eIndex, setEIndex] = useState(null);
 
     const editItem = (index) => {
-        console.log(index);
-        console.log(storage.selected_items[index]);
+        // console.log(index);
+        // console.log(storage.selected_items[index]);
         setEIndex(index);
         setEditData(storage.selected_items[index]);
         setEditModalShow(true);
@@ -243,9 +244,7 @@ function Step2() {
                             Add item
                         </button>
                     </div>
-                    <div
-                        className={style.item_selected}
-                    >
+                    <div className={style.item_selected}>
                         <ul className={style.searchResults}>
                             {storage.selected_items.map((item, index) => (
                                 <li className={style.listItem} key={index}>
@@ -261,7 +260,10 @@ function Step2() {
                                         />
                                     </div>
                                     <div className={style.contextBox}>
-                                        <h2>{item.title}</h2>
+                                        <h2>
+                                            {item.title}
+                                            {item.item_name ? ` ( ${item.item_name} )` : ""}
+                                        </h2>
                                         <p>{`Dimensions: ${
                                             item.length ? item.length : "L"
                                         } x ${
@@ -300,7 +302,26 @@ function Step2() {
                         className={style.formContainer}
                         onSubmit={handleSubmit(onSubmit)}
                     >
-                        <h2 className={style.addItemHeader}>
+                        {selectedItem.title === "Custom Item" ? (
+                            <>
+                                <h2 className={style.addItemHeader}>
+                                    What you want to transport?
+                                </h2>
+                                <div className={`${style.column} ${style.box}`}>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter custom item name"
+                                        {...register("item_name", {})}
+                                    />
+                                </div>
+                            </>
+                        ) : (
+                            ""
+                        )}
+                        <h2
+                            className={style.addItemHeader}
+                            style={{ marginTop: "25px" }}
+                        >
                             Check dimensions (l x w x h):
                         </h2>
 
