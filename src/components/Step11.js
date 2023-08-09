@@ -14,6 +14,7 @@ const Step11 = () => {
     } = useForm({
         defaultValues: storage.personal_details,
     });
+    console.log(errors);
 
     const onSubmit = (data) => {
         console.log(data);
@@ -70,16 +71,34 @@ const Step11 = () => {
                                 <input
                                     type="text"
                                     placeholder="First Name"
-                                    {...register("firstName")}
+                                    {...register("firstName", {
+                                        required: true,
+                                    })}
                                 />
+                                {errors && errors.firstName ? (
+                                    <span className={style.error_msg}>
+                                        First name is required
+                                    </span>
+                                ) : (
+                                    ""
+                                )}
                             </div>
                             <div className={style.column}>
                                 <label>Last Name</label>
                                 <input
                                     type="text"
                                     placeholder="Last Name"
-                                    {...register("lastName")}
+                                    {...register("lastName", {
+                                        required: true,
+                                    })}
                                 />
+                                {errors && errors.lastName ? (
+                                    <span className={style.error_msg}>
+                                        Last name is required
+                                    </span>
+                                ) : (
+                                    ""
+                                )}
                             </div>
                         </div>
                         <div className={style.row}>
@@ -88,16 +107,32 @@ const Step11 = () => {
                                 <input
                                     type="email"
                                     placeholder="Email"
-                                    {...register("email")}
+                                    {...register("email", { required: true })}
                                 />
+                                {errors && errors.email ? (
+                                    <span className={style.error_msg}>
+                                        Email address is required
+                                    </span>
+                                ) : (
+                                    ""
+                                )}
                             </div>
                             <div className={style.column}>
                                 <label>Phone Number</label>
                                 <input
                                     type="text"
                                     placeholder="Phone Number"
-                                    {...register("phoneNumber")}
+                                    {...register("phoneNumber", {
+                                        required: true,
+                                    })}
                                 />
+                                {errors && errors.phoneNumber ? (
+                                    <span className={style.error_msg}>
+                                        Phone number is required
+                                    </span>
+                                ) : (
+                                    ""
+                                )}
                             </div>
                         </div>
                     </div>
@@ -183,7 +218,7 @@ const Step11 = () => {
                     <input
                         type="checkbox"
                         id="agreeTerms"
-                        {...register("agreeTerms")}
+                        {...register("agreeTerms", { required: true })}
                     />
                     <label htmlFor="agreeTerms">
                         By making use of Freightly, you have to agree with{" "}
@@ -194,12 +229,26 @@ const Step11 = () => {
                     <input
                         type="checkbox"
                         id="agreePrivacy"
-                        {...register("agreePrivacy")}
+                        {...register("agreePrivacy", { required: true })}
                     />
                     <label htmlFor="agreePrivacy">
                         I agree with <a href="#">Freightly Privacy statement</a>
                     </label>
                 </div>
+                {errors && errors.agreeTerms ? (
+                    <span className={style.error_msg}>
+                        Please agree to Freightly general terms
+                    </span>
+                ) : (
+                    ""
+                )}
+                {errors && errors.agreePrivacy ? (
+                    <span className={style.error_msg}>
+                        Please agree to Freightly Privacy statement
+                    </span>
+                ) : (
+                    ""
+                )}
             </div>
 
             <button type="submit">Submit</button>

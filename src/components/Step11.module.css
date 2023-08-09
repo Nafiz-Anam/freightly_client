@@ -11,7 +11,7 @@
     }
 
     .tabButtons button {
-        font-size: 1rem!important;
+        font-size: 1rem !important;
     }
 }
 
@@ -129,4 +129,8 @@
     font-size: 1rem;
     cursor: pointer;
     color: #000000;
+}
+
+.error_msg {
+    color: red;
 }
