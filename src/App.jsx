@@ -7,7 +7,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import StepContextProvider from "./context/stepContext";
 import { Route, Routes } from "react-router-dom";
 import Checkout from "./components/checkout";
-import ThanksYou from "./pages/thankYou";
+import ThankYou from "./pages/thankYou";
+import ThanksYouReq from "./pages/thankYouReq";
 import HotToaster from "./components/HotToaster";
 
 function App() {
@@ -24,7 +25,8 @@ function App() {
                     <HotToaster />
                     <Routes>
                         <Route path="/checkout" element={<Checkout />} />
-                        <Route path="/thankyou" element={<ThanksYou />} />
+                        <Route path="/thankyou" element={<ThankYou />} />
+                        <Route path="/thankyouReq" element={<ThanksYouReq />} />
                         <Route
                             path="/*"
                             element={

@@ -21,6 +21,9 @@ const priceSheetURL =
 const volumeSheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=1568095341&single=true&output=csv";
 
+const popupSheet =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=327490930&single=true&output=csv";
+
 function Step2() {
     const { storage, updateData } = useContext(DataContext);
     // console.log("storage =>", storage);
@@ -33,6 +36,8 @@ function Step2() {
     // console.log(sheetPriceData);
     const [sheetVolumePriceData, setSheetVolumePriceData] = useState([]);
     // console.log("sheetVolumePriceData", sheetVolumePriceData);
+    const [popupData, setPopupData] = useState([]);
+    // console.log("popupData", popupData);
     const [materials, setMaterials] = useState([]);
     // console.log("materials", materials);
     const [sizes, setSizes] = useState([]);
@@ -108,10 +113,27 @@ function Step2() {
                 return null;
             }
         };
+        const fetchPopupData = async () => {
+            try {
+                const response = await fetch(popupSheet);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch sheet data");
+                }
+                const csvData = await response.text();
+                const parsedData = Papa.parse(csvData, { header: true });
+                const PopupJson = parsedData.data;
+                // console.log("priceVolumeJson", priceVolumeJson);
+                setPopupData(PopupJson);
+            } catch (error) {
+                console.error(error);
+                return null;
+            }
+        };
 
         fetchData();
         fetchPriceData();
         fetchVolumePriceData();
+        fetchPopupData()
     }, []);
 
     const handleMaterials = (item) => {
@@ -583,6 +605,7 @@ function Step2() {
                     />
                 </Modal.Body>
             </Modal>
+            
             {/* alert modal */}
             <Modal
                 show={lengthAlertShow}
@@ -593,18 +616,21 @@ function Step2() {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Attention please!!!
+                        {popupData[0] && popupData[0].title}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p style={{ textAlign: "center", padding: "25px 0px" }}>
-                        The size of your items may require special handling.
-                        This could cause a minor delay in securing the right
-                        driver. We're experienced in managing such situations.
+                    <p
+                        style={{
+                            textAlign: "center",
+                            padding: "0px 0px 25px 0px",
+                        }}
+                    >
+                        {popupData[0] && popupData[0].content}
                     </p>
-                    <h5 style={{ textAlign: "center", paddingBottom: "20px" }}>
+                    {/* <h5 style={{ textAlign: "center", paddingBottom: "20px" }}>
                         Thank you for your patience
-                    </h5>
+                    </h5> */}
                 </Modal.Body>
             </Modal>
         </div>
