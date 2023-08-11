@@ -105,10 +105,18 @@
     cursor: pointer;
 }
 
-.pills:hover {
+/* .pills:hover {
     color: #fff;
     background-color: #000000;
     transform: scale(1.03);
+} */
+
+@media (min-width: 769px) {
+    .pills:hover {
+    color: #fff;
+    background-color: #000000;
+    transform: scale(1.03);
+}
 }
 
 .selected {
