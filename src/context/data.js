@@ -75,4 +75,5 @@ export const initialStorage = {
     },
     transportPrice: 0,
     total_price: 0,
+    request: false,
 };

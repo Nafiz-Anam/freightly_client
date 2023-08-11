@@ -70,7 +70,7 @@ function Step7() {
 
     useEffect(() => {
         if (popupData.length > 0 && storage.distance >= 0) {
-            setAlertShow(true)
+            setAlertShow(true);
         }
     }, [popupData]);
 
@@ -83,7 +83,6 @@ function Step7() {
     };
 
     const handleContinue = () => {
-        setAlertShow(false);
         let item = {
             time: "00:00 - 00:00",
             cost: "€0.00",
@@ -92,10 +91,12 @@ function Step7() {
         updateData({
             ...storage,
             delivery_time: item,
+            request: true,
         });
-         handleStepChange(activeStep + 1);
-         navigate("/step11");
-    }
+        setAlertShow(false);
+        handleStepChange(activeStep + 1);
+        navigate("/step8");
+    };
 
     return (
         <div className="list-layout">

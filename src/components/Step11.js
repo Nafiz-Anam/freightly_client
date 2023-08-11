@@ -15,7 +15,7 @@ const Step11 = () => {
     const { storage, updateData } = useContext(DataContext);
     const { activeStep, handleStepChange } = useContext(StepContext);
     const [popupData, setPopupData] = useState([]);
-    const [alertShow, setAlertShow] = useState(true);
+    const [alertShow, setAlertShow] = useState(false);
     const navigate = useNavigate();
 
     const {
@@ -46,6 +46,16 @@ const Step11 = () => {
         };
         fetchPopupData();
     }, []);
+
+    useEffect(() => {
+        if (
+            storage.personal_details.agreePrivacy &&
+            storage.personal_details.agreeTerms &&
+            storage.request
+        ) {
+            setAlertShow(true);
+        }
+    }, [storage]);
 
     const onSubmit = (data) => {
         // console.log(data);

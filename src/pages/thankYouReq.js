@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Elements } from "@stripe/react-stripe-js";
+import React from "react";
 import ThanksYouReq from "../components/thankYouReq";
-import { Spinner } from "react-bootstrap";
+
 
 const ThankYouReq = () => {
     return (

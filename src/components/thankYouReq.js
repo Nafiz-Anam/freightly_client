@@ -1,9 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useStripe } from "@stripe/react-stripe-js";
+import React, { useContext, useEffect } from "react";
 import axios from "axios";
 import { DataContext } from "../context/dataContext";
-import { toast } from "react-hot-toast";
-import { BsFillClockFill } from "react-icons/bs";
 
 const ThankYouReq = () => {
     const { storage } = useContext(DataContext);

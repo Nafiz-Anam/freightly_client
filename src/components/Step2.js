@@ -204,10 +204,18 @@ function Step2() {
         // console.log("priceRange", priceRange);
         if (!priceRange) {
             // toast.error("Volume is not within any price range");
+            updateData({
+                ...storage,
+                request: true,
+            });
             setLengthAlertShow(true);
         } else {
             totalPrice =
                 totalPrice + parseInt(priceRange.price.replace("€", ""));
+                updateData({
+                    ...storage,
+                    request: false,
+                });
         }
 
         if (Object.keys(image).length === 0) {
@@ -605,7 +613,7 @@ function Step2() {
                     />
                 </Modal.Body>
             </Modal>
-            
+
             {/* alert modal */}
             <Modal
                 show={lengthAlertShow}
