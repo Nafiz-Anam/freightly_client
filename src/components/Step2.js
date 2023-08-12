@@ -161,7 +161,7 @@ function Step2() {
         });
     };
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         let totalPrice = 0;
         const selectedMaterial = materials.join(", ");
         // console.log("selectedMaterial", selectedMaterial);
@@ -201,22 +201,6 @@ function Step2() {
                 break;
             }
         }
-        // console.log("priceRange", priceRange);
-        if (!priceRange) {
-            // toast.error("Volume is not within any price range");
-            updateData({
-                ...storage,
-                request: true,
-            });
-            setLengthAlertShow(true);
-        } else {
-            totalPrice =
-                totalPrice + parseInt(priceRange.price.replace("€", ""));
-                updateData({
-                    ...storage,
-                    request: false,
-                });
-        }
 
         if (Object.keys(image).length === 0) {
             setImgErr(true);
@@ -224,7 +208,24 @@ function Step2() {
         } else {
             setImgErr(false);
         }
-
+        
+        // console.log("priceRange", priceRange);
+        if (!priceRange) {
+            // toast.error("Volume is not within any price range");
+            await updateData({
+                ...storage,
+                request: true,
+            });
+            setLengthAlertShow(true);
+        } else {
+            totalPrice =
+                totalPrice + parseInt(priceRange.price.replace("€", ""));
+                await updateData({
+                    ...storage,
+                    request: false,
+                });
+        }
+        
         let item = {
             width: data.width,
             height: data.height,
@@ -241,6 +242,7 @@ function Step2() {
 
         setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
         updateData({
+            ...storage,
             selected_items: [...selectedItems, item],
         });
 

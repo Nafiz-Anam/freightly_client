@@ -47,16 +47,6 @@ const Step11 = () => {
         fetchPopupData();
     }, []);
 
-    useEffect(() => {
-        if (
-            storage.personal_details.agreePrivacy &&
-            storage.personal_details.agreeTerms &&
-            storage.request
-        ) {
-            setAlertShow(true);
-        }
-    }, [storage]);
-
     const onSubmit = (data) => {
         // console.log(data);
         updateData({
@@ -82,6 +72,16 @@ const Step11 = () => {
                 storage.personal_details.areaCode)
         ) {
             setActiveTab("business");
+        }
+    }, [storage]);
+
+    useEffect(() => {
+        if (
+            storage.personal_details.agreePrivacy &&
+            storage.personal_details.agreeTerms &&
+            storage.request
+        ) {
+            setAlertShow(true);
         }
     }, [storage]);
 
@@ -319,12 +319,12 @@ const Step11 = () => {
             {/* alert modal */}
             <Modal
                 show={alertShow}
-                onHide={() => setAlertShow(false)}
+                // onHide={() => setAlertShow(false)}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter">
                         {popupData[3] && popupData[3].title}
                     </Modal.Title>

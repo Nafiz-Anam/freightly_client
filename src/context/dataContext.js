@@ -30,11 +30,8 @@ export const DataProvider = ({ children }) => {
 
     // ======================================== //
     const {
-        // fromAddress,
-        // toAddress,
         distance,
         selected_items,
-        // starting_point,
         pickup_date,
         pickup_time,
         pickup_floor,
@@ -44,7 +41,6 @@ export const DataProvider = ({ children }) => {
     } = storage;
 
     const [sheetData, setSheetData] = useState([]);
-    const [materialData, setMaterialData] = useState([]);
     // console.log("sheetData", sheetData);
     const [kmRange, setKmRange] = useState({});
     // console.log("kmRange", kmRange);
@@ -73,24 +69,7 @@ export const DataProvider = ({ children }) => {
             }
         };
 
-        const fetchMaterialData = async () => {
-            try {
-                const response = await fetch(materialSheetURL);
-                if (!response.ok) {
-                    throw new Error("Failed to fetch sheet data");
-                }
-                const csvData = await response.text();
-                const parsedData = Papa.parse(csvData, { header: true });
-                const priceJson = parsedData.data;
-                setMaterialData(priceJson);
-            } catch (error) {
-                console.error(error);
-                return null;
-            }
-        };
-
         fetchData();
-        fetchMaterialData();
     }, []);
 
     useEffect(() => {
@@ -134,47 +113,6 @@ export const DataProvider = ({ children }) => {
     // Calculate the total item price
     const transportPrice = parseFloat(defaultPrice + distancePrice);
 
-    // Function to check if an item has "Glass" material
-    const hasGlassMaterial = function (item) {
-        return item.materials && item.materials.toLowerCase().includes("glass");
-    };
-    // Filter out the items that have "Glass" material
-    const glassItems = selected_items.filter(hasGlassMaterial);
-    // console.log("glassItems", glassItems);
-
-    // const calculateGlassMaterialPrice = (selectedItems) => {
-    //     // console.log("selectedItems", selectedItems);
-    //     // Filter the materialData array to get the "Glass" material
-    //     const glassMaterial = materialData.find((material) =>
-    //         material.price_per_material.toLowerCase().includes("glass")
-    //     );
-    //     // console.log("glassMaterial", glassMaterial);
-
-    //     if (!glassMaterial) {
-    //         // If "Glass" material is not found, return 0
-    //         return 0;
-    //     }
-
-    //     // Extract the price of "Glass" material
-    //     const glassMaterialPrice = parseFloat(
-    //         glassMaterial.cost.replace("€", "")
-    //     );
-    //     // console.log("glassMaterialPrice", glassMaterialPrice);
-
-    //     // Calculate the total material price for items with "Glass" material
-    //     const totalGlassMaterialPrice = selectedItems.reduce((acc, item) => {
-    //         if (hasGlassMaterial(item)) {
-    //             // Add the price of "Glass" material multiplied by item count to the accumulator
-    //             return acc + glassMaterialPrice * item.count;
-    //         }
-    //         return acc;
-    //     }, 0);
-
-    //     return totalGlassMaterialPrice;
-    // };
-    // const totalGlassMaterialPrice = calculateGlassMaterialPrice(glassItems);
-    // console.log("totalGlassMaterialPrice", totalGlassMaterialPrice);
-
     const pickupDateCost = pickup_date.cost
         ? parseFloat(pickup_date.cost.replace("€", ""))
         : 0;
@@ -202,16 +140,6 @@ export const DataProvider = ({ children }) => {
     // console.log(request_assistance);
 
     // Calculate the total cost by summing up the pickup and delivery costs
-    // console.log(
-    //     transportPrice,
-    //     pickupFloorCost,
-    //     pickupAssistCost,
-    //     totalPickupCost,
-    //     deliveryFloorCost,
-    //     totalDeliveryCost,
-    //     totalItemsPrice
-    // );
-
     useEffect(() => {
         setTotalCost(
             transportPrice +

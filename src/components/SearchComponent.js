@@ -7,7 +7,7 @@ const SearchComponent = ({ items, setModalShow, setSelectedItem }) => {
     const [searchResults, setSearchResults] = useState([]);
 
     // let items = [["bike"], ["car"], ["bed"]];
-    console.log(items);
+    // console.log(items);
 
     const handleSearch = (e) => {
         const term = e.target.value;

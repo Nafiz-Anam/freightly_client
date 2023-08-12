@@ -6,10 +6,10 @@ const ThankYouReq = () => {
     const { storage } = useContext(DataContext);
 
     useEffect(() => {
-        handleOrderPlace();
+        handleOrderRequest();
     }, []);
 
-    const handleOrderPlace = async () => {
+    const handleOrderRequest = async () => {
         await axios
             .post(`${process.env.REACT_APP_SERVER_URL}/api/v1/order/request`, {
                 storage,
