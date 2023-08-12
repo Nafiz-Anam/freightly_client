@@ -3,7 +3,6 @@ import { initialStorage } from "./data";
 import useLocalStorageState from "../hooks/useLocalStorageState";
 import Papa from "papaparse";
 
-
 const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=1772464100&single=true&output=csv";
 
@@ -31,11 +30,11 @@ export const DataProvider = ({ children }) => {
 
     // ======================================== //
     const {
-        fromAddress,
-        toAddress,
+        // fromAddress,
+        // toAddress,
         distance,
         selected_items,
-        starting_point,
+        // starting_point,
         pickup_date,
         pickup_time,
         pickup_floor,
@@ -49,6 +48,12 @@ export const DataProvider = ({ children }) => {
     // console.log("sheetData", sheetData);
     const [kmRange, setKmRange] = useState({});
     // console.log("kmRange", kmRange);
+    // Define the defaultPrice and distancePrice states
+    const [defaultPrice, setDefaultPrice] = useState(0);
+    // console.log("defaultPrice", defaultPrice);
+    const [distancePrice, setDistancePrice] = useState(0);
+    // console.log("distancePrice", distancePrice);
+    const [totalCost, setTotalCost] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -100,12 +105,6 @@ export const DataProvider = ({ children }) => {
         }
     }, [sheetData]);
 
-    // Define the defaultPrice and distancePrice states
-    const [defaultPrice, setDefaultPrice] = useState(0);
-    // console.log("defaultPrice", defaultPrice);
-    const [distancePrice, setDistancePrice] = useState(0);
-    // console.log("distancePrice", distancePrice);
-
     useEffect(() => {
         // Parse the default_price value and set it to defaultPrice state
         if (kmRange.default_price) {
@@ -135,59 +134,46 @@ export const DataProvider = ({ children }) => {
     // Calculate the total item price
     const transportPrice = parseFloat(defaultPrice + distancePrice);
 
-    const pickupFrom = fromAddress && fromAddress.split(",")[0];
-    const deliveryTo = toAddress && toAddress.split(",")[0];
-
-    const getTitlesString = (selected_items) => {
-        return selected_items.map((item) => item.title).join(", ");
-    };
-
-    const getDimensionsString = (selected_items) => {
-        return selected_items
-            .map((item) => `${item.height} x ${item.width} x ${item.length} cm`)
-            .join(", ");
-    };
-
     // Function to check if an item has "Glass" material
     const hasGlassMaterial = function (item) {
         return item.materials && item.materials.toLowerCase().includes("glass");
     };
     // Filter out the items that have "Glass" material
     const glassItems = selected_items.filter(hasGlassMaterial);
-    console.log("glassItems", glassItems);
+    // console.log("glassItems", glassItems);
 
-    const calculateGlassMaterialPrice = (selectedItems) => {
-        console.log("selectedItems", selectedItems);
-        // Filter the materialData array to get the "Glass" material
-        const glassMaterial = materialData.find((material) =>
-            material.price_per_material.toLowerCase().includes("glass")
-        );
-        console.log("glassMaterial", glassMaterial);
+    // const calculateGlassMaterialPrice = (selectedItems) => {
+    //     // console.log("selectedItems", selectedItems);
+    //     // Filter the materialData array to get the "Glass" material
+    //     const glassMaterial = materialData.find((material) =>
+    //         material.price_per_material.toLowerCase().includes("glass")
+    //     );
+    //     // console.log("glassMaterial", glassMaterial);
 
-        if (!glassMaterial) {
-            // If "Glass" material is not found, return 0
-            return 0;
-        }
+    //     if (!glassMaterial) {
+    //         // If "Glass" material is not found, return 0
+    //         return 0;
+    //     }
 
-        // Extract the price of "Glass" material
-        const glassMaterialPrice = parseFloat(
-            glassMaterial.cost.replace("€", "")
-        );
-        console.log("glassMaterialPrice", glassMaterialPrice);
+    //     // Extract the price of "Glass" material
+    //     const glassMaterialPrice = parseFloat(
+    //         glassMaterial.cost.replace("€", "")
+    //     );
+    //     // console.log("glassMaterialPrice", glassMaterialPrice);
 
-        // Calculate the total material price for items with "Glass" material
-        const totalGlassMaterialPrice = selectedItems.reduce((acc, item) => {
-            if (hasGlassMaterial(item)) {
-                // Add the price of "Glass" material multiplied by item count to the accumulator
-                return acc + glassMaterialPrice * item.count;
-            }
-            return acc;
-        }, 0);
+    //     // Calculate the total material price for items with "Glass" material
+    //     const totalGlassMaterialPrice = selectedItems.reduce((acc, item) => {
+    //         if (hasGlassMaterial(item)) {
+    //             // Add the price of "Glass" material multiplied by item count to the accumulator
+    //             return acc + glassMaterialPrice * item.count;
+    //         }
+    //         return acc;
+    //     }, 0);
 
-        return totalGlassMaterialPrice;
-    };
-    const totalGlassMaterialPrice = calculateGlassMaterialPrice(glassItems);
-    console.log("totalGlassMaterialPrice", totalGlassMaterialPrice);
+    //     return totalGlassMaterialPrice;
+    // };
+    // const totalGlassMaterialPrice = calculateGlassMaterialPrice(glassItems);
+    // console.log("totalGlassMaterialPrice", totalGlassMaterialPrice);
 
     const pickupDateCost = pickup_date.cost
         ? parseFloat(pickup_date.cost.replace("€", ""))
@@ -216,17 +202,15 @@ export const DataProvider = ({ children }) => {
     // console.log(request_assistance);
 
     // Calculate the total cost by summing up the pickup and delivery costs
-    console.log(
-        transportPrice,
-        pickupFloorCost,
-        pickupAssistCost,
-        totalPickupCost,
-        deliveryFloorCost,
-        totalDeliveryCost,
-        totalItemsPrice
-    );
-
-    const [totalCost, setTotalCost] = useState(0);
+    // console.log(
+    //     transportPrice,
+    //     pickupFloorCost,
+    //     pickupAssistCost,
+    //     totalPickupCost,
+    //     deliveryFloorCost,
+    //     totalDeliveryCost,
+    //     totalItemsPrice
+    // );
 
     useEffect(() => {
         setTotalCost(
@@ -249,17 +233,21 @@ export const DataProvider = ({ children }) => {
     ]);
 
     useEffect(() => {
-        updateData({
-            ...storage,
-            total_price: parseFloat(totalCost.toFixed(2)),
-        });
+        if (storage.distance) {
+            updateData({
+                ...storage,
+                total_price: parseFloat(totalCost.toFixed(2)),
+            });
+        }
     }, [totalCost]);
 
     useEffect(() => {
-        updateData({
-            ...storage,
-            transportPrice: parseFloat(transportPrice.toFixed(2)),
-        });
+        if (storage.distance) {
+            updateData({
+                ...storage,
+                transportPrice: parseFloat(transportPrice.toFixed(2)),
+            });
+        }
     }, [transportPrice]);
     // ======================================== //
 
