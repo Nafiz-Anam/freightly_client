@@ -137,12 +137,12 @@ function Step7() {
             {/* alert modal */}
             <Modal
                 show={alertShow}
-                onHide={() => setAlertShow(false)}
+                // onHide={() => setAlertShow(false)}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter">
                         {popupData[1] && popupData[1].title}
                     </Modal.Title>
