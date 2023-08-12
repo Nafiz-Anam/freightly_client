@@ -69,7 +69,7 @@ function Step7() {
     }, [storage.delivery_time]);
 
     useEffect(() => {
-        if (popupData.length > 0 && storage.distance >= 0) {
+        if (popupData.length > 0 && storage.distance > 200) {
             setAlertShow(true);
         }
     }, [popupData]);
