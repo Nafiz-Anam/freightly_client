@@ -22,8 +22,9 @@ const Step1 = React.memo(() => {
             const areValuesPresent = fromAddress && toAddress && distance !== 0;
 
             if (areValuesPresent) {
+                console.log("=============1");
                 updateData({
-                    ...storage,
+                    // ...storage,
                     fromAddress,
                     toAddress,
                     distance: parseFloat(distance),

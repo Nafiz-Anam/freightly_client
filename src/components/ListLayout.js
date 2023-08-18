@@ -83,7 +83,7 @@ const ListLayout = ({ data, step }) => {
 
         if (step === "step1" && item !== storage.starting_point) {
             updatedData = {
-                ...storage,
+                // ...storage,
                 starting_point: item,
             };
 

@@ -6,8 +6,8 @@ import Papa from "papaparse";
 const sheetURL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=1772464100&single=true&output=csv";
 
-const materialSheetURL =
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=981080402&single=true&output=csv";
+// const materialSheetURL =
+//     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQORHI8-xEc9MatJrHUWA-hUyuLVl6tmfkLLOVGoB7WmZwD6e98ZKK04ebEZkcKOdZI1uPWj0otsUNt/pub?gid=981080402&single=true&output=csv";
 
 // Create a new context
 export const DataContext = createContext();
@@ -24,8 +24,12 @@ export const DataProvider = ({ children }) => {
     // Function to update data
     const updateData = (newData) => {
         console.log("newData => ", newData);
-        const updatedStorage = { ...storage, ...newData };
-        setStorage(updatedStorage);
+        setStorage((prevStorage) => {
+            const updatedStorage = { ...prevStorage, ...newData };
+            return updatedStorage;
+        });
+        // const updatedStorage = { ...storage, ...newData };
+        // setStorage(updatedStorage);
     };
 
     // ======================================== //
@@ -163,7 +167,7 @@ export const DataProvider = ({ children }) => {
     useEffect(() => {
         if (storage.distance) {
             updateData({
-                ...storage,
+                // ...storage,
                 total_price: parseFloat(totalCost.toFixed(2)),
             });
         }
@@ -172,7 +176,7 @@ export const DataProvider = ({ children }) => {
     useEffect(() => {
         if (storage.distance) {
             updateData({
-                ...storage,
+                // ...storage,
                 transportPrice: parseFloat(transportPrice.toFixed(2)),
             });
         }

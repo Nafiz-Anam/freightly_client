@@ -250,14 +250,14 @@ const Summary = () => {
 
     useEffect(() => {
         updateData({
-            ...storage,
+            // ...storage,
             total_price: parseFloat(totalCost.toFixed(2)),
         });
     }, [totalCost]);
 
     useEffect(() => {
         updateData({
-            ...storage,
+            // ...storage,
             transportPrice: parseFloat(transportPrice.toFixed(2)),
         });
     }, [transportPrice]);
