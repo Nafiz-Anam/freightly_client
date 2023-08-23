@@ -18,10 +18,16 @@ function Step10() {
         defaultValues: storage.delivery_contact, // Set the default values from storage.delivery_contact
     });
 
+    const { toAddress } = storage;
+
+    const deliverCity = toAddress && toAddress.split(",")[0].trim();
+    const deliverCountry = toAddress && toAddress.split(",")[1].trim();
+
     const onSubmit = (data) => {
-        console.log(data);
+        // console.log(data);
+        data.city = deliverCity;
+        data.country = deliverCountry;
         updateData({
-            // ...storage,
             delivery_contact: data,
         });
         handleStepChange(activeStep + 1);
@@ -43,6 +49,65 @@ function Step10() {
                     {errors && errors.address ? (
                         <span className={style.error_msg}>
                             Address is required
+                        </span>
+                    ) : (
+                        ""
+                    )}
+                </div>
+                <div style={{ width: "100%", display: "flex", gap: "15px" }}>
+                    <div
+                        className={style.row}
+                        style={{ width: "100%", flexDirection: "column" }}
+                    >
+                        <input
+                            type="text"
+                            placeholder="City"
+                            value={deliverCity}
+                            disabled
+                            {...register("city", {
+                                // required: true,
+                            })}
+                        />
+                        {errors && errors.city ? (
+                            <span className={style.error_msg}>
+                                City is required
+                            </span>
+                        ) : (
+                            ""
+                        )}
+                    </div>
+                    <div
+                        className={style.row}
+                        style={{ width: "100%", flexDirection: "column" }}
+                    >
+                        <input
+                            type="text"
+                            placeholder="Post Code"
+                            {...register("post_code", { required: true })}
+                        />
+                        {errors && errors.post_code ? (
+                            <span className={style.error_msg}>
+                                Post code is required
+                            </span>
+                        ) : (
+                            ""
+                        )}
+                    </div>
+                </div>
+
+                <div className={style.row} style={{ flexDirection: "column" }}>
+                    <input
+                        type="text"
+                        placeholder="Country"
+                        value={deliverCountry}
+                        disabled
+                        {...register("country", {
+                            // required: true
+                        })}
+                    />
+                    {errors && errors.country ? (
+                        <span className={style.error_msg}>
+                            Country is required
                         </span>
                     ) : (
                         ""

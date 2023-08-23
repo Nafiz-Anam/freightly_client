@@ -145,15 +145,15 @@ const Summary = () => {
     };
     // Filter out the items that have "Glass" material
     const glassItems = selected_items.filter(hasGlassMaterial);
-    console.log("glassItems", glassItems);
+    // console.log("glassItems", glassItems);
 
     const calculateGlassMaterialPrice = (selectedItems) => {
-        console.log("selectedItems", selectedItems);
+        // console.log("selectedItems", selectedItems);
         // Filter the materialData array to get the "Glass" material
         const glassMaterial = materialData.find((material) =>
             material.price_per_material.toLowerCase().includes("glass")
         );
-        console.log("glassMaterial", glassMaterial);
+        // console.log("glassMaterial", glassMaterial);
 
         if (!glassMaterial) {
             // If "Glass" material is not found, return 0
@@ -164,7 +164,7 @@ const Summary = () => {
         const glassMaterialPrice = parseFloat(
             glassMaterial.cost.replace("€", "")
         );
-        console.log("glassMaterialPrice", glassMaterialPrice);
+        // console.log("glassMaterialPrice", glassMaterialPrice);
 
         // Calculate the total material price for items with "Glass" material
         const totalGlassMaterialPrice = selectedItems.reduce((acc, item) => {
@@ -178,7 +178,7 @@ const Summary = () => {
         return totalGlassMaterialPrice;
     };
     const totalGlassMaterialPrice = calculateGlassMaterialPrice(glassItems);
-    console.log("totalGlassMaterialPrice", totalGlassMaterialPrice);
+    // console.log("totalGlassMaterialPrice", totalGlassMaterialPrice);
 
     const pickupDateCost = pickup_date.cost
         ? parseFloat(pickup_date.cost.replace("€", ""))

@@ -17,8 +17,16 @@ function Step9() {
         defaultValues: storage.pickup_contact, // Set the default values from storage.pickup_contact
     });
     console.log(errors);
+
+    const { fromAddress, toAddress } = storage;
+
+    const pickupFromCity = fromAddress && fromAddress.split(",")[0].trim();
+    const pickupFromCountry = fromAddress && fromAddress.split(",")[1].trim();
+
     const onSubmit = (data) => {
-        console.log(data);
+        // console.log(data);
+        data.city = pickupFromCity;
+        data.country = pickupFromCountry;
         updateData({
             // ...storage,
             pickup_contact: data,
@@ -44,6 +52,62 @@ function Step9() {
                     {errors && errors.address ? (
                         <span className={style.error_msg}>
                             Address is required
+                        </span>
+                    ) : (
+                        ""
+                    )}
+                </div>
+
+                <div style={{ width: "100%", display: "flex", gap: "15px" }}>
+                    <div
+                        className={style.row}
+                        style={{ width: "100%", flexDirection: "column" }}
+                    >
+                        <input
+                            type="text"
+                            placeholder="City"
+                            defaultValue={pickupFromCity}
+                            disabled
+                            {...register("city", {})}
+                        />
+                        {errors && errors.city ? (
+                            <span className={style.error_msg}>
+                                City is required
+                            </span>
+                        ) : (
+                            ""
+                        )}
+                    </div>
+                    <div
+                        className={style.row}
+                        style={{ width: "100%", flexDirection: "column" }}
+                    >
+                        <input
+                            type="text"
+                            placeholder="Post Code"
+                            {...register("post_code", { required: true })}
+                        />
+                        {errors && errors.post_code ? (
+                            <span className={style.error_msg}>
+                                Post code is required
+                            </span>
+                        ) : (
+                            ""
+                        )}
+                    </div>
+                </div>
+
+                <div className={style.row} style={{ flexDirection: "column" }}>
+                    <input
+                        type="text"
+                        placeholder="Country"
+                        defaultValue={pickupFromCountry}
+                        disabled
+                        {...register("country", {})}
+                    />
+                    {errors && errors.country ? (
+                        <span className={style.error_msg}>
+                            Country is required
                         </span>
                     ) : (
                         ""

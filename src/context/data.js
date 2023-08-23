@@ -47,12 +47,16 @@ export const initialStorage = {
         email: "",
         phone: "",
         address: "",
+        city: "",
+        country: "",
     },
     delivery_contact: {
         name: "",
         email: "",
         phone: "",
         address: "",
+        city: "",
+        country: "",
     },
     personal_details: {
         firstName: "",
