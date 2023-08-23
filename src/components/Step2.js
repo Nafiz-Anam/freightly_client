@@ -30,6 +30,7 @@ function Step2() {
     const [modalShow, setModalShow] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
     const [lengthAlertShow, setLengthAlertShow] = useState(false);
+    const [weightAlertShow, setWeightAlertShow] = useState(false);
     const [sheetData, setSheetData] = useState([]);
     // console.log(sheetData);
     const [sheetPriceData, setSheetPriceData] = useState([]);
@@ -133,7 +134,7 @@ function Step2() {
         fetchData();
         fetchPriceData();
         fetchVolumePriceData();
-        fetchPopupData()
+        fetchPopupData();
     }, []);
 
     const handleMaterials = (item) => {
@@ -208,7 +209,9 @@ function Step2() {
         } else {
             setImgErr(false);
         }
-        
+
+        let total_weight = parseInt(selectedItem.weight_kg) * parseInt(data.count)
+
         // console.log("priceRange", priceRange);
         if (!priceRange) {
             // toast.error("Volume is not within any price range");
@@ -220,12 +223,20 @@ function Step2() {
         } else {
             totalPrice =
                 totalPrice + parseInt(priceRange.price.replace("€", ""));
-                await updateData({
-                    ...storage,
-                    request: false,
-                });
+            await updateData({
+                ...storage,
+                request: false,
+            });
         }
-        
+
+        if(total_weight > 200){
+            await updateData({
+                ...storage,
+                request: true,
+            });
+            setWeightAlertShow(true);
+        }
+
         let item = {
             width: data.width,
             height: data.height,
@@ -237,6 +248,7 @@ function Step2() {
             sizes: sizes.length ? sizes.join(",") : "",
             cost: (totalPrice *= parseInt(data.count)),
             item_name: data.item_name,
+            weight_kg: total_weight,
         };
         // console.log(item);
 
@@ -620,6 +632,33 @@ function Step2() {
             <Modal
                 show={lengthAlertShow}
                 onHide={() => setLengthAlertShow(false)}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        {popupData[0] && popupData[0].title}
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p
+                        style={{
+                            textAlign: "center",
+                            padding: "0px 0px 25px 0px",
+                        }}
+                    >
+                        {popupData[0] && popupData[0].content}
+                    </p>
+                    {/* <h5 style={{ textAlign: "center", paddingBottom: "20px" }}>
+                        Thank you for your patience
+                    </h5> */}
+                </Modal.Body>
+            </Modal>
+            {/* alert modal */}
+            <Modal
+                show={weightAlertShow}
+                onHide={() => setWeightAlertShow(false)}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
