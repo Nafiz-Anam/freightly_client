@@ -77,7 +77,7 @@ function Step7() {
     const handleItemClick = (item) => {
         setSelectedItem(item);
         updateData({
-            ...storage,
+            // ...storage,
             delivery_time: item,
         });
     };
@@ -89,7 +89,7 @@ function Step7() {
         };
         setSelectedItem(item);
         updateData({
-            ...storage,
+            // ...storage,
             delivery_time: item,
             request: true,
         });

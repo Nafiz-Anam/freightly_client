@@ -20,7 +20,7 @@ function Step9() {
     const onSubmit = (data) => {
         console.log(data);
         updateData({
-            ...storage,
+            // ...storage,
             pickup_contact: data,
         });
         handleStepChange(activeStep + 1);

@@ -21,7 +21,7 @@ function Step10() {
     const onSubmit = (data) => {
         console.log(data);
         updateData({
-            ...storage,
+            // ...storage,
             delivery_contact: data,
         });
         handleStepChange(activeStep + 1);

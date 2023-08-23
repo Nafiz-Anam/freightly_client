@@ -31,6 +31,7 @@ function Step2() {
     const [editModalShow, setEditModalShow] = useState(false);
     const [lengthAlertShow, setLengthAlertShow] = useState(false);
     const [weightAlertShow, setWeightAlertShow] = useState(false);
+    const [weightAlertShow2, setWeightAlertShow2] = useState(false);
     const [sheetData, setSheetData] = useState([]);
     // console.log(sheetData);
     const [sheetPriceData, setSheetPriceData] = useState([]);
@@ -210,31 +211,34 @@ function Step2() {
             setImgErr(false);
         }
 
-        let total_weight = parseInt(selectedItem.weight_kg) * parseInt(data.count)
+        let total_weight =
+            parseInt(selectedItem.weight_kg) * parseInt(data.count);
 
         // console.log("priceRange", priceRange);
         if (!priceRange) {
             // toast.error("Volume is not within any price range");
             await updateData({
-                ...storage,
+                // ...storage,
                 request: true,
             });
             setLengthAlertShow(true);
         } else {
             totalPrice =
                 totalPrice + parseInt(priceRange.price.replace("€", ""));
-            await updateData({
-                ...storage,
-                request: false,
-            });
+            // await updateData({
+            //     ...storage,
+            //     request: false,
+            // });
         }
 
-        if(total_weight > 200){
+        if (total_weight > 200) {
             await updateData({
-                ...storage,
+                // ...storage,
                 request: true,
             });
-            setWeightAlertShow(true);
+            if (!lengthAlertShow) {
+                setWeightAlertShow(true);
+            }
         }
 
         let item = {
@@ -254,7 +258,7 @@ function Step2() {
 
         setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
         updateData({
-            ...storage,
+            // ...storage,
             selected_items: [...selectedItems, item],
         });
 
@@ -271,7 +275,7 @@ function Step2() {
         updatedItems.splice(index, 1);
         setSelectedItems(updatedItems);
         updateData({
-            ...storage,
+            // ...storage,
             selected_items: updatedItems,
         });
     };
@@ -285,6 +289,13 @@ function Step2() {
         setEIndex(index);
         setEditData(storage.selected_items[index]);
         setEditModalShow(true);
+    };
+
+    const handleCloseLength = () => {
+        setLengthAlertShow(false);
+        if (weightAlertShow) {
+            setWeightAlertShow2(true);
+        }
     };
 
     return (
@@ -631,7 +642,8 @@ function Step2() {
             {/* alert modal */}
             <Modal
                 show={lengthAlertShow}
-                onHide={() => setLengthAlertShow(false)}
+                onHide={handleCloseLength}
+                // onHide={() => setLengthAlertShow(false)}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
@@ -657,15 +669,15 @@ function Step2() {
             </Modal>
             {/* alert modal */}
             <Modal
-                show={weightAlertShow}
-                onHide={() => setWeightAlertShow(false)}
+                show={weightAlertShow2}
+                onHide={() => setWeightAlertShow2(false)}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        {popupData[0] && popupData[0].title}
+                        {popupData[4] && popupData[4].title}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -675,7 +687,7 @@ function Step2() {
                             padding: "0px 0px 25px 0px",
                         }}
                     >
-                        {popupData[0] && popupData[0].content}
+                        {popupData[4] && popupData[4].content}
                     </p>
                     {/* <h5 style={{ textAlign: "center", paddingBottom: "20px" }}>
                         Thank you for your patience

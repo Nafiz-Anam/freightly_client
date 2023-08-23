@@ -50,7 +50,7 @@ const Step11 = () => {
     const onSubmit = (data) => {
         // console.log(data);
         updateData({
-            ...storage,
+            // ...storage,
             personal_details: data,
         });
     };

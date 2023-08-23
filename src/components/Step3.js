@@ -56,7 +56,7 @@ function Step3() {
     const handleItemClick = (item) => {
         setSelectedItem(item);
         updateData({
-            ...storage,
+            // ...storage,
             pickup_date: item,
         });
     };
