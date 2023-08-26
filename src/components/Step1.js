@@ -4,9 +4,11 @@ import { initialStorage } from "../context/data";
 import { pickupPlaces } from "../static_data";
 import { useLocation } from "react-router-dom";
 import { DataContext } from "../context/dataContext";
+import { StepContext } from "../context/stepContext";
 
 const Step1 = React.memo(() => {
-    const { storage, updateData } = useContext(DataContext);
+    const { updateData } = useContext(DataContext);
+    const { activeStep, handleStepChange } = useContext(StepContext);
     const location = useLocation();
     console.log("location.search =>", location.search);
 
@@ -30,6 +32,7 @@ const Step1 = React.memo(() => {
                     toAddress,
                     distance: parseFloat(distance),
                 });
+                handleStepChange(1);
             }
             clearURL(location.pathname);
         }

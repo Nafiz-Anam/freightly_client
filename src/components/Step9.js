@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import style from "./Step10.module.css";
 import { DataContext } from "../context/dataContext";
@@ -18,10 +18,21 @@ function Step9() {
     });
     console.log(errors);
 
-    const { fromAddress, toAddress } = storage;
+    const { fromAddress } = storage;
+    const [pickupFromCity, setPickupFromCity] = useState("City");
+    const [pickupFromCountry, setPickupFromCountry] = useState("Country");
 
-    const pickupFromCity = fromAddress && fromAddress.split(",")[0].trim();
-    const pickupFromCountry = fromAddress && fromAddress.split(",")[1].trim();
+    const pickupFromCity2 = fromAddress && fromAddress.split(",")[0].trim();
+    const pickupFromCountry2 = fromAddress && fromAddress.split(",")[1].trim();
+
+    useEffect(() => {
+        if (pickupFromCity2) {
+            setPickupFromCity(pickupFromCity2);
+        }
+        if (pickupFromCountry2) {
+            setPickupFromCountry(pickupFromCountry2);
+        }
+    }, [pickupFromCity2, pickupFromCountry2]);
 
     const onSubmit = (data) => {
         // console.log(data);
@@ -66,17 +77,10 @@ function Step9() {
                         <input
                             type="text"
                             placeholder="City"
-                            defaultValue={pickupFromCity}
+                            value={pickupFromCity}
                             disabled
                             {...register("city", {})}
                         />
-                        {errors && errors.city ? (
-                            <span className={style.error_msg}>
-                                City is required
-                            </span>
-                        ) : (
-                            ""
-                        )}
                     </div>
                     <div
                         className={style.row}
@@ -101,17 +105,10 @@ function Step9() {
                     <input
                         type="text"
                         placeholder="Country"
-                        defaultValue={pickupFromCountry}
+                        value={pickupFromCountry}
                         disabled
                         {...register("country", {})}
                     />
-                    {errors && errors.country ? (
-                        <span className={style.error_msg}>
-                            Country is required
-                        </span>
-                    ) : (
-                        ""
-                    )}
                 </div>
                 <div className={style.row} style={{ flexDirection: "column" }}>
                     <input

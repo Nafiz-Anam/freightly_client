@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import style from "./Step10.module.css";
 import { DataContext } from "../context/dataContext";
@@ -19,9 +19,20 @@ function Step10() {
     });
 
     const { toAddress } = storage;
+    const [deliverCity, setDeliverCity] = useState("City");
+    const [deliverCountry, setDeliverCountry] = useState("Country");
 
-    const deliverCity = toAddress && toAddress.split(",")[0].trim();
-    const deliverCountry = toAddress && toAddress.split(",")[1].trim();
+    const deliverCity2 = toAddress && toAddress.split(",")[0].trim();
+    const deliverCountry2 = toAddress && toAddress.split(",")[1].trim();
+
+    useEffect(() => {
+        if (deliverCity2) {
+            setDeliverCity(deliverCity2);
+        }
+        if (deliverCountry2) {
+            setDeliverCountry(deliverCountry2);
+        }
+    }, [deliverCity2, deliverCountry2]);
 
     const onSubmit = (data) => {
         // console.log(data);
@@ -64,17 +75,8 @@ function Step10() {
                             placeholder="City"
                             value={deliverCity}
                             disabled
-                            {...register("city", {
-                                // required: true,
-                            })}
+                            {...register("city", {})}
                         />
-                        {errors && errors.city ? (
-                            <span className={style.error_msg}>
-                                City is required
-                            </span>
-                        ) : (
-                            ""
-                        )}
                     </div>
                     <div
                         className={style.row}
@@ -101,17 +103,8 @@ function Step10() {
                         placeholder="Country"
                         value={deliverCountry}
                         disabled
-                        {...register("country", {
-                            // required: true
-                        })}
+                        {...register("country", {})}
                     />
-                    {errors && errors.country ? (
-                        <span className={style.error_msg}>
-                            Country is required
-                        </span>
-                    ) : (
-                        ""
-                    )}
                 </div>
                 <div className={style.row} style={{ flexDirection: "column" }}>
                     <input
