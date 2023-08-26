@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import ListLayout from "./ListLayout";
+import { initialStorage } from "../context/data";
 import { pickupPlaces } from "../static_data";
 import { useLocation } from "react-router-dom";
 import { DataContext } from "../context/dataContext";
@@ -24,6 +25,7 @@ const Step1 = React.memo(() => {
             if (areValuesPresent) {
                 updateData({
                     // ...storage,
+                    ...initialStorage,
                     fromAddress,
                     toAddress,
                     distance: parseFloat(distance),
