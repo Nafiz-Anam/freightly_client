@@ -2,7 +2,6 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    color: #000;
     font-family: "Ubuntu", sans-serif;
 }
 
@@ -18,6 +17,7 @@ p {
 
 .list li {
     width: 70%;
+    color: #000;
 }
 
 @media (max-width: 768px) {
