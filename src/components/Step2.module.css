@@ -10,8 +10,7 @@
         width: 100%;
     }
     .formContainer_edit {
-        
-        padding: 30px 5px!important;
+        padding: 30px 5px !important;
     }
 }
 
@@ -113,10 +112,10 @@
 
 @media (min-width: 769px) {
     .pills:hover {
-    color: #fff;
-    background-color: #000000;
-    transform: scale(1.03);
-}
+        color: #fff;
+        background-color: #000000;
+        transform: scale(1.03);
+    }
 }
 
 .selected {
@@ -213,6 +212,7 @@
     width: 100%;
     height: 45px;
     border: 1px solid #000000;
+    color: #000;
     border-radius: 5px;
     background-color: #fff;
     text-align: left;
